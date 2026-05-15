@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { PERSONAL_INFO } from "../data/content";
@@ -43,11 +43,11 @@ function ProfessionLoop({ className, delay = 2500 }: { className?: string, delay
   );
 }
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 28 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.75, ease: [0.21, 0.47, 0.32, 0.98] } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.75, ease: "easeOut" } },
 };
-const stagger = { show: { transition: { staggerChildren: 0.1 } } };
+const stagger: Variants = { show: { transition: { staggerChildren: 0.1 } } };
 
 export default function AboutPage() {
   const [isMounted, setIsMounted] = useState(false);
