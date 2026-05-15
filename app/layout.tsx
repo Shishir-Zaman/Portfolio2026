@@ -5,6 +5,7 @@ import CustomCursor from "./components/CustomCursor";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -55,6 +56,7 @@ export default function RootLayout({
         <div className="relative z-10 max-w-7xl mx-auto px-6">
           <Footer />
         </div>
+        <SpeedInsights />
       </body>
     </html>
   );
