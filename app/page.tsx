@@ -18,7 +18,18 @@ const ROLES = [
 function RoleRotator() {
   const [index, setIndex] = useState(0);
 
+  const [isTouch, setIsTouch] = useState(false);
+
   useEffect(() => {
+    const checkTouch = () => {
+      setIsTouch(window.matchMedia("(pointer: coarse)").matches);
+    };
+    checkTouch();
+    
+    if (window.matchMedia("(pointer: coarse)").matches) {
+      return;
+    }
+
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % ROLES.length);
     }, 2500);
@@ -26,7 +37,7 @@ function RoleRotator() {
   }, []);
 
   return (
-    <span className="relative inline-block w-[300px] h-[20px] md:h-[24px] overflow-hidden align-bottom">
+    <span className="relative inline-block w-[300px] h-[18px] md:h-[24px] overflow-hidden align-bottom">
       <AnimatePresence mode="popLayout">
         <motion.span
           key={index}
@@ -34,7 +45,7 @@ function RoleRotator() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -20, opacity: 0 }}
           transition={{ duration: 0.5, ease: [0.21, 0.47, 0.32, 0.98] }}
-          className="absolute left-1/2 -translate-x-1/2 bottom-0 text-transparent bg-clip-text bg-gradient-to-r from-white to-[var(--color-teal-accent)] font-bold text-center w-full"
+          className="absolute left-1/2 -translate-x-1/2 bottom-0 text-transparent bg-clip-text bg-gradient-to-r from-white to-[var(--color-teal-accent)] font-bold text-center w-full text-[12px] md:text-sm"
         >
           {ROLES[index]}
         </motion.span>
@@ -79,17 +90,17 @@ export default function Home() {
           transition={{ duration: 0.8, delay: 0.08 }}
         >
           {/* Blurred Glow layer */}
-          <h1 className="absolute inset-0 text-[10vw] md:text-[7rem] lg:text-[9rem] leading-none font-light uppercase tracking-tighter text-transparent bg-clip-text bg-[linear-gradient(to_right,white,white,var(--color-teal-accent),white,white)] bg-[length:250%_auto] animate-gradient-wave blur-[25px] opacity-60 z-0">
+          <h1 className="absolute inset-0 text-[13.5vw] md:text-[7rem] lg:text-[9rem] leading-none font-light uppercase tracking-tighter text-transparent bg-clip-text bg-[linear-gradient(to_right,white,white,var(--color-teal-accent),white,white)] bg-[length:250%_auto] animate-gradient-wave blur-[20px] md:blur-[25px] opacity-60 z-0">
             Shishir Zaman
           </h1>
           {/* Foreground text */}
-          <h1 className="relative z-10 text-[10vw] md:text-[7rem] lg:text-[9rem] leading-none font-light uppercase tracking-tighter text-transparent bg-clip-text bg-[linear-gradient(to_right,white,white,var(--color-teal-accent),white,white)] bg-[length:250%_auto] animate-gradient-wave animate-fire-breath">
+          <h1 className="relative z-10 text-[13.5vw] md:text-[7rem] lg:text-[9rem] leading-none font-light uppercase tracking-tighter text-transparent bg-clip-text bg-[linear-gradient(to_right,white,white,var(--color-teal-accent),white,white)] bg-[length:250%_auto] animate-gradient-wave animate-fire-breath">
             Shishir Zaman
           </h1>
         </motion.div>
 
         <motion.p
-          className="text-white/60 max-w-xl text-base md:text-[17px] font-sans mb-10 leading-relaxed"
+          className="text-white/60 max-w-xl text-sm md:text-[17px] font-sans mb-10 leading-relaxed px-4 md:px-0"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.18 }}
@@ -213,20 +224,20 @@ function FeaturedCard({ project, index }: { project: typeof FEATURED_PROJECTS[0]
           <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black via-black/40 to-transparent" />
           
           {/* Card content overlay */}
-          <div className="absolute inset-0 flex flex-col justify-end p-5 z-10">
-            <h3 className="text-lg md:text-xl font-syncopate font-bold uppercase tracking-tight text-white mb-1 leading-tight">
+          <div className="absolute inset-0 flex flex-col justify-end p-4 md:p-5 z-10">
+            <h3 className="text-base md:text-xl font-syncopate font-bold uppercase tracking-tight text-white mb-0.5 md:mb-1 leading-tight">
               {project.title}
             </h3>
-            <span className="text-white/60 text-xs font-sans uppercase tracking-widest">{project.tags[0]} DESIGN</span>
+            <span className="text-white/60 text-[10px] md:text-xs font-sans uppercase tracking-widest">{project.tags[0]}</span>
           </div>
         </div>
 
-        {/* Tags — BELOW the card, not inside */}
-        <div className="flex flex-wrap gap-2 mt-4 px-1">
-          {project.tags.map((tag) => (
+        {/* Tags — Simplified on mobile */}
+        <div className="flex flex-wrap gap-1.5 mt-3 px-1">
+          {project.tags.slice(0, 3).map((tag) => (
             <span
               key={tag}
-              className="px-4 py-1.5 text-[11px] font-medium rounded-md bg-white/[0.03] border border-white/[0.06] text-white/50 uppercase tracking-widest font-sans transition-colors hover:text-white hover:bg-white/[0.06]"
+              className="px-3 py-1 text-[10px] md:text-[11px] font-medium rounded-md bg-white/[0.03] border border-white/[0.06] text-white/50 uppercase tracking-widest font-sans"
             >
               {tag}
             </span>

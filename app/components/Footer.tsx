@@ -34,11 +34,37 @@ function Logo3D() {
 
     const onLeave = () => setTilt({ x: 0, y: 0, proximity: 0 });
 
+    const onTouch = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        const touch = e.touches[0];
+        const rect = el.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = touch.clientX - cx;
+        const dy = touch.clientY - cy;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const maxDist = 320;
+        const proximity = Math.max(0, 1 - dist / maxDist);
+        const rotX = -(dy / 180) * 18 * proximity;
+        const rotY = (dx / 180) * 18 * proximity;
+        setTilt({ x: rotX, y: rotY, proximity });
+      }
+    };
+
     window.addEventListener("mousemove", onMove, { passive: true });
     window.addEventListener("mouseleave", onLeave);
+    window.addEventListener("touchmove", onTouch, { passive: true });
+    window.addEventListener("touchstart", onTouch, { passive: true });
+    window.addEventListener("touchend", onLeave);
+
     return () => {
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseleave", onLeave);
+      // @ts-ignore
+      window.removeEventListener("touchmove", onTouch);
+      // @ts-ignore
+      window.removeEventListener("touchstart", onTouch);
+      window.removeEventListener("touchend", onLeave);
     };
   }, []);
 

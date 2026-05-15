@@ -46,6 +46,18 @@ export default function CanvasBackground() {
       };
     };
     window.addEventListener("mousemove", onMove, { passive: true });
+    
+    const onTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        const touch = e.touches[0];
+        const rect = canvas.getBoundingClientRect();
+        mouseRef.current = {
+          x: (touch.clientX - rect.left) / rect.width,
+          y: (touch.clientY - rect.top)  / rect.height,
+        };
+      }
+    };
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
 
     let t = 0;
 
@@ -99,6 +111,8 @@ export default function CanvasBackground() {
 
     return () => {
       window.removeEventListener("mousemove", onMove);
+      // @ts-ignore
+      window.removeEventListener("touchmove", onTouchMove);
       ro.disconnect();
       cancelAnimationFrame(animRef.current);
     };

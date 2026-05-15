@@ -8,7 +8,18 @@ export default function CustomCursor() {
   const [hoverState, setHoverState] = useState<"default" | "link" | "glass">("default");
   const [isClicked, setIsClicked] = useState(false);
 
+  const [isTouch, setIsTouch] = useState(false);
+
   useEffect(() => {
+    const checkTouch = () => {
+      setIsTouch(window.matchMedia("(pointer: coarse)").matches);
+    };
+    checkTouch();
+
+    if (window.matchMedia("(pointer: coarse)").matches) {
+      return;
+    }
+
     const updateMousePosition = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
@@ -47,6 +58,8 @@ export default function CustomCursor() {
       window.removeEventListener("mouseup", handleMouseUp);
     };
   }, []);
+
+  if (isTouch) return null;
 
   return (
     <>
