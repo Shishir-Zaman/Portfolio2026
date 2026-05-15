@@ -22,17 +22,20 @@ export default function ProjectsPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <p className="text-white/50 tracking-widest text-sm mb-4 uppercase">Home &gt; <span className="text-[var(--color-teal-accent)]">Projects</span></p>
-        <h1 className="text-5xl md:text-7xl font-syncopate font-bold uppercase mb-12 bg-clip-text text-transparent bg-gradient-to-r from-white via-white/90 to-[var(--color-teal-accent)] drop-shadow-[0_0_15px_rgba(0,245,255,0.15)]">My Projects</h1>
+        <p className="text-white/50 tracking-widest text-xs md:text-sm mb-4 uppercase">Home &gt; <span className="text-[var(--color-teal-accent)]">Projects</span></p>
+        <h1 className="text-5xl md:text-7xl font-syncopate font-bold uppercase mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-white/90 to-[var(--color-teal-accent)] drop-shadow-[0_0_15px_rgba(0,245,255,0.15)]">My Projects</h1>
+        <p className="text-white/60 max-w-2xl mx-auto text-sm md:text-base font-sans leading-relaxed mb-12 px-4 md:px-0">
+          A curated collection of visual identities, packaging systems, and digital experiences. Each project is a blend of strategic thinking and refined aesthetic execution.
+        </p>
         <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
           {PROJECT_CATEGORIES.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-5 py-2 rounded-full transition-all duration-300 border text-sm font-sans ${
+              className={`px-6 py-2.5 rounded-full transition-all duration-400 border text-[13px] font-sans backdrop-blur-xl ${
                 activeCategory === cat 
-                  ? "bg-white text-black border-white" 
-                  : "bg-transparent text-white/60 border-white/15 hover:border-white/40 hover:text-white"
+                  ? "bg-white text-black border-white shadow-[0_0_20px_rgba(255,255,255,0.3)]" 
+                  : "bg-white/5 text-white/50 border-white/10 hover:border-white/30 hover:text-white hover:bg-white/10"
               }`}
             >
               {cat}
@@ -59,9 +62,9 @@ export default function ProjectsPage() {
 function ProjectCard({ project, index }: { project: typeof PROJECTS[0], index: number }) {
   return (
     <motion.div layout initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: index * 0.08 }}>
-      <Link href={`/projects/${project.id}`} className="group block relative cursor-none">
+      <Link href={`/projects/${project.id}`} className="group block relative cursor-none transition-transform duration-500 hover:scale-[1.015]">
         {/* Teal glow behind card */}
-        <div className="absolute -inset-3 bg-[var(--color-teal-accent)]/0 group-hover:bg-[var(--color-teal-accent)]/8 rounded-[2.5rem] blur-2xl transition-all duration-700 pointer-events-none -z-10" />
+        <div className="absolute -inset-4 bg-[var(--color-teal-accent)]/0 group-hover:bg-[var(--color-teal-accent)]/15 rounded-[3rem] blur-3xl transition-all duration-700 pointer-events-none -z-10" />
 
         {/* Card image */}
         <div className="relative rounded-2xl overflow-hidden aspect-video border border-white/[0.07] shadow-[0_4px_40px_rgba(0,0,0,0.6)]">
