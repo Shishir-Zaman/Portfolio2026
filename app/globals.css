@@ -1,26 +1,150 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-teal-accent: #00f5ff;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #000000;
+    --foreground: #ffffff;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Hide ALL cursors — custom cursor takes over entirely */
+  *,
+  *::before,
+  *::after,
+  html,
+  body,
+  a,
+  button,
+  input,
+  textarea,
+  select,
+  label,
+  [role="button"] {
+    cursor: none !important;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-family: var(--font-inter), sans-serif;
+  }
+
+  /* Custom Dark Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #050505; 
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1a1a1a; 
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 245, 255, 0.3); 
+  }
+
+  /* Minimum readable font size — prevents sub-12px labels */
+  .text-xs,
+  .text-\[10px\],
+  .text-\[11px\],
+  .text-\[12px\] {
+    font-size: max(0.78rem, 12px) !important;
+    line-height: 1.55;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-syncopate), sans-serif;
+    font-weight: 400;
+  }
+  
+  .font-syne {
+    font-family: var(--font-syne), sans-serif;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .glass {
+    background-color: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  
+  .glass-button {
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .glass-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(0, 245, 255, 0.3);
+  }
+  
+  .text-glow {
+    text-shadow: 0 0 15px rgba(0, 245, 255, 0.5);
+  }
+
+  .text-glow-white {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+  }
+  
+  .box-glow {
+    box-shadow: 0 0 30px rgba(0, 245, 255, 0.15);
+  }
+
+  /* Performance: hint GPU compositing for animated elements */
+  .vanta-anim {
+    will-change: transform;
+    contain: strict;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+  }
+
+  @keyframes gradientWave {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @keyframes fireBreath {
+    0%, 100% { 
+      filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.1)) drop-shadow(0 0 40px rgba(0, 245, 255, 0.2));
+    }
+    50% {
+      filter: drop-shadow(0 0 35px rgba(255, 255, 255, 0.3)) drop-shadow(0 0 60px rgba(0, 245, 255, 0.6));
+    }
+  }
+
+  .animate-fire-breath {
+    animation: fireBreath 3s ease-in-out infinite;
+  }
+
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+
+  .animate-gradient-wave {
+    animation: gradientWave 6s ease-in-out infinite;
+    background-size: 200% auto;
+  }
 }
