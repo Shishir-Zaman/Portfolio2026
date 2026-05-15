@@ -2,7 +2,7 @@
 
 A high-end, minimalist luxury portfolio designed to showcase premium brand identity, visual design, and motion graphics. Built with **Next.js 15**, **Tailwind CSS**, and **Framer Motion**, featuring a dynamic topology animation and a seamless, high-performance UI.
 
-![Portfolio Preview](public/preview.png)
+![Portfolio Preview](https://res.cloudinary.com/dw10neaqr/image/upload/q_auto/f_auto/v1778832522/ChatGPT_Image_May_15_2026_02_07_20_PM_yu5gsg.png)
 
 ## 💎 Design Philosophy
 This portfolio is built on the principle of **Minimalist Luxury**. It avoids clutter in favor of bold typography, smooth glassmorphism, and interactive micro-animations. The primary teal accent (`#00f5ff`) provides a high-energy focal point against a deep obsidian backdrop.
