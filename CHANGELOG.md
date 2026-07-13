@@ -1,3 +1,15 @@
+## [2026-07-13] Bug Fix — Next.js 14 Downgrade for Vercel Builds
+
+### What changed
+- `package.json`: Downgraded `next` and `eslint-config-next` from `16.2.6` to `14.2.14`.
+- `middleware.ts`: Restored file name from `proxy.ts` back to `middleware.ts`.
+- `app/api/*/route.ts`: Added `export const dynamic = "force-dynamic";` to all API routes.
+
+### Why it changed
+Next.js 16 (Turbopack) has a known bug when statically analyzing and pre-rendering API routes that use NextAuth beta (`MODULE_UNPARSABLE app-router-context.js file not found`). This caused all Vercel production builds to fail with a `404 Not Found` for the admin panel and pricing page. Downgrading to the stable Next.js 14 release bypasses Turbopack entirely and restores Webpack, guaranteeing successful Vercel builds for the admin dashboard.
+
+---
+
 ## [2026-07-13] Phase 1 — SEO Optimization
 
 ### What changed
