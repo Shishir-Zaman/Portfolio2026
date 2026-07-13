@@ -1,6 +1,5 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   images: {
     // Output formats: prefer AVIF (smallest), fall back to WebP
     formats: ["image/avif", "image/webp"],
@@ -31,4 +30,3 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
-
