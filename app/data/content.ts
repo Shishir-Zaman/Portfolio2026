@@ -21,6 +21,15 @@ export type Project = {
   year?: string;
 };
 
+export type PricingPackage = {
+  id: string;
+  name: string;
+  price: string;
+  target: string;
+  features: string[];
+  isPopular?: boolean;
+};
+
 // ─── PERSONAL INFO ───────────────────────────────────────────
 export const PERSONAL_INFO = {
   name: "Shishir Zaman",
@@ -259,4 +268,48 @@ export const SERVICES = [
     ],
     icon: "motion",
   },
+];
+
+// ─── PRICING PACKAGES (Default Fallback) ─────────────────────
+export const PRICING_PACKAGES: PricingPackage[] = [
+  {
+    id: "basic",
+    name: "Basic Package",
+    price: "৳ 8,000",
+    target: "Startups needing a quick, professional visual mark.",
+    features: [
+      "Primary Logomark",
+      "Color Palette",
+      "Typography Selection",
+      "2 Revision Rounds",
+      "Standard Delivery (5 Days)"
+    ]
+  },
+  {
+    id: "pro",
+    name: "Pro Package",
+    price: "৳ 18,000",
+    target: "Growing businesses needing a cohesive identity and initial social presence.",
+    features: [
+      "Full Logo Suite (Primary, Secondary, Icon)",
+      "Brand Style Guide (PDF)",
+      "Business Card Design",
+      "5 Custom Social Media Post Templates",
+      "3 Revision Rounds"
+    ],
+    isPopular: true
+  },
+  {
+    id: "premium",
+    name: "Premium Package",
+    price: "৳ 35,000",
+    target: "Established brands looking for a full takeover and ongoing content.",
+    features: [
+      "Complete Brand Identity System",
+      "Packaging/Print Design (1 item)",
+      "1 Month Social Media Content (12 Static/Motion Posts)",
+      "Priority Support",
+      "Unlimited Revisions"
+    ]
+  }
 ];

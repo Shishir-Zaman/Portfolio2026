@@ -37,6 +37,24 @@ Raw `<img>` tags bypass Next.js image optimization entirely — no AVIF/WebP con
 
 ---
 
+## [2026-07-13] Phase 5 — Dynamic Pricing Page
+
+### What changed
+- `app/data/content.ts`: Added `PricingPackage` type and `PRICING_PACKAGES` fallback data with BDT prices.
+- `lib/db.ts`: Added `getPricingPackages` and `savePricingPackages` connecting to Upstash Redis.
+- `app/api/pricing/route.ts` **[NEW]**: API route to get/save pricing packages, protected by auth.
+- `app/admin/(dashboard)/pricing/page.tsx` **[NEW]**: Admin page for managing pricing.
+- `app/admin/(dashboard)/pricing/PricingClient.tsx` **[NEW]**: Client UI allowing dynamic add/edit/reorder/delete of plans and features.
+- `app/components/Navbar.tsx`: Added "Pricing" to the public navigation.
+- `app/pricing/layout.tsx` **[NEW]**: SEO metadata for the public Pricing page.
+- `app/pricing/page.tsx` **[NEW]**: Server component fetching pricing from Redis.
+- `app/pricing/PricingClientUI.tsx` **[NEW]**: Client component mapping the data into glassmorphism cards with Framer Motion animations and "Best Value" highlighting.
+
+### Manual steps required
+- None. Navigate to `/admin/pricing` to edit plans live.
+
+---
+
 ## [2026-07-13] Phase 3 — Admin Dashboard CMS
 
 ### What changed

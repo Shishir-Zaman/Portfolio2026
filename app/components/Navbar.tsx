@@ -10,6 +10,7 @@ import { PERSONAL_INFO } from "../data/content";
 const navLinks = [
   { name: "Projects", path: "/projects" },
   { name: "Services", path: "/services" },
+  { name: "Pricing",  path: "/pricing" },
   { name: "About",    path: "/about" },
   { name: "Contact",  path: "/contact" },
 ];

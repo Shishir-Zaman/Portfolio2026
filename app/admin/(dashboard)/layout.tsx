@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import Link from "next/link";
-import { LayoutDashboard, LogOut, Folder, Image as ImageIcon } from "lucide-react";
+import { LayoutDashboard, LogOut, Folder, Image as ImageIcon, Tag } from "lucide-react";
 
 export const metadata = {
   title: "Admin Dashboard | Shishir Zaman",
@@ -30,6 +30,10 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
           <Link href="/admin/projects" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-white/70 hover:text-white">
             <ImageIcon size={20} />
             Projects
+          </Link>
+          <Link href="/admin/pricing" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-white/70 hover:text-white">
+            <Tag size={20} />
+            Pricing
           </Link>
         </nav>
 

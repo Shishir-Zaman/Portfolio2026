@@ -1,9 +1,10 @@
 import { Redis } from "@upstash/redis";
-import { Category, Project, PROJECTS, PROJECT_CATEGORIES } from "../app/data/content";
+import { Category, Project, PricingPackage, PROJECTS, PROJECT_CATEGORIES, PRICING_PACKAGES } from "../app/data/content";
 
 // Define the exact types for the CMS
 export type CMSCategory = Category;
 export type CMSProject = Project;
+export type CMSPricingPackage = PricingPackage;
 
 const getRedisClient = () => {
   if (!process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN) {
@@ -45,4 +46,15 @@ export async function getProjects(): Promise<CMSProject[]> {
 export async function saveProjects(projects: CMSProject[]): Promise<void> {
   if (!redis) throw new Error("Redis not configured");
   await redis.set("portfolio:projects", projects);
+}
+
+export async function getPricingPackages(): Promise<CMSPricingPackage[]> {
+  if (!redis) return PRICING_PACKAGES;
+  const packages = await redis.get<CMSPricingPackage[]>("portfolio:pricing");
+  return packages && packages.length > 0 ? packages : PRICING_PACKAGES;
+}
+
+export async function savePricingPackages(packages: CMSPricingPackage[]): Promise<void> {
+  if (!redis) throw new Error("Redis not configured");
+  await redis.set("portfolio:pricing", packages);
 }
