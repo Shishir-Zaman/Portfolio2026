@@ -1,3 +1,17 @@
+## [2026-07-13] Admin UI Overhaul & Feature Additions
+
+### What changed
+- **Admin Layout Fix**: Moved all public pages into `app/(public)/` Route Group. The admin dashboard now has a completely isolated layout — no more navbar overlay or double scrollbars.
+- **Project Editor**: Refactored edit modal to use a draft state (`tempProject`). Added explicit **Save Draft** and **Cancel** buttons. Images in the gallery now display in a masonry/bento-box CSS columns layout that respects original aspect ratios.
+- **Homepage Categories**: Added `showOnHomepage` flag to `CMSCategory`. Admin can now toggle which categories appear on the landing page. A new "Explore by Category" section on the homepage dynamically renders the selected categories.
+- **Pricing Tiers**: Added `exampleProjects` to `PricingPackage`. Admin can now link specific projects to each pricing tier. Linked projects appear as clickable cards inside the pricing tier on the public `/pricing` page.
+- **Contact Page**: "Start a Project" button changed from WhatsApp green to site-theme teal. "Email Me" button now has a teal border. Service dropdown includes a new "Custom Service" option with an animated text input that appears when selected.
+
+### Why it changed
+Full admin UI/UX overhaul to create a professional, isolated dashboard and give the admin complete control over homepage content, pricing displays, and client-facing contact options.
+
+---
+
 ## [2026-07-13] Bug Fix — Next.js 14 Downgrade for Vercel Builds
 
 ### What changed
