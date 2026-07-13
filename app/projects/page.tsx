@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { PROJECTS, PROJECT_CATEGORIES } from "../data/content";
 import PageBackground from "../components/PageBackground";
 
@@ -68,8 +69,15 @@ function ProjectCard({ project, index }: { project: typeof PROJECTS[0], index: n
 
         {/* Card image */}
         <div className="relative rounded-2xl overflow-hidden aspect-video border border-white/[0.07] shadow-[0_4px_40px_rgba(0,0,0,0.6)]">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={project.image} alt={project.title} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
+          <Image
+            src={project.image}
+            alt={`${project.title} — ${project.tags[0]} project by Shishir Zaman`}
+            fill
+            priority={index === 0}
+            loading={index === 0 ? undefined : "lazy"}
+            className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
           {/* Inner black gradient */}
           <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black via-black/40 to-transparent" />
           

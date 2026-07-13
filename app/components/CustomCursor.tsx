@@ -26,10 +26,10 @@ export default function CustomCursor() {
 
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      
+
       if (target.closest(".glass")) {
         setHoverState("glass");
-      } 
+      }
       else if (
         target.tagName.toLowerCase() === "a" ||
         target.tagName.toLowerCase() === "button" ||
@@ -37,7 +37,7 @@ export default function CustomCursor() {
         target.closest("button")
       ) {
         setHoverState("link");
-      } 
+      }
       else {
         setHoverState("default");
       }
@@ -74,7 +74,7 @@ export default function CustomCursor() {
         }}
         transition={{ type: "spring", stiffness: 500, damping: 28, mass: 0.5 }}
       />
-      
+
       {/* Glassmorphic Cursor (appears on hover) */}
       <motion.div
         className="fixed top-0 left-0 flex items-center justify-center pointer-events-none z-[9998]"
@@ -89,11 +89,10 @@ export default function CustomCursor() {
             scale: isClicked ? 0.6 : hoverState === "glass" ? 1 : hoverState === "link" ? 0.8 : 0,
             opacity: hoverState !== "default" ? 1 : 0,
           }}
-          className={`w-10 h-10 rounded-full absolute -ml-5 -mt-5 ${
-            hoverState === "glass" 
-              ? "bg-white/10 backdrop-blur-md border border-white/20 shadow-[0_0_20px_rgba(0,245,255,0.15)]" 
-              : "border border-[var(--color-teal-accent)] bg-[var(--color-teal-accent)]/5 backdrop-blur-sm"
-          }`}
+          className={`w-10 h-10 rounded-full absolute -ml-5 -mt-5 ${hoverState === "glass"
+            ? "bg-white/10 backdrop-blur-md border border-white/20 shadow-[0_0_20px_rgba(0,245,255,0.15)]"
+            : "border border-[var(--color-teal-accent)] bg-[var(--color-teal-accent)]/5 backdrop-blur-sm"
+            }`}
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
         />
       </motion.div>

@@ -7,21 +7,7 @@ import { PERSONAL_INFO } from "../data/content";
 import PageBackground from "../components/PageBackground";
 
 export default function ContactPage() {
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const form = e.target as HTMLFormElement;
-    const name = (form.elements.namedItem("name") as HTMLInputElement).value;
-    const email = (form.elements.namedItem("email") as HTMLInputElement).value;
-    const service = (form.elements.namedItem("service") as HTMLSelectElement).value;
-    const message = (form.elements.namedItem("message") as HTMLTextAreaElement).value;
-
-    const text = `Hi Shishir, I'd like to book an appointment.\n\nName: ${name}\nEmail: ${email}\nService: ${service}\nMessage: ${message}`;
-    const whatsappUrl = `https://wa.me/8801869511046?text=${encodeURIComponent(text)}`;
-    const mailtoUrl = `mailto:${PERSONAL_INFO.email}?subject=New Appointment Request - ${name}&body=${encodeURIComponent(text)}`;
-
-    window.open(whatsappUrl, "_blank");
-    window.location.href = mailtoUrl;
-  };
+  // Removed manual form submit - using Formspree natively in the form action
 
   return (
     <div className="flex flex-col pt-10 pb-20 relative">
@@ -69,6 +55,24 @@ export default function ContactPage() {
             />
           </div>
 
+          {/* Direct Contact Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 mt-2">
+            <a 
+              href={`https://wa.me/${PERSONAL_INFO.phone.replace(/[^0-9]/g, "")}?text=${encodeURIComponent("Hi Shishir, I'd like to discuss a project.")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 flex items-center justify-center gap-3 bg-[#25D366] text-white font-bold uppercase tracking-widest py-4 px-6 rounded-2xl hover:bg-[#20b958] transition-all duration-300 shadow-[0_0_15px_rgba(37,211,102,0.3)] hover:shadow-[0_0_25px_rgba(37,211,102,0.5)] group"
+            >
+              Start a Project <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+            </a>
+            <a 
+              href={`mailto:${PERSONAL_INFO.email}?subject=Project%20Inquiry`}
+              className="flex-1 flex items-center justify-center gap-3 glass border border-white/20 text-white font-bold uppercase tracking-widest py-4 px-6 rounded-2xl hover:bg-white/10 transition-all duration-300 group"
+            >
+              Email Me <Mail size={20} />
+            </a>
+          </div>
+
           {/* Social Links */}
           <div className="glass p-8 rounded-3xl border border-[var(--color-teal-accent)]/20 shadow-[0_0_30px_rgba(0,245,255,0.05)]">
             <h3 className="text-xl font-bold mb-6">Find me on</h3>
@@ -99,7 +103,8 @@ export default function ContactPage() {
           transition={{ duration: 0.8, delay: 0.2 }}
           id="contact-form"
         >
-          <form className="glass p-8 md:p-12 rounded-[2.5rem] flex flex-col gap-6" onSubmit={handleSubmit}>
+          {/* NOTE: To make this form work, create a free account at formspree.io and replace YOUR_FORM_ID with the one they give you */}
+          <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" className="glass p-8 md:p-12 rounded-[2.5rem] flex flex-col gap-6">
             <h3 className="text-2xl font-bold mb-4 uppercase tracking-wide">Book an Appointment</h3>
             
             <div className="flex flex-col gap-2">
@@ -126,7 +131,7 @@ export default function ContactPage() {
               type="submit"
               className="mt-4 flex items-center justify-center gap-3 w-full bg-[var(--color-teal-accent)] text-black font-bold uppercase tracking-widest py-5 rounded-2xl hover:bg-[var(--color-teal-accent)]/90 transition-all duration-300 shadow-[0_0_15px_rgba(0,245,255,0.3)] hover:shadow-[0_0_25px_rgba(0,245,255,0.5)] group"
             >
-              Book Appointment <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+              Send Message <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
             </button>
           </form>
         </motion.div>
