@@ -3,6 +3,8 @@ import { getPricingPackages, savePricingPackages } from "../../../lib/db";
 import { auth } from "../../../auth";
 import { revalidatePath } from "next/cache";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   try {
     const packages = await getPricingPackages();

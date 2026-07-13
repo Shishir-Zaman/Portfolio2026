@@ -3,6 +3,8 @@ import { auth } from "../../../auth";
 import { getCategories, saveCategories } from "../../../lib/db";
 import { revalidatePath } from "next/cache";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   try {
     const categories = await getCategories();
