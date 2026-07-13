@@ -4,6 +4,23 @@
 //  All data flows from here → every page auto-updates.
 // ============================================================
 
+// ─── TYPES ────────────────────────────────────────────────────
+export type Category = {
+  id: string;
+  name: string;
+};
+
+export type Project = {
+  id: string;
+  slug?: string;
+  title: string;
+  tags: string[];
+  image: string;
+  gallery?: string[];
+  description?: string;
+  year?: string;
+};
+
 // ─── PERSONAL INFO ───────────────────────────────────────────
 export const PERSONAL_INFO = {
   name: "Shishir Zaman",
@@ -145,15 +162,15 @@ const FEATURED_PROJECT_IDS = [
 export const FEATURED_PROJECTS = PROJECTS.filter(p => FEATURED_PROJECT_IDS.includes(p.id));
 
 // ─── PROJECT CATEGORIES (Projects Page filter tabs) ───────────
-export const PROJECT_CATEGORIES = [
-  "All",
-  "Brand Identity",
-  "Logo Design",
-  "Graphics Design",
-  "Packaging Design",
-  "Social Media Design",
-  "Motion Graphics",
-  "Print Design",
+export const PROJECT_CATEGORIES: Category[] = [
+  { id: "all", name: "All" },
+  { id: "brand-identity", name: "Brand Identity" },
+  { id: "logo-design", name: "Logo Design" },
+  { id: "graphics-design", name: "Graphics Design" },
+  { id: "packaging-design", name: "Packaging Design" },
+  { id: "social-media-design", name: "Social Media Design" },
+  { id: "motion-graphics", name: "Motion Graphics" },
+  { id: "print-design", name: "Print Design" },
 ];
 
 // ─── SERVICES ─────────────────────────────────────────────────

@@ -9,10 +9,10 @@ import PageBackground from "../components/PageBackground";
 
 
 export default function ProjectsPage() {
-  const [activeCategory, setActiveCategory] = useState("All");
-  const filteredProjects = activeCategory === "All"
+  const [activeCategory, setActiveCategory] = useState("all");
+  const filteredProjects = activeCategory === "all"
     ? PROJECTS
-    : PROJECTS.filter(p => p.tags.includes(activeCategory));
+    : PROJECTS.filter(p => p.tags.includes(PROJECT_CATEGORIES.find(c => c.id === activeCategory)?.name ?? ""));
 
   return (
     <div className="flex flex-col items-center pt-10 relative">
@@ -31,22 +31,22 @@ export default function ProjectsPage() {
         <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
           {PROJECT_CATEGORIES.map((cat) => (
             <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
+              key={cat.id}
+              onClick={() => setActiveCategory(cat.id)}
               className={`px-6 py-2.5 rounded-full transition-all duration-400 border text-[13px] font-sans backdrop-blur-xl ${
-                activeCategory === cat 
+                activeCategory === cat.id
                   ? "bg-white text-black border-white shadow-[0_0_20px_rgba(255,255,255,0.3)]" 
                   : "bg-white/5 text-white/50 border-white/10 hover:border-white/30 hover:text-white hover:bg-white/10"
               }`}
             >
-              {cat}
+              {cat.name}
             </button>
           ))}
         </div>
       </motion.div>
 
       <div className="w-full flex items-center gap-4 mb-8">
-        <h2 className="text-2xl md:text-3xl font-syncopate font-bold uppercase tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-white to-[var(--color-teal-accent)] drop-shadow-[0_0_10px_rgba(0,245,255,0.1)]">{activeCategory === "All" ? "All Work" : activeCategory}</h2>
+        <h2 className="text-2xl md:text-3xl font-syncopate font-bold uppercase tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-white to-[var(--color-teal-accent)] drop-shadow-[0_0_10px_rgba(0,245,255,0.1)]">{activeCategory === "all" ? "All Work" : PROJECT_CATEGORIES.find(c => c.id === activeCategory)?.name}</h2>
         <div className="w-2 h-2 rounded-full bg-[var(--color-teal-accent)] animate-pulse" />
         <span className="text-white/40 text-sm font-sans">{filteredProjects.length} projects</span>
       </div>

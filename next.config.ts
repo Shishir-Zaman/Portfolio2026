@@ -20,15 +20,15 @@ const nextConfig: NextConfig = {
         hostname: "images.unsplash.com",
       },
       {
-        // Cloudinary — used for profile image + future project uploads
+        // Cloudinary — used for profile image + project uploads
         protocol: "https",
         hostname: "res.cloudinary.com",
       },
     ],
-    // Use Cloudinary's CDN for image optimization
-    loader: "custom",
-    loaderFile: "./lib/cloudinary-loader.ts",
+    // NOTE: No custom loader — Cloudinary URLs already use f_auto/q_auto
+    // transforms embedded in the URL by the upload component itself.
   },
 };
 
 export default nextConfig;
+

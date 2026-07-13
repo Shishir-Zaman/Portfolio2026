@@ -11,7 +11,11 @@ export async function POST(request: Request) {
       process.env.CLOUDINARY_API_SECRET!
     );
 
-    return NextResponse.json({ signature });
+    return NextResponse.json({ 
+      signature, 
+      apiKey: process.env.CLOUDINARY_API_KEY,
+      cloudName: process.env.CLOUDINARY_CLOUD_NAME
+    });
   } catch (error) {
     console.error("Cloudinary sign error:", error);
     return NextResponse.json(

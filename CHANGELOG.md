@@ -37,6 +37,39 @@ Raw `<img>` tags bypass Next.js image optimization entirely — no AVIF/WebP con
 
 ---
 
+## [2026-07-13] Phase 3 — Admin Dashboard CMS
+
+### What changed
+- `package.json`: Added `next-auth@5.0.0-beta.20`, `bcryptjs`, `@types/bcryptjs`, `@upstash/redis`, `react-dropzone`, `@dnd-kit/core`, `@dnd-kit/sortable`, `@dnd-kit/utilities`.
+- `auth.config.ts` **[NEW]**: Edge-safe NextAuth v5 config (no Node.js deps). Used by middleware.
+- `auth.ts` **[NEW]**: Full NextAuth v5 config with bcrypt credential provider. Used by API routes and Server Components only.
+- `middleware.ts` **[NEW]**: Protects all `/admin/*` routes. Imports only from `auth.config.ts` to stay Edge-compatible.
+- `app/api/auth/[...nextauth]/route.ts` **[NEW]**: NextAuth handler route.
+- `app/api/categories/route.ts` **[NEW]**: GET/POST API for categories with auth guard and `revalidatePath()`.
+- `app/api/projects/route.ts` **[NEW]**: GET/POST API for projects with auth guard and `revalidatePath()`.
+- `app/api/cloudinary/sign/route.ts` **[NEW]**: Returns a signed Cloudinary upload signature + apiKey + cloudName (no public env vars needed).
+- `lib/db.ts` **[NEW]**: Upstash Redis data layer with fallback to hardcoded `content.ts` data when Redis is unconfigured.
+- `app/admin/login/page.tsx` **[NEW]**: Branded login page with password field.
+- `app/admin/(dashboard)/layout.tsx` **[NEW]**: Full-screen admin shell with sidebar nav and sign-out server action.
+- `app/admin/(dashboard)/page.tsx` **[NEW]**: Dashboard overview showing project/category counts.
+- `app/admin/(dashboard)/categories/page.tsx` **[NEW]**: Categories management page.
+- `app/admin/(dashboard)/categories/CategoriesClient.tsx` **[NEW]**: Client component — add, edit, reorder, delete categories.
+- `app/admin/(dashboard)/projects/page.tsx` **[NEW]**: Projects management page.
+- `app/admin/(dashboard)/projects/ProjectsClient.tsx` **[NEW]**: Client component — grid view, edit modal, reorder, delete projects.
+- `app/admin/(dashboard)/projects/CloudinaryUpload.tsx` **[NEW]**: Drag-and-drop image uploader using signed Cloudinary requests.
+- `app/data/content.ts`: Added exported `Category` and `Project` TypeScript types. Updated `PROJECT_CATEGORIES` from `string[]` to `Category[]` (object array with `id` and `name`).
+- `app/projects/page.tsx`: Updated category filter to use the new `Category` object shape.
+- `next.config.ts`: Removed broken `loader: "custom"` — was causing all images to fail. Cloudinary URLs are self-optimising via `f_auto/q_auto` in the URL.
+- `.env.local` **[NEW]**: Local dev environment template with all required variable keys.
+
+### Manual steps required
+1. **Generate admin password hash** — see setup guide below.
+2. **Add env vars to Vercel** — `AUTH_SECRET`, `ADMIN_PASSWORD_HASH`, `CLOUDINARY_*`, `UPSTASH_REDIS_REST_*`.
+3. Run `npm install` in the project root to install new packages.
+4. Deploy to Vercel — all admin routes at `/admin` are live and protected.
+
+---
+
 ## [2026-07-13] Phase 6 — Contact Enhancements
 
 ### What changed
