@@ -1,4 +1,4 @@
-import { getPricingPackages } from "../../lib/db";
+import { getPricingPackages, getProjects } from "../../lib/db";
 import PricingClientUI from "./PricingClientUI";
 import PageBackground from "../components/PageBackground";
 
@@ -8,11 +8,12 @@ export const revalidate = 3600; // also revalidate every hour just in case
 
 export default async function PricingPage() {
   const packages = await getPricingPackages();
+  const projects = await getProjects();
 
   return (
     <div className="flex flex-col items-center pt-10 relative min-h-screen">
       <PageBackground />
-      <PricingClientUI packages={packages} />
+      <PricingClientUI packages={packages} projects={projects} />
     </div>
   );
 }

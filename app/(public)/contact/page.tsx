@@ -61,13 +61,13 @@ export default function ContactPage() {
               href={`https://wa.me/${PERSONAL_INFO.phone.replace(/[^0-9]/g, "")}?text=${encodeURIComponent("Hi Shishir, I'd like to discuss a project.")}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center gap-3 bg-[#25D366] text-white font-bold uppercase tracking-widest py-4 px-6 rounded-2xl hover:bg-[#20b958] transition-all duration-300 shadow-[0_0_15px_rgba(37,211,102,0.3)] hover:shadow-[0_0_25px_rgba(37,211,102,0.5)] group"
+              className="flex-1 flex items-center justify-center gap-3 bg-[var(--color-teal-accent)] text-black font-bold uppercase tracking-widest py-4 px-6 rounded-2xl hover:bg-[var(--color-teal-accent)]/90 transition-all duration-300 shadow-[0_0_15px_rgba(0,245,255,0.3)] hover:shadow-[0_0_25px_rgba(0,245,255,0.5)] group"
             >
               Start a Project <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
             </a>
             <a 
               href={`mailto:${PERSONAL_INFO.email}?subject=Project%20Inquiry`}
-              className="flex-1 flex items-center justify-center gap-3 glass border border-white/20 text-white font-bold uppercase tracking-widest py-4 px-6 rounded-2xl hover:bg-white/10 transition-all duration-300 group"
+              className="flex-1 flex items-center justify-center gap-3 glass border border-[var(--color-teal-accent)]/50 text-white font-bold uppercase tracking-widest py-4 px-6 rounded-2xl hover:bg-white/5 hover:border-[var(--color-teal-accent)] transition-all duration-300 group"
             >
               Email Me <Mail size={20} />
             </a>
@@ -147,7 +147,7 @@ const SERVICES_OPTIONS = [
   "Social Media Design",
   "Video Editing",
   "Motion Graphics",
-  "Other"
+  "Custom Service"
 ];
 
 function CustomDropdown() {
@@ -166,8 +166,8 @@ function CustomDropdown() {
   }, []);
 
   return (
-    <div className="relative w-full" ref={ref}>
-      <input type="hidden" name="service" value={value} />
+    <div className="relative w-full flex flex-col gap-2" ref={ref}>
+      <input type="hidden" name="service" value={value === "Custom Service" ? "" : value} />
       <button
         type="button"
         id="service"
@@ -187,7 +187,7 @@ function CustomDropdown() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="absolute z-50 w-full mt-2 bg-[#0f0f0f] border border-white/10 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.8)] overflow-hidden"
+            className="absolute top-16 z-50 w-full mt-2 bg-[#0f0f0f] border border-white/10 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.8)] overflow-hidden"
           >
             {SERVICES_OPTIONS.map((opt) => (
               <button
@@ -202,6 +202,25 @@ function CustomDropdown() {
                 {opt}
               </button>
             ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Conditionally render custom service text input */}
+      <AnimatePresence>
+        {value === "Custom Service" && (
+          <motion.div
+            initial={{ opacity: 0, height: 0, marginTop: 0 }}
+            animate={{ opacity: 1, height: 'auto', marginTop: 8 }}
+            exit={{ opacity: 0, height: 0, marginTop: 0 }}
+            className="overflow-hidden"
+          >
+            <input 
+              type="text" 
+              name="customService" 
+              className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 text-white placeholder:text-white/20 focus:outline-none focus:border-[var(--color-teal-accent)]/50 focus:bg-white/5 transition-all duration-300 font-sans" 
+              placeholder="Please describe your custom service..." 
+            />
           </motion.div>
         )}
       </AnimatePresence>

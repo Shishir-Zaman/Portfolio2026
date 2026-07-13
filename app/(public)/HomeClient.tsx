@@ -4,7 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import CanvasBackground from "./components/CanvasBackground";
-import { FEATURED_PROJECTS, SERVICES, PERSONAL_INFO } from "./data/content";
+import { SERVICES, PERSONAL_INFO } from "./data/content";
+import { CMSCategory, CMSProject } from "../../lib/db";
 
 const ROLES = [
   "Visual Designer",
@@ -54,7 +55,15 @@ function RoleRotator() {
   );
 }
 
-export default function Home() {
+export default function HomeClient({ categories, projects }: { categories: CMSCategory[], projects: CMSProject[] }) {
+  // We'll consider projects with a specific tag or just take the first 4 as "featured" for now, 
+  // since the CMS doesn't have an explicit 'isFeatured' flag on projects yet.
+  // We can just show the first 4 projects as featured, or filter them based on some criteria.
+  // If the user wants specific featured projects, we could add 'isFeatured' to CMSProject.
+  // For now, let's just use the first 4 projects that have images.
+  const featuredProjects = projects.filter(p => p.image).slice(0, 4);
+  const homeCategories = categories.filter(c => c.showOnHomepage);
+
   return (
     <div className="flex flex-col gap-28 pb-10">
 
@@ -162,11 +171,43 @@ export default function Home() {
 
         {/* 2×2 grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 w-full">
-          {FEATURED_PROJECTS.map((project, index) => (
+          {featuredProjects.map((project, index) => (
             <FeaturedCard key={project.id} project={project} index={index} />
           ))}
         </div>
       </section>
+
+      {/* ── EXPLORE BY CATEGORY ─────────────────────────────── */}
+      {homeCategories.length > 0 && (
+        <section>
+          <div className="flex items-end justify-between mb-10">
+            <div>
+              <p className="text-white/30 text-xs uppercase tracking-[0.25em] font-sans mb-2">Capabilities</p>
+              <h2 className="text-3xl md:text-4xl font-syncopate font-bold uppercase tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-[var(--color-teal-accent)] drop-shadow-[0_0_10px_rgba(0,245,255,0.1)]">Categories</h2>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {homeCategories.map((cat, index) => (
+              <motion.div
+                key={cat.id}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.05 }}
+              >
+                <Link
+                  href={`/projects?category=${encodeURIComponent(cat.name)}`}
+                  className="flex items-center justify-center text-center p-6 md:p-8 rounded-2xl glass border border-white/10 hover:border-[var(--color-teal-accent)]/50 hover:bg-white/5 transition-all duration-300 group"
+                >
+                  <span className="font-syncopate font-bold text-sm md:text-base uppercase tracking-wider text-white/70 group-hover:text-white transition-colors">
+                    {cat.name}
+                  </span>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* ── SERVICES PREVIEW ──────────────────────────────── */}
       <section>
@@ -194,7 +235,7 @@ export default function Home() {
 }
 
 // ── Featured Project Card ──────────────────────────────────────
-function FeaturedCard({ project, index }: { project: typeof FEATURED_PROJECTS[0], index: number }) {
+function FeaturedCard({ project, index }: { project: CMSProject, index: number }) {
   return (
     <Link href={`/projects/${project.id}`}>
       <motion.article

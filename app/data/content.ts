@@ -8,6 +8,7 @@
 export type Category = {
   id: string;
   name: string;
+  showOnHomepage?: boolean;
 };
 
 export type Project = {
@@ -28,6 +29,7 @@ export type PricingPackage = {
   target: string;
   features: string[];
   isPopular?: boolean;
+  exampleProjects?: string[];
 };
 
 // ─── PERSONAL INFO ───────────────────────────────────────────

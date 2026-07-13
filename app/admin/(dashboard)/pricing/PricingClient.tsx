@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Save, Plus, Trash2, GripVertical, CheckCircle2 } from "lucide-react";
 import { CMSPricingPackage } from "../../../../lib/db";
 
-export default function PricingClient() {
+export default function PricingClient({ availableProjects = [] }: { availableProjects?: { id: string, title: string }[] }) {
   const [packages, setPackages] = useState<CMSPricingPackage[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -73,6 +73,18 @@ export default function PricingClient() {
   const removeFeature = (pkgIndex: number, featureIndex: number) => {
     const newPkgs = [...packages];
     newPkgs[pkgIndex].features.splice(featureIndex, 1);
+    setPackages(newPkgs);
+  };
+
+  const toggleProject = (pkgIndex: number, projectId: string) => {
+    const newPkgs = [...packages];
+    const pkg = newPkgs[pkgIndex];
+    const currentProjects = pkg.exampleProjects || [];
+    if (currentProjects.includes(projectId)) {
+      pkg.exampleProjects = currentProjects.filter(id => id !== projectId);
+    } else {
+      pkg.exampleProjects = [...currentProjects, projectId];
+    }
     setPackages(newPkgs);
   };
 
@@ -178,6 +190,24 @@ export default function PricingClient() {
                     </button>
                   </div>
                 ))}
+              </div>
+            </div>
+
+            <div className="mt-6 border-t border-white/10 pt-6">
+              <label className="block text-xs uppercase tracking-widest text-white/50 mb-3">Example Projects (Included in this package)</label>
+              <div className="flex flex-wrap gap-2">
+                {availableProjects.map(project => {
+                  const isSelected = (pkg.exampleProjects || []).includes(project.id);
+                  return (
+                    <button
+                      key={project.id}
+                      onClick={() => toggleProject(pIndex, project.id)}
+                      className={`px-3 py-1.5 rounded-lg text-xs tracking-wider uppercase border transition-colors ${isSelected ? 'bg-[var(--color-teal-accent)]/20 border-[var(--color-teal-accent)] text-[var(--color-teal-accent)]' : 'bg-transparent border-white/20 text-white/50 hover:border-white/40'}`}
+                    >
+                      {project.title}
+                    </button>
+                  );
+                })}
               </div>
             </div>
 

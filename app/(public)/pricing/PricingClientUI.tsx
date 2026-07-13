@@ -3,9 +3,9 @@
 import { motion } from "framer-motion";
 import { Check, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { PricingPackage } from "../data/content";
+import { PricingPackage, Project } from "../data/content";
 
-export default function PricingClientUI({ packages }: { packages: PricingPackage[] }) {
+export default function PricingClientUI({ packages, projects }: { packages: PricingPackage[], projects?: Project[] }) {
   // Animation variants
   const container = {
     hidden: { opacity: 0 },
@@ -78,6 +78,33 @@ export default function PricingClientUI({ packages }: { packages: PricingPackage
                     </li>
                   ))}
                 </ul>
+
+                {pkg.exampleProjects && pkg.exampleProjects.length > 0 && projects && (
+                  <div className="mb-8 pt-6 border-t border-white/10">
+                    <h4 className="text-xs uppercase tracking-widest text-white/50 mb-4 font-bold">Example Projects</h4>
+                    <div className="flex flex-col gap-3">
+                      {pkg.exampleProjects.map(id => {
+                        const project = projects.find(p => p.id === id);
+                        if (!project) return null;
+                        return (
+                          <Link key={id} href={`/projects/${project.id}`} className="group flex items-center gap-3 p-2 -m-2 rounded-xl hover:bg-white/5 transition-colors">
+                            <div className="w-12 h-12 rounded-lg bg-black/50 overflow-hidden shrink-0 border border-white/10 group-hover:border-[var(--color-teal-accent)]/50 transition-colors">
+                              {project.image ? (
+                                <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+                              ) : (
+                                <div className="w-full h-full bg-white/5" />
+                              )}
+                            </div>
+                            <div className="flex-1">
+                              <div className="text-sm font-bold text-white group-hover:text-[var(--color-teal-accent)] transition-colors line-clamp-1">{project.title}</div>
+                              <div className="text-[10px] text-white/50 uppercase tracking-wider">{project.tags[0] || "Project"}</div>
+                            </div>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
               </div>
 
               <Link 
