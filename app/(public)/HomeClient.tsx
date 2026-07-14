@@ -4,8 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import CanvasBackground from "@/components/CanvasBackground";
-import { SERVICES, PERSONAL_INFO } from "@/data/content";
-import { CMSCategory, CMSProject } from "../../lib/db";
+import { SERVICES } from "@/data/content";
+import { CMSCategory, CMSProject, SiteSettings } from "../../lib/db";
 
 const ROLES = [
   "Visual Designer",
@@ -55,13 +55,12 @@ function RoleRotator() {
   );
 }
 
-export default function HomeClient({ categories, projects }: { categories: CMSCategory[], projects: CMSProject[] }) {
-  // We'll consider projects with a specific tag or just take the first 4 as "featured" for now, 
-  // since the CMS doesn't have an explicit 'isFeatured' flag on projects yet.
-  // We can just show the first 4 projects as featured, or filter them based on some criteria.
-  // If the user wants specific featured projects, we could add 'isFeatured' to CMSProject.
-  // For now, let's just use the first 4 projects that have images.
-  const featuredProjects = projects.filter(p => p.image).slice(0, 4);
+export default function HomeClient({ categories, projects, siteSettings }: { categories: CMSCategory[], projects: CMSProject[], siteSettings: SiteSettings }) {
+  // Use the admin-controlled featured project IDs
+  const featuredProjects = siteSettings.featuredProjectIds
+    .map(id => projects.find(p => p.id === id))
+    .filter((p): p is CMSProject => p !== undefined);
+
   const homeCategories = categories.filter(c => c.showOnHomepage);
 
   return (

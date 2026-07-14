@@ -4,18 +4,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Logo from "./Logo";
-import { PERSONAL_INFO } from "../data/content";
+import { ThemeToggle } from "./ThemeToggle";
+import { SiteSettings } from "../../lib/db";
 
-const navLinks = [
-  { name: "Projects", path: "/projects" },
-  { name: "Services", path: "/services" },
-  { name: "Pricing",  path: "/pricing" },
-  { name: "About",    path: "/about" },
-  { name: "Contact",  path: "/contact" },
-];
-
-export default function Navbar() {
+export default function Navbar({ settings }: { settings: SiteSettings }) {
   const pathname = usePathname();
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
@@ -55,7 +49,7 @@ export default function Navbar() {
           {/* Column 2: Nav pill — ABSOLUTE CENTERED */}
           <div className="flex-shrink-0 flex items-center justify-center">
             <nav className="flex items-center rounded-full py-2 px-3 bg-[#0a0a0a]/50 backdrop-blur-3xl border border-white/[0.15] shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.1)]">
-              {navLinks.map((link) => {
+              {settings.navLinks.map((link) => {
                 const isActive = pathname === link.path || (link.path === "/projects" && pathname.startsWith("/projects"));
                 return (
                   <Link
@@ -75,7 +69,8 @@ export default function Navbar() {
           </div>
 
           {/* Column 3: CTA - Takes equal space to balance Logo */}
-          <div className="flex-1 hidden lg:flex items-center justify-end">
+          <div className="flex-1 hidden lg:flex items-center justify-end gap-6">
+            <ThemeToggle />
             <Link
               href="/contact"
               className="inline-flex items-center gap-2 px-7 xl:px-10 py-[14px] xl:py-[16px] rounded-full text-[14px] xl:text-[16px] font-medium tracking-wide bg-white/[0.08] backdrop-blur-3xl border border-white/[0.2] shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.15)] text-white hover:bg-[var(--color-teal-accent)]/[0.15] hover:border-[var(--color-teal-accent)]/50 hover:text-[var(--color-teal-accent)] hover:shadow-[0_0_30px_rgba(0,245,255,0.3),inset_0_1px_0_rgba(0,245,255,0.2)] transition-all duration-400 ease-out hover:scale-105 whitespace-nowrap"
@@ -99,7 +94,9 @@ export default function Navbar() {
               Menu
             </span>
 
-            <button
+            <div className="flex items-center gap-4">
+              <ThemeToggle />
+              <button
               aria-label="Toggle menu"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="flex flex-col items-end gap-[6px] w-10 h-10 justify-center relative z-[70] cursor-pointer"
@@ -123,7 +120,7 @@ export default function Navbar() {
             className="fixed inset-0 z-[55] bg-black/90 flex flex-col items-center justify-center pt-20 px-6"
           >
             <nav className="flex flex-col items-center gap-8 w-full">
-              {navLinks.map((link, i) => (
+              {settings.navLinks.map((link, i) => (
                 <motion.div
                   key={link.name}
                   initial={{ opacity: 0, y: 20 }}
@@ -143,7 +140,7 @@ export default function Navbar() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: navLinks.length * 0.1 }}
+                transition={{ delay: settings.navLinks.length * 0.1 }}
                 className="mt-8"
               >
                 <Link
@@ -159,10 +156,10 @@ export default function Navbar() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: (navLinks.length + 1) * 0.1 }}
+                transition={{ delay: (settings.navLinks.length + 1) * 0.1 }}
                 className="mt-12 flex flex-wrap justify-center gap-6"
               >
-                {PERSONAL_INFO.socials.map((social) => (
+                {settings.socials.map((social) => (
                   <Link
                     key={social.label}
                     href={social.url}

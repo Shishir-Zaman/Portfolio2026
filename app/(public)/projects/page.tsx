@@ -51,9 +51,11 @@ export default function ProjectsPage() {
         <span className="text-white/40 text-sm font-sans">{filteredProjects.length} projects</span>
       </div>
 
-      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 w-full">
+      <motion.div layout className="columns-1 md:columns-2 gap-6 lg:gap-8 w-full space-y-6 lg:space-y-8">
         {filteredProjects.map((project, index) => (
-          <ProjectCard key={project.id} project={project} index={index} />
+          <div key={project.id} className="break-inside-avoid">
+            <ProjectCard project={project} index={index} />
+          </div>
         ))}
       </motion.div>
     </div>
@@ -68,18 +70,15 @@ function ProjectCard({ project, index }: { project: typeof PROJECTS[0], index: n
         <div className="absolute -inset-4 bg-[var(--color-teal-accent)]/0 group-hover:bg-[var(--color-teal-accent)]/15 rounded-[3rem] blur-3xl transition-all duration-700 pointer-events-none -z-10" />
 
         {/* Card image */}
-        <div className="relative rounded-2xl overflow-hidden aspect-video border border-white/[0.07] shadow-[0_4px_40px_rgba(0,0,0,0.6)]">
-          <Image
-            src={project.image}
+        <div className="relative rounded-2xl overflow-hidden border border-white/[0.07] shadow-[0_4px_40px_rgba(0,0,0,0.6)]">
+          <img
+            src={project.image || "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=2340"}
             alt={`${project.title} — ${project.tags[0]} project by Shishir Zaman`}
-            fill
-            priority={index === 0}
-            loading={index === 0 ? undefined : "lazy"}
-            className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-            sizes="(max-width: 768px) 100vw, 50vw"
+            className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+            loading={index === 0 ? "eager" : "lazy"}
           />
           {/* Inner black gradient */}
-          <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black via-black/40 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/80 to-transparent" />
           
           {/* Content overlay */}
           <div className="absolute inset-0 flex flex-col justify-end p-5 z-10">

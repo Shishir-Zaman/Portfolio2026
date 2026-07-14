@@ -3,16 +3,19 @@ import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
 import Footer from "@/components/Footer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { getSiteSettings } from "../../lib/db";
 
-export default function PublicLayout({
+export default async function PublicLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const siteSettings = await getSiteSettings();
+
   return (
-    <>
+    <div className="custom-cursor-active">
       <CustomCursor />
-      <Navbar />
+      <Navbar settings={siteSettings} />
       <Sidebar />
       
       <main className="relative z-10 w-full min-h-screen pt-[90px] px-6 md:px-10">
@@ -25,6 +28,7 @@ export default function PublicLayout({
         <Footer />
       </div>
       <SpeedInsights />
-    </>
+    </div>
   );
 }
+

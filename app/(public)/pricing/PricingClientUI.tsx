@@ -1,11 +1,14 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Check, ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Check, ArrowRight, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { PricingPackage, Project } from "@/data/content";
 
 export default function PricingClientUI({ packages, projects }: { packages: PricingPackage[], projects?: Project[] }) {
+  const [expandedPackageId, setExpandedPackageId] = useState<string | null>(null);
+
   // Animation variants
   const container = {
     hidden: { opacity: 0 },
@@ -79,32 +82,46 @@ export default function PricingClientUI({ packages, projects }: { packages: Pric
                   ))}
                 </ul>
 
-                {pkg.exampleProjects && pkg.exampleProjects.length > 0 && projects && (
-                  <div className="mb-8 pt-6 border-t border-white/10">
-                    <h4 className="text-xs uppercase tracking-widest text-white/50 mb-4 font-bold">Example Projects</h4>
-                    <div className="flex flex-col gap-3">
-                      {pkg.exampleProjects.map(id => {
-                        const project = projects.find(p => p.id === id);
-                        if (!project) return null;
-                        return (
-                          <Link key={id} href={`/projects/${project.id}`} className="group flex items-center gap-3 p-2 -m-2 rounded-xl hover:bg-white/5 transition-colors">
-                            <div className="w-12 h-12 rounded-lg bg-black/50 overflow-hidden shrink-0 border border-white/10 group-hover:border-[var(--color-teal-accent)]/50 transition-colors">
-                              {project.image ? (
-                                <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
-                              ) : (
-                                <div className="w-full h-full bg-white/5" />
-                              )}
+                {(() => {
+                  const projectImages = pkg.exampleProjects 
+                    ? pkg.exampleProjects.map(id => projects?.find(p => p.id === id)?.image).filter(Boolean) as string[]
+                    : [];
+                  const carouselImages = pkg.exampleImages || projectImages;
+
+                  if (carouselImages.length === 0) return null;
+
+                  return (
+                    <div className="mb-8 pt-6 border-t border-white/10">
+                      <button 
+                        onClick={() => setExpandedPackageId(prev => prev === pkg.id ? null : pkg.id)}
+                        className="flex items-center justify-between w-full text-xs uppercase tracking-widest text-white/50 font-bold hover:text-white transition-colors"
+                      >
+                        <span>Example Work</span>
+                        <ChevronDown size={14} className={`transition-transform duration-300 ${expandedPackageId === pkg.id ? "rotate-180" : ""}`} />
+                      </button>
+                      
+                      <AnimatePresence>
+                        {expandedPackageId === pkg.id && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="overflow-hidden"
+                          >
+                            <div className="flex gap-3 overflow-x-auto pb-4 pt-4 snap-x [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                              {carouselImages.map((src, idx) => (
+                                <div key={idx} className="w-[140px] h-[100px] shrink-0 rounded-xl overflow-hidden border border-white/10 shadow-lg snap-start">
+                                  <img src={src} alt="Example work" className="w-full h-full object-cover" />
+                                </div>
+                              ))}
                             </div>
-                            <div className="flex-1">
-                              <div className="text-sm font-bold text-white group-hover:text-[var(--color-teal-accent)] transition-colors line-clamp-1">{project.title}</div>
-                              <div className="text-[10px] text-white/50 uppercase tracking-wider">{project.tags[0] || "Project"}</div>
-                            </div>
-                          </Link>
-                        );
-                      })}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
-                  </div>
-                )}
+                  );
+                })()}
               </div>
 
               <Link 

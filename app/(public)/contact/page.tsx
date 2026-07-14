@@ -145,7 +145,7 @@ export default function ContactPage() {
               <button 
                 type="submit"
                 disabled={state.submitting}
-                className="mt-4 flex items-center justify-center gap-3 w-full bg-[var(--color-teal-accent)] text-black font-bold uppercase tracking-widest py-5 rounded-2xl hover:bg-[var(--color-teal-accent)]/90 transition-all duration-300 shadow-[0_0_15px_rgba(0,245,255,0.3)] hover:shadow-[0_0_25px_rgba(0,245,255,0.5)] group disabled:opacity-50 disabled:cursor-not-allowed"
+                className="mt-4 flex items-center justify-center gap-3 w-full bg-transparent border border-[var(--color-teal-accent)] text-[var(--color-teal-accent)] font-bold uppercase tracking-widest py-5 rounded-2xl hover:bg-[var(--color-teal-accent)]/10 transition-all duration-300 shadow-none hover:shadow-[0_0_15px_rgba(0,245,255,0.2)] group disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {state.submitting ? "Sending..." : "Send Message"} {!state.submitting && <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />}
               </button>

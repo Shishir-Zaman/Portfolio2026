@@ -105,21 +105,52 @@ export function ProjectPageClient({ project }: { project: Project }) {
             resonance.
           </p>
 
-          {/* Image Gallery */}
-          {project.gallery && project.gallery.length > 0 && (
+          {/* Structured Case Study Gallery Groups */}
+          {project.galleryGroups && project.galleryGroups.length > 0 && (
+            <div className="flex flex-col gap-16 mt-8">
+              {project.galleryGroups.map((group, i) => (
+                <div key={i} className="flex flex-col gap-6">
+                  {group.title && (
+                    <h3 className="text-xl font-bold uppercase tracking-widest text-white/80 border-b border-white/10 pb-4">
+                      {group.title}
+                    </h3>
+                  )}
+                  {group.images.length > 0 ? (
+                    <div className="flex flex-col gap-6">
+                      {group.images.map((src, j) => (
+                        <div key={j} className="w-full rounded-[1.5rem] overflow-hidden border border-white/8 shadow-[0_0_40px_rgba(0,0,0,0.5)] bg-[#050505] relative">
+                          <img
+                            src={src}
+                            alt={`${group.title} image ${j + 1}`}
+                            loading="lazy"
+                            className="w-full h-auto object-cover"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="p-8 border border-dashed border-white/20 rounded-2xl flex items-center justify-center text-white/30 text-sm italic font-sans">
+                      Images for {group.title} will be added soon.
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Fallback Uncategorized Image Gallery */}
+          {project.gallery && project.gallery.length > 0 && (!project.galleryGroups || project.galleryGroups.length === 0) && (
             <div className="flex flex-col gap-6 mt-8">
               {project.gallery.map((src, i) => (
                 <div
                   key={i}
-                  className="w-full rounded-[2rem] overflow-hidden border border-white/8 shadow-[0_0_40px_rgba(0,0,0,0.5)] bg-[#050505] relative aspect-video"
+                  className="w-full rounded-[1.5rem] overflow-hidden border border-white/8 shadow-[0_0_40px_rgba(0,0,0,0.5)] bg-[#050505] relative"
                 >
-                  <Image
+                  <img
                     src={src}
                     alt={`${project.title} — detail image ${i + 1}`}
-                    fill
                     loading="lazy"
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 66vw"
+                    className="w-full h-auto object-cover"
                   />
                 </div>
               ))}
@@ -135,10 +166,10 @@ export function ProjectPageClient({ project }: { project: Project }) {
           transition={{ duration: 0.7, delay: 0.5 }}
         >
           {[
+            { label: "Client", value: project.client || "Confidential" },
             { label: "Role", value: "Visual Designer" },
             { label: "Deliverables", value: project.tags.join(", ") },
             { label: "Year", value: project.year ?? "2024" },
-            { label: "Status", value: "Completed" },
           ].map((item, i) => (
             <div key={i} className="p-6 border-b border-white/8 last:border-0">
               <h3 className="text-white/40 text-xs font-sans uppercase tracking-[0.2em] mb-2">
@@ -149,6 +180,30 @@ export function ProjectPageClient({ project }: { project: Project }) {
               </p>
             </div>
           ))}
+
+          {/* Social / Web Links */}
+          {(project.websiteUrl || project.instagramHandle || project.facebookUrl) && (
+            <div className="p-6 border-b border-white/8 flex flex-col gap-3">
+              <h3 className="text-white/40 text-xs font-sans uppercase tracking-[0.2em] mb-1">
+                Client Links
+              </h3>
+              {project.websiteUrl && (
+                <a href={project.websiteUrl} target="_blank" rel="noreferrer" className="text-[var(--color-teal-accent)] text-sm font-bold uppercase tracking-widest hover:underline">
+                  Visit Website ↗
+                </a>
+              )}
+              {project.instagramHandle && (
+                <a href={`https://instagram.com/${project.instagramHandle.replace('@', '')}`} target="_blank" rel="noreferrer" className="text-white text-sm font-bold uppercase tracking-widest hover:text-[var(--color-teal-accent)] transition-colors">
+                  IG: {project.instagramHandle}
+                </a>
+              )}
+              {project.facebookUrl && (
+                <a href={project.facebookUrl} target="_blank" rel="noreferrer" className="text-white text-sm font-bold uppercase tracking-widest hover:text-[var(--color-teal-accent)] transition-colors">
+                  Facebook ↗
+                </a>
+              )}
+            </div>
+          )}
 
           <div className="p-6">
             <Link

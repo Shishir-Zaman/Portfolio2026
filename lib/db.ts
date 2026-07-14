@@ -1,11 +1,21 @@
 import { Redis } from "@upstash/redis";
-import { Category, Project, PricingPackage, PROJECTS, PROJECT_CATEGORIES, PRICING_PACKAGES } from "../app/data/content";
+import { 
+  Category, Project, PricingPackage, NavLink, Social,
+  PROJECTS, PROJECT_CATEGORIES, PRICING_PACKAGES, NAV_LINKS, PERSONAL_INFO
+} from "../app/data/content";
 
-// Define the exact types for the CMS
+// ─── CMS Types ────────────────────────────────────────────────
 export type CMSCategory = Category;
 export type CMSProject = Project;
 export type CMSPricingPackage = PricingPackage;
 
+export type SiteSettings = {
+  navLinks: NavLink[];
+  socials: Social[];
+  featuredProjectIds: string[];
+};
+
+// ─── Redis Client ─────────────────────────────────────────────
 const getRedisClient = () => {
   if (!process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN) {
     if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
@@ -26,6 +36,7 @@ const getRedisClient = () => {
 
 const redis = getRedisClient();
 
+// ─── Categories ───────────────────────────────────────────────
 export async function getCategories(): Promise<CMSCategory[]> {
   if (!redis) return PROJECT_CATEGORIES;
   const categories = await redis.get<CMSCategory[]>("portfolio:categories");
@@ -37,6 +48,7 @@ export async function saveCategories(categories: CMSCategory[]): Promise<void> {
   await redis.set("portfolio:categories", categories);
 }
 
+// ─── Projects ─────────────────────────────────────────────────
 export async function getProjects(): Promise<CMSProject[]> {
   if (!redis) return PROJECTS;
   const projects = await redis.get<CMSProject[]>("portfolio:projects");
@@ -48,6 +60,7 @@ export async function saveProjects(projects: CMSProject[]): Promise<void> {
   await redis.set("portfolio:projects", projects);
 }
 
+// ─── Pricing ──────────────────────────────────────────────────
 export async function getPricingPackages(): Promise<CMSPricingPackage[]> {
   if (!redis) return PRICING_PACKAGES;
   const packages = await redis.get<CMSPricingPackage[]>("portfolio:pricing");
@@ -57,4 +70,28 @@ export async function getPricingPackages(): Promise<CMSPricingPackage[]> {
 export async function savePricingPackages(packages: CMSPricingPackage[]): Promise<void> {
   if (!redis) throw new Error("Redis not configured");
   await redis.set("portfolio:pricing", packages);
+}
+
+// ─── Site Settings (nav links, socials, featured project IDs) ──
+const DEFAULT_SETTINGS: SiteSettings = {
+  navLinks: NAV_LINKS,
+  socials: PERSONAL_INFO.socials as Social[],
+  featuredProjectIds: PROJECTS.filter(p => p.isFeatured).map(p => p.id),
+};
+
+export async function getSiteSettings(): Promise<SiteSettings> {
+  if (!redis) return DEFAULT_SETTINGS;
+  const settings = await redis.get<SiteSettings>("portfolio:site-settings");
+  if (!settings) return DEFAULT_SETTINGS;
+  // Merge with defaults so any new fields added in code still appear
+  return {
+    navLinks: settings.navLinks ?? DEFAULT_SETTINGS.navLinks,
+    socials: settings.socials ?? DEFAULT_SETTINGS.socials,
+    featuredProjectIds: settings.featuredProjectIds ?? DEFAULT_SETTINGS.featuredProjectIds,
+  };
+}
+
+export async function saveSiteSettings(settings: SiteSettings): Promise<void> {
+  if (!redis) throw new Error("Redis not configured");
+  await redis.set("portfolio:site-settings", settings);
 }
