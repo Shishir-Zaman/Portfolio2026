@@ -103,5 +103,5 @@ Open [http://localhost:3000](http://localhost:3000) to view the application.
 ---
 
 <div align="center">
-  <p><i>Designed and Engineered for Shishir Zaman.</i></p>
+  <p><i>Designed and Engineered by Shishir Zaman.</i></p>
 </div>
