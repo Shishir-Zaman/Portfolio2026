@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Check, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { PricingPackage, Project } from "../data/content";
+import { PricingPackage, Project } from "@/data/content";
 
 export default function PricingClientUI({ packages, projects }: { packages: PricingPackage[], projects?: Project[] }) {
   // Animation variants

@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { PERSONAL_INFO } from "../data/content";
+import { PERSONAL_INFO } from "@/data/content";
 
 export const metadata = {
   title: `Pricing & Packages | ${PERSONAL_INFO.name}`,

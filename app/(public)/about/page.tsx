@@ -3,8 +3,8 @@
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { PERSONAL_INFO } from "../data/content";
-import PageBackground from "../components/PageBackground";
+import { PERSONAL_INFO } from "@/data/content";
+import PageBackground from "@/components/PageBackground";
 
 const PROFESSION_LIST = [
   "Brand Identity Designer",

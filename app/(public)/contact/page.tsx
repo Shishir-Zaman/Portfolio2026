@@ -3,8 +3,8 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, MapPin, Phone, ArrowRight, ChevronDown } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
-import { PERSONAL_INFO } from "../data/content";
-import PageBackground from "../components/PageBackground";
+import { PERSONAL_INFO } from "@/data/content";
+import PageBackground from "@/components/PageBackground";
 
 export default function ContactPage() {
   // Removed manual form submit - using Formspree natively in the form action

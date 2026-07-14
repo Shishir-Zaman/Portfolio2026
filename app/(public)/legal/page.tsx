@@ -1,5 +1,5 @@
 import Link from "next/link";
-import PageBackground from "../components/PageBackground";
+import PageBackground from "@/components/PageBackground";
 
 export default function LegalPage() {
   return (

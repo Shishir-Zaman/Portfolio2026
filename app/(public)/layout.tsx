@@ -1,7 +1,7 @@
-import CustomCursor from "../components/CustomCursor";
-import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
-import Footer from "../components/Footer";
+import CustomCursor from "@/components/CustomCursor";
+import Navbar from "@/components/Navbar";
+import Sidebar from "@/components/Sidebar";
+import Footer from "@/components/Footer";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export default function PublicLayout({

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { PROJECTS } from "../../data/content";
+import { PROJECTS } from "@/data/content";
 import { ProjectPageClient } from "./ProjectPageClient";
 
 const BASE_URL = "https://shishirzaman.vercel.app";

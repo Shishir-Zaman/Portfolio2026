@@ -4,8 +4,8 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { PROJECTS, PROJECT_CATEGORIES } from "../data/content";
-import PageBackground from "../components/PageBackground";
+import { PROJECTS, PROJECT_CATEGORIES } from "@/data/content";
+import PageBackground from "@/components/PageBackground";
 
 
 export default function ProjectsPage() {

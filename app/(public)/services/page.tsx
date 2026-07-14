@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { SERVICES } from "../data/content";
-import PageBackground from "../components/PageBackground";
+import { SERVICES } from "@/data/content";
+import PageBackground from "@/components/PageBackground";
 
 const ICONS: Record<string, React.ReactNode> = {
   brand: (

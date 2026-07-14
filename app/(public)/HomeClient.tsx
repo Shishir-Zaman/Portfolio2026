@@ -3,8 +3,8 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import CanvasBackground from "./components/CanvasBackground";
-import { SERVICES, PERSONAL_INFO } from "./data/content";
+import CanvasBackground from "@/components/CanvasBackground";
+import { SERVICES, PERSONAL_INFO } from "@/data/content";
 import { CMSCategory, CMSProject } from "../../lib/db";
 
 const ROLES = [

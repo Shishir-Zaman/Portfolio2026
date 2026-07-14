@@ -1,6 +1,6 @@
-import { getPricingPackages, getProjects } from "../../lib/db";
+import { getPricingPackages, getProjects } from "@/lib/db";
 import PricingClientUI from "./PricingClientUI";
-import PageBackground from "../components/PageBackground";
+import PageBackground from "@/components/PageBackground";
 
 // This page uses ISR. It builds once, and when the admin updates pricing,
 // revalidatePath('/pricing') will clear the cache and regenerate this page.
