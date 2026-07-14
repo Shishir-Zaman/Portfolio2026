@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Logo from "./Logo";
 import { ThemeToggle } from "./ThemeToggle";
 import { SiteSettings } from "../../lib/db";
@@ -30,11 +30,11 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
   }, [isMenuOpen]);
 
   return (
-    <>
+    <React.Fragment>
       <motion.header
         className="fixed top-0 left-0 right-0 z-[60]"
       >
-        {/* ── DESKTOP NAVBAR (Expanded) ────────────────────── */}
+        {/* --- DESKTOP NAVBAR --- */}
         <div className="hidden md:flex max-w-[1560px] mx-auto items-center h-[100px] px-8 lg:px-16 xl:px-20 pt-6">
           {/* Column 1: Logo - Takes equal space to balance CTA */}
           <div className="flex-1 flex items-center">
@@ -82,7 +82,7 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
           </div>
         </div>
 
-        {/* ── MOBILE NAVBAR (Larger pill) ─────────── */}
+        {/* --- MOBILE NAVBAR --- */}
         <div className="md:hidden flex justify-center pt-5 px-4 pointer-events-none">
           <div className="pointer-events-auto flex items-center justify-between w-full max-w-[440px] h-[68px] px-6 bg-[#080808]/90 backdrop-blur-2xl border border-white/10 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.6)]">
             <Link href="/" className="text-white hover:text-[var(--color-teal-accent)] transition-colors" onClick={() => setIsMenuOpen(false)}>
@@ -109,7 +109,7 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
         </div>
       </motion.header>
 
-      {/* ── MOBILE MENU OVERLAY ──────────────────────────── */}
+      {/* --- MOBILE MENU OVERLAY --- */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -179,6 +179,6 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </React.Fragment>
   );
 }
