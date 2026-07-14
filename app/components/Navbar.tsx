@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { useState, useEffect } from "react";
-import { useState, useEffect } from "react";
 import Logo from "./Logo";
 import { ThemeToggle } from "./ThemeToggle";
 import { SiteSettings } from "../../lib/db";
@@ -97,14 +96,15 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
             <div className="flex items-center gap-4">
               <ThemeToggle />
               <button
-              aria-label="Toggle menu"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="flex flex-col items-end gap-[6px] w-10 h-10 justify-center relative z-[70] cursor-pointer"
-            >
-              <span className={`h-[2px] bg-white rounded-full transition-all duration-300 ${isMenuOpen ? "w-7 rotate-45 translate-y-[8px]" : "w-5"}`} />
-              <span className={`h-[2px] bg-white rounded-full transition-all duration-300 ${isMenuOpen ? "w-0 opacity-0" : "w-7"}`} />
-              <span className={`h-[2px] bg-white rounded-full transition-all duration-300 ${isMenuOpen ? "w-7 -rotate-45 -translate-y-[8px]" : "w-4"}`} />
-            </button>
+                aria-label="Toggle menu"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="flex flex-col items-end gap-[6px] w-10 h-10 justify-center relative z-[70] cursor-pointer"
+              >
+                <span className={`h-[2px] bg-white rounded-full transition-all duration-300 ${isMenuOpen ? "w-7 rotate-45 translate-y-[8px]" : "w-5"}`} />
+                <span className={`h-[2px] bg-white rounded-full transition-all duration-300 ${isMenuOpen ? "w-0 opacity-0" : "w-7"}`} />
+                <span className={`h-[2px] bg-white rounded-full transition-all duration-300 ${isMenuOpen ? "w-7 -rotate-45 -translate-y-[8px]" : "w-4"}`} />
+              </button>
+            </div>
           </div>
         </div>
       </motion.header>
