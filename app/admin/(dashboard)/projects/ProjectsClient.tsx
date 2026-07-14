@@ -95,6 +95,41 @@ export default function ProjectsClient({ availableCategories }: { availableCateg
     updateTempProject({ tags: newTags });
   };
 
+  // ── Gallery Groups Helpers ──
+  const addGalleryGroup = () => {
+    if (!tempProject) return;
+    const newGroups = [...(tempProject.galleryGroups || []), { title: "New Section", images: [] }];
+    updateTempProject({ galleryGroups: newGroups });
+  };
+
+  const updateGalleryGroupTitle = (index: number, title: string) => {
+    if (!tempProject || !tempProject.galleryGroups) return;
+    const newGroups = [...tempProject.galleryGroups];
+    newGroups[index].title = title;
+    updateTempProject({ galleryGroups: newGroups });
+  };
+
+  const removeGalleryGroup = (index: number) => {
+    if (!tempProject || !tempProject.galleryGroups) return;
+    const newGroups = [...tempProject.galleryGroups];
+    newGroups.splice(index, 1);
+    updateTempProject({ galleryGroups: newGroups });
+  };
+
+  const addImageToGroup = (groupIndex: number, url: string) => {
+    if (!tempProject || !tempProject.galleryGroups) return;
+    const newGroups = [...tempProject.galleryGroups];
+    newGroups[groupIndex].images.push(url);
+    updateTempProject({ galleryGroups: newGroups });
+  };
+
+  const removeImageFromGroup = (groupIndex: number, imageIndex: number) => {
+    if (!tempProject || !tempProject.galleryGroups) return;
+    const newGroups = [...tempProject.galleryGroups];
+    newGroups[groupIndex].images.splice(imageIndex, 1);
+    updateTempProject({ galleryGroups: newGroups });
+  };
+
   const openEditor = (project: CMSProject) => {
     setTempProject({ ...project });
     setEditingId(project.id);
@@ -219,6 +254,29 @@ export default function ProjectsClient({ availableCategories }: { availableCateg
                 <textarea rows={4} value={tempProject.description || ""} onChange={(e) => updateTempProject({ description: e.target.value })} className="bg-black/40 border border-white/10 rounded-xl px-4 py-3 focus:border-[var(--color-teal-accent)] outline-none resize-none" />
               </div>
 
+              {/* Case Study Details */}
+              <div className="border-t border-white/10 pt-8 flex flex-col gap-6">
+                <h3 className="text-lg font-bold uppercase tracking-widest text-white/70">Client & Case Study Details</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="flex flex-col gap-2">
+                    <label className="text-xs text-white/40 uppercase tracking-widest">Client Name</label>
+                    <input type="text" value={tempProject.client || ""} onChange={(e) => updateTempProject({ client: e.target.value })} className="bg-black/40 border border-white/10 rounded-xl px-4 py-3 focus:border-[var(--color-teal-accent)] outline-none" />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label className="text-xs text-white/40 uppercase tracking-widest">Website URL</label>
+                    <input type="text" value={tempProject.websiteUrl || ""} onChange={(e) => updateTempProject({ websiteUrl: e.target.value })} className="bg-black/40 border border-white/10 rounded-xl px-4 py-3 focus:border-[var(--color-teal-accent)] outline-none" />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label className="text-xs text-white/40 uppercase tracking-widest">Instagram Handle (@)</label>
+                    <input type="text" value={tempProject.instagramHandle || ""} onChange={(e) => updateTempProject({ instagramHandle: e.target.value })} className="bg-black/40 border border-white/10 rounded-xl px-4 py-3 focus:border-[var(--color-teal-accent)] outline-none" />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label className="text-xs text-white/40 uppercase tracking-widest">Facebook URL</label>
+                    <input type="text" value={tempProject.facebookUrl || ""} onChange={(e) => updateTempProject({ facebookUrl: e.target.value })} className="bg-black/40 border border-white/10 rounded-xl px-4 py-3 focus:border-[var(--color-teal-accent)] outline-none" />
+                  </div>
+                </div>
+              </div>
+
               <div className="border-t border-white/10 pt-8 flex flex-col gap-6">
                  <h3 className="text-lg font-bold uppercase tracking-widest text-white/70">Media</h3>
                  
@@ -251,12 +309,61 @@ export default function ProjectsClient({ availableCategories }: { availableCateg
                    </div>
                    
                    <CloudinaryUpload 
-                      label="Add to Gallery" 
+                      label="Add to Default Gallery" 
                       value=""
                       onChange={(url) => {
                          updateTempProject({ gallery: [...(tempProject.gallery || []), url] });
                       }} 
                    />
+                 </div>
+
+                 {/* Gallery Groups */}
+                 <div className="flex flex-col gap-4 mt-4 border-t border-white/10 pt-6">
+                    <div className="flex justify-between items-center">
+                      <label className="text-xs text-white/40 uppercase tracking-widest">Structured Gallery Sections</label>
+                      <button onClick={addGalleryGroup} className="flex items-center gap-1 px-3 py-1 bg-white/10 hover:bg-white/20 rounded-lg text-xs uppercase tracking-wider transition-colors">
+                        <Plus size={14} /> Add Section
+                      </button>
+                    </div>
+
+                    {tempProject.galleryGroups?.map((group, groupIndex) => (
+                      <div key={groupIndex} className="bg-white/5 p-4 rounded-xl border border-white/10 flex flex-col gap-4">
+                        <div className="flex gap-4 items-start">
+                          <div className="flex-1 flex flex-col gap-2">
+                            <label className="text-[10px] text-white/40 uppercase tracking-widest">Section Title</label>
+                            <input 
+                              type="text" 
+                              value={group.title} 
+                              onChange={(e) => updateGalleryGroupTitle(groupIndex, e.target.value)} 
+                              className="bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-sm focus:border-[var(--color-teal-accent)] outline-none" 
+                            />
+                          </div>
+                          <button onClick={() => removeGalleryGroup(groupIndex)} className="p-2 bg-red-500/20 text-red-400 hover:bg-red-500 hover:text-white rounded-lg mt-6 transition-colors">
+                            <Trash2 size={16} />
+                          </button>
+                        </div>
+
+                        <div className="flex flex-col gap-2 mt-2">
+                          <div className="columns-2 md:columns-3 gap-4 mb-2 space-y-4">
+                            {group.images.map((img, i) => (
+                               <div key={i} className="relative rounded-xl overflow-hidden group border border-white/10 break-inside-avoid">
+                                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                                  <img src={img} alt="gallery" className="w-full h-auto object-cover" />
+                                  <button onClick={() => removeImageFromGroup(groupIndex, i)} className="absolute top-2 right-2 p-1.5 bg-red-500 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                                     <X size={16} />
+                                  </button>
+                               </div>
+                            ))}
+                          </div>
+                          
+                          <CloudinaryUpload 
+                            label="Add Image to Section" 
+                            value=""
+                            onChange={(url) => addImageToGroup(groupIndex, url)} 
+                          />
+                        </div>
+                      </div>
+                    ))}
                  </div>
               </div>
             </div>
