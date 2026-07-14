@@ -21,6 +21,7 @@
     "react-dom": "19.2.4",
     "tailwind-merge": "^3.6.0",
     "vanta": "^0.5.24",
+    "@formspree/react": "^2.5.1",
     "cloudinary": "^2.5.1",
     "next-auth": "5.0.0-beta.20",
     "bcryptjs": "^2.4.3",

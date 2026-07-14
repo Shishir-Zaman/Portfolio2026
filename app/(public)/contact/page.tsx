@@ -3,11 +3,12 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, MapPin, Phone, ArrowRight, ChevronDown } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
+import { useForm, ValidationError } from "@formspree/react";
 import { PERSONAL_INFO } from "@/data/content";
 import PageBackground from "@/components/PageBackground";
 
 export default function ContactPage() {
-  // Removed manual form submit - using Formspree natively in the form action
+  const [state, handleSubmit] = useForm('mvzeovdz');
 
   return (
     <div className="flex flex-col pt-10 pb-20 relative">
@@ -103,37 +104,53 @@ export default function ContactPage() {
           transition={{ duration: 0.8, delay: 0.2 }}
           id="contact-form"
         >
-          {/* NOTE: To make this form work, create a free account at formspree.io and replace YOUR_FORM_ID with the one they give you */}
-          <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" className="glass p-8 md:p-12 rounded-[2.5rem] flex flex-col gap-6">
-            <h3 className="text-2xl font-bold mb-4 uppercase tracking-wide">Book an Appointment</h3>
-            
-            <div className="flex flex-col gap-2">
-              <label htmlFor="name" className="text-sm text-white/60 uppercase tracking-widest font-sans ml-2">Name</label>
-              <input type="text" id="name" name="name" autoComplete="name" className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 text-white placeholder:text-white/20 focus:outline-none focus:border-[var(--color-teal-accent)]/50 focus:bg-white/5 transition-all duration-300 font-sans" placeholder="Your name" />
+          {state.succeeded ? (
+            <div className="glass p-8 md:p-12 rounded-[2.5rem] flex flex-col items-center justify-center gap-6 text-center h-full min-h-[400px]">
+              <div className="w-20 h-20 rounded-full bg-[var(--color-teal-accent)]/20 flex items-center justify-center text-[var(--color-teal-accent)] mb-2 shadow-[0_0_30px_rgba(0,245,255,0.2)]">
+                <Mail size={40} />
+              </div>
+              <h3 className="text-3xl font-syncopate font-bold uppercase tracking-wide text-white">Message Sent!</h3>
+              <p className="text-white/60 font-sans max-w-md leading-relaxed">
+                Thank you for reaching out. I've received your message and will get back to you within 24 hours.
+              </p>
             </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="glass p-8 md:p-12 rounded-[2.5rem] flex flex-col gap-6">
+              <h3 className="text-2xl font-bold mb-4 uppercase tracking-wide">Book an Appointment</h3>
+              
+              <div className="flex flex-col gap-2">
+                <label htmlFor="name" className="text-sm text-white/60 uppercase tracking-widest font-sans ml-2">Name</label>
+                <input type="text" id="name" name="name" autoComplete="name" required className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 text-white placeholder:text-white/20 focus:outline-none focus:border-[var(--color-teal-accent)]/50 focus:bg-white/5 transition-all duration-300 font-sans" placeholder="Your name" />
+                <ValidationError prefix="Name" field="name" errors={state.errors} className="text-red-400 text-xs ml-2 font-sans" />
+              </div>
 
-            <div className="flex flex-col gap-2">
-              <label htmlFor="email" className="text-sm text-white/60 uppercase tracking-widest font-sans ml-2">Email</label>
-              <input type="email" id="email" name="email" autoComplete="email" className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 text-white placeholder:text-white/20 focus:outline-none focus:border-[var(--color-teal-accent)]/50 focus:bg-white/5 transition-all duration-300 font-sans" placeholder="you@example.com" />
-            </div>
+              <div className="flex flex-col gap-2">
+                <label htmlFor="email" className="text-sm text-white/60 uppercase tracking-widest font-sans ml-2">Email</label>
+                <input type="email" id="email" name="email" autoComplete="email" required className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 text-white placeholder:text-white/20 focus:outline-none focus:border-[var(--color-teal-accent)]/50 focus:bg-white/5 transition-all duration-300 font-sans" placeholder="you@example.com" />
+                <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red-400 text-xs ml-2 font-sans" />
+              </div>
 
-            <div className="flex flex-col gap-2 relative z-20">
-              <label htmlFor="service" className="text-sm text-white/60 uppercase tracking-widest font-sans ml-2">Service needed</label>
-              <CustomDropdown />
-            </div>
+              <div className="flex flex-col gap-2 relative z-20">
+                <label htmlFor="service" className="text-sm text-white/60 uppercase tracking-widest font-sans ml-2">Service needed</label>
+                <CustomDropdown />
+                <ValidationError prefix="Service" field="service" errors={state.errors} className="text-red-400 text-xs ml-2 font-sans" />
+              </div>
 
-            <div className="flex flex-col gap-2">
-              <label htmlFor="message" className="text-sm text-white/60 uppercase tracking-widest font-sans ml-2">Message</label>
-              <textarea id="message" name="message" rows={5} className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 text-white placeholder:text-white/20 focus:outline-none focus:border-[var(--color-teal-accent)]/50 focus:bg-white/5 transition-all duration-300 font-sans resize-none" placeholder="Tell me about your project..." />
-            </div>
+              <div className="flex flex-col gap-2">
+                <label htmlFor="message" className="text-sm text-white/60 uppercase tracking-widest font-sans ml-2">Message</label>
+                <textarea id="message" name="message" rows={5} required className="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-4 text-white placeholder:text-white/20 focus:outline-none focus:border-[var(--color-teal-accent)]/50 focus:bg-white/5 transition-all duration-300 font-sans resize-none" placeholder="Tell me about your project..." />
+                <ValidationError prefix="Message" field="message" errors={state.errors} className="text-red-400 text-xs ml-2 font-sans" />
+              </div>
 
-            <button 
-              type="submit"
-              className="mt-4 flex items-center justify-center gap-3 w-full bg-[var(--color-teal-accent)] text-black font-bold uppercase tracking-widest py-5 rounded-2xl hover:bg-[var(--color-teal-accent)]/90 transition-all duration-300 shadow-[0_0_15px_rgba(0,245,255,0.3)] hover:shadow-[0_0_25px_rgba(0,245,255,0.5)] group"
-            >
-              Send Message <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-            </button>
-          </form>
+              <button 
+                type="submit"
+                disabled={state.submitting}
+                className="mt-4 flex items-center justify-center gap-3 w-full bg-[var(--color-teal-accent)] text-black font-bold uppercase tracking-widest py-5 rounded-2xl hover:bg-[var(--color-teal-accent)]/90 transition-all duration-300 shadow-[0_0_15px_rgba(0,245,255,0.3)] hover:shadow-[0_0_25px_rgba(0,245,255,0.5)] group disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {state.submitting ? "Sending..." : "Send Message"} {!state.submitting && <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />}
+              </button>
+            </form>
+          )}
         </motion.div>
       </div>
     </div>
