@@ -46,7 +46,7 @@ function RoleRotator() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -20, opacity: 0 }}
           transition={{ duration: 0.5, ease: [0.21, 0.47, 0.32, 0.98] }}
-          className="absolute left-1/2 -translate-x-1/2 bottom-0 text-transparent bg-clip-text bg-gradient-to-r from-white to-[var(--color-teal-accent)] font-bold text-center w-full text-[12px] md:text-sm"
+          className="absolute left-1/2 -translate-x-1/2 bottom-0 text-transparent bg-clip-text bg-gradient-to-r from-foreground to-[var(--color-teal-accent)] font-bold text-center w-full text-[12px] md:text-sm"
         >
           {ROLES[index]}
         </motion.span>
@@ -78,12 +78,12 @@ export default function HomeClient({ categories, projects, siteSettings }: { cat
           }}
         >
           <CanvasBackground />
-          <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-black to-transparent pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-black to-transparent pointer-events-none" />
+          <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-background to-transparent pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-background to-transparent pointer-events-none" />
         </div>
 
         <motion.div
-          className="text-white/50 font-medium uppercase tracking-[0.32em] text-[13px] md:text-sm mb-5 font-sans h-[24px] flex justify-center items-center"
+          className="text-foreground-muted font-medium uppercase tracking-[0.32em] text-[13px] md:text-sm mb-5 font-sans h-[24px] flex justify-center items-center"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
@@ -98,17 +98,17 @@ export default function HomeClient({ categories, projects, siteSettings }: { cat
           transition={{ duration: 0.8, delay: 0.08 }}
         >
           {/* Blurred Glow layer */}
-          <h1 className="absolute inset-0 text-[13.5vw] md:text-[7rem] lg:text-[9rem] leading-none font-light uppercase tracking-tighter text-transparent bg-clip-text bg-[linear-gradient(to_right,white,white,var(--color-teal-accent),white,white)] bg-[length:250%_auto] animate-gradient-wave blur-[20px] md:blur-[25px] opacity-60 z-0">
+          <h1 className="absolute inset-0 text-[13.5vw] md:text-[7rem] lg:text-[9rem] leading-none font-light uppercase tracking-tighter text-transparent bg-clip-text bg-[linear-gradient(to_right,var(--color-foreground),var(--color-foreground),var(--color-teal-accent),var(--color-foreground),var(--color-foreground))] bg-[length:250%_auto] animate-gradient-wave blur-[20px] md:blur-[25px] opacity-60 z-0">
             Shishir Zaman
           </h1>
           {/* Foreground text */}
-          <h1 className="relative z-10 text-[13.5vw] md:text-[7rem] lg:text-[9rem] leading-none font-light uppercase tracking-tighter text-transparent bg-clip-text bg-[linear-gradient(to_right,white,white,var(--color-teal-accent),white,white)] bg-[length:250%_auto] animate-gradient-wave animate-fire-breath">
+          <h1 className="relative z-10 text-[13.5vw] md:text-[7rem] lg:text-[9rem] leading-none font-light uppercase tracking-tighter text-transparent bg-clip-text bg-[linear-gradient(to_right,var(--color-foreground),var(--color-foreground),var(--color-teal-accent),var(--color-foreground),var(--color-foreground))] bg-[length:250%_auto] animate-gradient-wave animate-fire-breath">
             Shishir Zaman
           </h1>
         </motion.div>
 
         <motion.p
-          className="text-white/60 max-w-xl text-sm md:text-[17px] font-sans mb-10 leading-relaxed px-4 md:px-0"
+          className="text-foreground-muted max-w-xl text-sm md:text-[17px] font-sans mb-10 leading-relaxed px-4 md:px-0"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.18 }}
@@ -124,13 +124,13 @@ export default function HomeClient({ categories, projects, siteSettings }: { cat
         >
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[var(--color-teal-accent)] text-black text-sm font-semibold hover:bg-[var(--color-teal-accent)]/90 hover:shadow-[0_0_28px_rgba(0,245,255,0.5)] transition-all duration-400"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[var(--color-teal-accent)] text-background text-sm font-semibold hover:bg-[var(--color-teal-accent)]/90 hover:shadow-[0_0_28px_rgba(0,245,255,0.5)] transition-all duration-400"
           >
             Start a project
           </Link>
           <Link
             href="/projects"
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-white/[0.05] backdrop-blur-xl border border-white/[0.12] text-white/70 text-sm font-medium hover:bg-white/[0.10] hover:text-white transition-all duration-300"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-glass-bg backdrop-blur-xl border border-glass-border text-foreground-muted text-sm font-medium hover:bg-glass-bg hover:text-foreground transition-all duration-300"
           >
             View work
           </Link>
@@ -143,9 +143,9 @@ export default function HomeClient({ categories, projects, siteSettings }: { cat
           animate={{ opacity: 0.4 }}
           transition={{ delay: 1.2, duration: 1 }}
         >
-          <div className="w-5 h-8 border border-white/30 rounded-full flex justify-center p-1">
+          <div className="w-5 h-8 border border-border-subtle rounded-full flex justify-center p-1">
             <motion.div
-              className="w-1 h-1 bg-white rounded-full"
+              className="w-1 h-1 bg-foreground rounded-full"
               animate={{ y: [0, 10, 0], opacity: [1, 0.4, 1] }}
               transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
             />
@@ -157,12 +157,12 @@ export default function HomeClient({ categories, projects, siteSettings }: { cat
       <section>
         <div className="flex items-end justify-between mb-10">
           <div>
-            <p className="text-white/30 text-xs uppercase tracking-[0.25em] font-sans mb-2">Selected Work</p>
-            <h2 className="text-3xl md:text-4xl font-syncopate font-bold uppercase tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-[var(--color-teal-accent)] drop-shadow-[0_0_10px_rgba(0,245,255,0.1)]">Featured Projects</h2>
+            <p className="text-foreground-faint text-xs uppercase tracking-[0.25em] font-sans mb-2">Selected Work</p>
+            <h2 className="text-3xl md:text-4xl font-syncopate font-bold uppercase tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-[var(--color-teal-accent)] drop-shadow-[0_0_10px_rgba(0,245,255,0.1)]">Featured Projects</h2>
           </div>
           <Link
             href="/projects"
-            className="hidden md:inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-medium uppercase tracking-widest bg-white/[0.04] border border-white/[0.1] text-white/50 hover:text-white hover:bg-white/[0.09] transition-all duration-300"
+            className="hidden md:inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-medium uppercase tracking-widest bg-glass-bg border border-border-color text-foreground-muted hover:text-foreground hover:bg-glass-bg transition-all duration-300"
           >
             All projects →
           </Link>
@@ -181,8 +181,8 @@ export default function HomeClient({ categories, projects, siteSettings }: { cat
         <section>
           <div className="flex items-end justify-between mb-10">
             <div>
-              <p className="text-white/30 text-xs uppercase tracking-[0.25em] font-sans mb-2">Capabilities</p>
-              <h2 className="text-3xl md:text-4xl font-syncopate font-bold uppercase tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-[var(--color-teal-accent)] drop-shadow-[0_0_10px_rgba(0,245,255,0.1)]">Categories</h2>
+              <p className="text-foreground-faint text-xs uppercase tracking-[0.25em] font-sans mb-2">Capabilities</p>
+              <h2 className="text-3xl md:text-4xl font-syncopate font-bold uppercase tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-[var(--color-teal-accent)] drop-shadow-[0_0_10px_rgba(0,245,255,0.1)]">Categories</h2>
             </div>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -196,9 +196,9 @@ export default function HomeClient({ categories, projects, siteSettings }: { cat
               >
                 <Link
                   href={`/projects?category=${encodeURIComponent(cat.name)}`}
-                  className="flex items-center justify-center text-center p-6 md:p-8 rounded-2xl glass border border-white/10 hover:border-[var(--color-teal-accent)]/50 hover:bg-white/5 transition-all duration-300 group"
+                  className="flex items-center justify-center text-center p-6 md:p-8 rounded-2xl glass border border-border-color hover:border-[var(--color-teal-accent)]/50 hover:bg-foreground-faint transition-all duration-300 group"
                 >
-                  <span className="font-syncopate font-bold text-sm md:text-base uppercase tracking-wider text-white/70 group-hover:text-white transition-colors">
+                  <span className="font-syncopate font-bold text-sm md:text-base uppercase tracking-wider text-foreground-muted group-hover:text-foreground transition-colors">
                     {cat.name}
                   </span>
                 </Link>
@@ -212,12 +212,12 @@ export default function HomeClient({ categories, projects, siteSettings }: { cat
       <section>
         <div className="flex items-end justify-between mb-10">
           <div>
-            <p className="text-white/30 text-xs uppercase tracking-[0.25em] font-sans mb-2">What I do</p>
-            <h2 className="text-3xl md:text-4xl font-syncopate font-bold uppercase tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-[var(--color-teal-accent)] drop-shadow-[0_0_10px_rgba(0,245,255,0.1)]">My Services</h2>
+            <p className="text-foreground-faint text-xs uppercase tracking-[0.25em] font-sans mb-2">What I do</p>
+            <h2 className="text-3xl md:text-4xl font-syncopate font-bold uppercase tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-[var(--color-teal-accent)] drop-shadow-[0_0_10px_rgba(0,245,255,0.1)]">My Services</h2>
           </div>
           <Link
             href="/services"
-            className="hidden md:inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-medium uppercase tracking-widest bg-white/[0.04] border border-white/[0.1] text-white/50 hover:text-white hover:bg-white/[0.09] transition-all duration-300"
+            className="hidden md:inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-medium uppercase tracking-widest bg-glass-bg border border-border-color text-foreground-muted hover:text-foreground hover:bg-glass-bg transition-all duration-300"
           >
             Learn more →
           </Link>
@@ -248,7 +248,7 @@ function FeaturedCard({ project, index }: { project: CMSProject, index: number }
         <div className="absolute -inset-3 bg-[var(--color-teal-accent)]/0 group-hover:bg-[var(--color-teal-accent)]/8 rounded-[2.5rem] blur-2xl transition-all duration-700 pointer-events-none -z-10" />
 
         {/* Card image area */}
-        <div className="relative rounded-2xl overflow-hidden aspect-video border border-white/[0.07] shadow-[0_4px_40px_rgba(0,0,0,0.6)]">
+        <div className="relative rounded-2xl overflow-hidden aspect-video border border-border-color shadow-[0_4px_40px_rgba(0,0,0,0.6)]">
 
           {/* Image */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -261,14 +261,14 @@ function FeaturedCard({ project, index }: { project: CMSProject, index: number }
           />
 
           {/* Inner black gradient — ensures text is always legible */}
-          <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black via-black/40 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-background via-background to-transparent" />
           
           {/* Card content overlay */}
           <div className="absolute inset-0 flex flex-col justify-end p-4 md:p-5 z-10">
-            <h3 className="text-base md:text-xl font-syncopate font-bold uppercase tracking-tight text-white mb-0.5 md:mb-1 leading-tight">
+            <h3 className="text-base md:text-xl font-syncopate font-bold uppercase tracking-tight text-foreground mb-0.5 md:mb-1 leading-tight">
               {project.title}
             </h3>
-            <span className="text-white/60 text-[10px] md:text-xs font-sans uppercase tracking-widest">{project.tags[0]}</span>
+            <span className="text-foreground-muted text-[10px] md:text-xs font-sans uppercase tracking-widest">{project.tags[0]}</span>
           </div>
         </div>
 
@@ -277,7 +277,7 @@ function FeaturedCard({ project, index }: { project: CMSProject, index: number }
           {project.tags.slice(0, 3).map((tag) => (
             <span
               key={tag}
-              className="px-3 py-1 text-[10px] md:text-[11px] font-medium rounded-md bg-white/[0.03] border border-white/[0.06] text-white/50 uppercase tracking-widest font-sans"
+              className="px-3 py-1 text-[10px] md:text-[11px] font-medium rounded-md bg-foreground-faint border border-border-color text-foreground-muted uppercase tracking-widest font-sans"
             >
               {tag}
             </span>
@@ -285,7 +285,7 @@ function FeaturedCard({ project, index }: { project: CMSProject, index: number }
         </div>
 
         {/* Description */}
-        <p className="mt-3 px-1 text-white/40 text-[13px] font-sans leading-relaxed line-clamp-2">
+        <p className="mt-3 px-1 text-foreground-muted text-[13px] font-sans leading-relaxed line-clamp-2">
           {project.description}
         </p>
       </motion.article>
@@ -310,17 +310,17 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[0], index: n
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.12 }}
-      className="group relative p-7 rounded-2xl bg-white/[0.025] backdrop-blur-md border border-white/[0.07] hover:border-white/[0.14] hover:bg-white/[0.04] transition-all duration-400 overflow-hidden"
+      className="group relative p-7 rounded-2xl bg-glass-bg backdrop-blur-md border border-border-color hover:border-glass-border hover:bg-glass-bg transition-all duration-400 overflow-hidden"
     >
       {/* Teal glow on hover */}
       <div className="absolute inset-0 bg-[var(--color-teal-accent)]/0 group-hover:bg-[var(--color-teal-accent)]/[0.04] transition-colors duration-500 rounded-2xl pointer-events-none" />
 
       <div className="relative z-10">
-        <div className="w-9 h-9 rounded-xl bg-white/[0.06] border border-white/[0.08] flex items-center justify-center mb-5 text-[var(--color-teal-accent)] group-hover:shadow-[0_0_16px_rgba(0,245,255,0.2)] transition-shadow duration-400">
+        <div className="w-9 h-9 rounded-xl bg-foreground-faint border border-border-color flex items-center justify-center mb-5 text-[var(--color-teal-accent)] group-hover:shadow-[0_0_16px_rgba(0,245,255,0.2)] transition-shadow duration-400">
           {SERVICE_ICONS[service.icon]}
         </div>
-        <h3 className="text-[15px] font-bold uppercase tracking-wide text-white mb-2">{service.title}</h3>
-        <p className="text-white/40 text-[13px] leading-relaxed font-sans">{service.shortDesc}</p>
+        <h3 className="text-[15px] font-bold uppercase tracking-wide text-foreground mb-2">{service.title}</h3>
+        <p className="text-foreground-muted text-[13px] leading-relaxed font-sans">{service.shortDesc}</p>
       </div>
     </motion.div>
   );

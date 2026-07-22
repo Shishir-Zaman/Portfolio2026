@@ -70,9 +70,9 @@ export default function AboutPage() {
       {/* ── PAGE HEADER ──────────────────────────────────────── */}
       <motion.div variants={stagger} initial="hidden" animate="show" className="relative flex flex-col items-center text-center">
         <motion.div variants={fadeUp} className="mb-4">
-          <p className="text-white/50 tracking-widest text-sm uppercase">Home &gt; <span className="text-[var(--color-teal-accent)]">About</span></p>
+          <p className="text-foreground-muted tracking-widest text-sm uppercase">Home &gt; <span className="text-[var(--color-teal-accent)]">About</span></p>
         </motion.div>
-        <motion.h1 variants={fadeUp} className="text-5xl md:text-7xl font-syncopate font-bold uppercase tracking-tight leading-none bg-clip-text text-transparent bg-gradient-to-r from-white to-[var(--color-teal-accent)] drop-shadow-[0_0_15px_rgba(0,245,255,0.15)] text-center">
+        <motion.h1 variants={fadeUp} className="text-5xl md:text-7xl font-syncopate font-bold uppercase tracking-tight leading-none bg-clip-text text-transparent bg-gradient-to-r from-foreground to-[var(--color-teal-accent)] drop-shadow-[0_0_15px_rgba(0,245,255,0.15)] text-center">
           About Me
         </motion.h1>
         {isMounted && (
@@ -80,7 +80,7 @@ export default function AboutPage() {
             <ProfessionLoop className="text-[var(--color-teal-accent)] font-medium uppercase tracking-[0.25em] text-xs md:text-sm font-sans" />
           </motion.div>
         )}
-        <motion.div variants={fadeUp} className="h-px w-[120px] bg-gradient-to-r from-transparent via-white/20 to-transparent mt-8" />
+        <motion.div variants={fadeUp} className="h-px w-[120px] bg-gradient-to-r from-transparent via-foreground-muted to-transparent mt-8" />
       </motion.div>
 
       {/* ── MAIN GRID ────────────────────────────────────────── */}
@@ -98,9 +98,9 @@ export default function AboutPage() {
           <div className="absolute -inset-10 bg-[var(--color-teal-accent)]/[0.08] blur-3xl rounded-full -z-10 pointer-events-none" />
 
           {/* Photo card */}
-          <div className="relative aspect-[3/4] rounded-3xl overflow-hidden border border-white/[0.07] shadow-[0_0_80px_rgba(0,0,0,0.9),inset_0_1px_0_rgba(255,255,255,0.04)]">
+          <div className="relative aspect-[3/4] rounded-3xl overflow-hidden border border-border-color shadow-[0_0_80px_rgba(0,0,0,0.9),inset_0_1px_0_rgba(255,255,255,0.04)]">
             {/* Specular sheen */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white/[0.04] via-transparent to-transparent z-10 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-br from-foreground/[0.04] via-transparent to-transparent z-10 pointer-events-none" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={PERSONAL_INFO.profileImage}
@@ -109,15 +109,15 @@ export default function AboutPage() {
               decoding="async"
               className="w-full h-full object-cover scale-[1.02] grayscale-[0.25] hover:grayscale-0 transition-all duration-700"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent z-10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-background to-transparent z-10" />
             {/* Name badge inside photo */}
             <div className="absolute bottom-7 left-7 z-20">
               {isMounted ? (
-                <ProfessionLoop className="text-white/35 text-[11px] uppercase tracking-[0.3em] font-sans" />
+                <ProfessionLoop className="text-foreground/35 text-[11px] uppercase tracking-[0.3em] font-sans" />
               ) : (
-                <span className="text-white/35 text-[11px] uppercase tracking-[0.3em] font-sans block h-[1.2em]">Visual & Brand Designer</span>
+                <span className="text-foreground/35 text-[11px] uppercase tracking-[0.3em] font-sans block h-[1.2em]">Visual & Brand Designer</span>
               )}
-              <h2 className="text-2xl font-bold text-white">{PERSONAL_INFO.name}</h2>
+              <h2 className="text-2xl font-bold text-foreground">{PERSONAL_INFO.name}</h2>
             </div>
           </div>
 
@@ -130,14 +130,14 @@ export default function AboutPage() {
             transition={{ delay: 0.4, duration: 0.7 }}
           >
             <div
-              className="backdrop-blur-2xl rounded-2xl p-5 border border-white/[0.10] shadow-[0_8px_48px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.06)]"
+              className="backdrop-blur-2xl rounded-2xl p-5 border border-glass-border shadow-[0_8px_48px_rgba(0,0,0,0.7),inset_0_1px_0_rgba(255,255,255,0.06)]"
               style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(0,0,0,0.7) 100%)" }}
             >
               <div className="flex gap-7">
                 {PERSONAL_INFO.stats.slice(0, 2).map((s) => (
                   <div key={s.label} className="flex flex-col items-center gap-1">
-                    <span className="text-[26px] font-bold text-white leading-none">{s.number}</span>
-                    <span className="text-white/35 text-[10px] uppercase tracking-widest font-sans text-center max-w-[64px] leading-tight">{s.label}</span>
+                    <span className="text-[26px] font-bold text-foreground leading-none">{s.number}</span>
+                    <span className="text-foreground/35 text-[10px] uppercase tracking-widest font-sans text-center max-w-[64px] leading-tight">{s.label}</span>
                   </div>
                 ))}
               </div>
@@ -152,11 +152,11 @@ export default function AboutPage() {
             viewport={{ once: true }}
             transition={{ delay: 0.3, duration: 0.6 }}
           >
-            <div className="backdrop-blur-xl rounded-xl px-4 py-2 border border-white/[0.09] shadow-[0_4px_20px_rgba(0,0,0,0.5)] flex items-center gap-2"
+            <div className="backdrop-blur-xl rounded-xl px-4 py-2 border border-glass-border shadow-[0_4px_20px_rgba(0,0,0,0.5)] flex items-center gap-2"
               style={{ background: "rgba(0,0,0,0.65)" }}
             >
               <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-teal-accent)] shadow-[0_0_8px_rgba(0,245,255,0.9)] animate-pulse" />
-              <span className="text-white/55 text-[11px] uppercase tracking-[0.2em] font-sans">{PERSONAL_INFO.location}</span>
+              <span className="text-foreground-muted text-[11px] uppercase tracking-[0.2em] font-sans">{PERSONAL_INFO.location}</span>
             </div>
           </motion.div>
         </motion.div>
@@ -170,8 +170,8 @@ export default function AboutPage() {
           transition={{ duration: 0.9, delay: 0.15, ease: [0.21, 0.47, 0.32, 0.98] }}
         >
           {/* Pull quote */}
-          <blockquote className="relative p-8 rounded-2xl border border-white/[0.12] bg-[#0a0a0a]/50 backdrop-blur-3xl shadow-[0_4px_30px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.1)] mb-4">
-            <motion.p variants={fadeUp} className="text-xl md:text-[28px] font-light text-white/90 max-w-4xl leading-relaxed mt-4 mb-4 flex flex-wrap items-baseline gap-x-3">
+          <blockquote className="relative p-8 rounded-2xl border border-glass-border bg-background-secondary/50 backdrop-blur-3xl shadow-[0_4px_30px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.1)] mb-4">
+            <motion.p variants={fadeUp} className="text-xl md:text-[28px] font-light text-foreground max-w-4xl leading-relaxed mt-4 mb-4 flex flex-wrap items-baseline gap-x-3">
               I craft designs that don&apos;t just look beautiful, but strategically elevate your brand. I am a
               {isMounted && (
                 <ProfessionLoop className="text-[var(--color-teal-accent)] font-medium font-syncopate tracking-wider drop-shadow-[0_0_10px_rgba(0,245,255,0.4)]" />
@@ -182,13 +182,13 @@ export default function AboutPage() {
           {/* Bio */}
           <div className="flex flex-col gap-5">
             {PERSONAL_INFO.bioExtended.map((p, i) => (
-              <p key={i} className="text-white/50 font-sans text-[15px] leading-[1.9]">{p}</p>
+              <p key={i} className="text-foreground-muted font-sans text-[15px] leading-[1.9]">{p}</p>
             ))}
           </div>
 
           {/* Tools glass panel */}
           <div
-            className="relative rounded-3xl border border-white/[0.12] overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.1)]"
+            className="relative rounded-3xl border border-glass-border overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.1)]"
             style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(0,245,255,0.02) 100%)" }}
           >
             <div className="absolute inset-0 backdrop-blur-3xl pointer-events-none" />
@@ -198,7 +198,7 @@ export default function AboutPage() {
                 {PERSONAL_INFO.tools.map((tool) => (
                   <span
                     key={tool}
-                    className="px-5 py-2.5 rounded-full text-[13px] font-medium tracking-wide bg-black/40 border border-white/[0.1] text-white/80 hover:border-[var(--color-teal-accent)] hover:text-[var(--color-teal-accent)] hover:bg-[var(--color-teal-accent)]/10 hover:shadow-[0_0_20px_rgba(0,245,255,0.2)] transition-all duration-400 ease-out"
+                    className="px-5 py-2.5 rounded-full text-[13px] font-medium tracking-wide bg-input-bg border border-border-color text-foreground hover:border-[var(--color-teal-accent)] hover:text-[var(--color-teal-accent)] hover:bg-[var(--color-teal-accent)]/10 hover:shadow-[0_0_20px_rgba(0,245,255,0.2)] transition-all duration-400 ease-out"
                   >
                     {tool}
                   </span>
@@ -211,14 +211,14 @@ export default function AboutPage() {
           <div className="flex flex-wrap items-center gap-3 pt-1">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[var(--color-teal-accent)] text-black text-sm font-bold hover:bg-[var(--color-teal-accent)]/90 hover:shadow-[0_0_30px_rgba(0,245,255,0.45)] transition-all duration-300"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[var(--color-teal-accent)] text-background text-sm font-bold hover:bg-[var(--color-teal-accent)]/90 hover:shadow-[0_0_30px_rgba(0,245,255,0.45)] transition-all duration-300"
             >
               Let&apos;s work together
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
             </Link>
             <a
               href={PERSONAL_INFO.resumeUrl}
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-sm font-medium bg-white/[0.04] backdrop-blur-md border border-white/[0.09] text-white/55 hover:text-white hover:border-white/20 hover:bg-white/[0.08] transition-all duration-300"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-sm font-medium bg-glass-bg backdrop-blur-md border border-glass-border text-foreground-muted hover:text-foreground hover:border-border-subtle hover:bg-foreground-faint transition-all duration-300"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" /></svg>
               Resume
@@ -236,14 +236,14 @@ export default function AboutPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: i * 0.08 }}
-            className="group relative rounded-3xl overflow-hidden border border-white/[0.12] p-8 flex flex-col items-center text-center shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.1)]"
+            className="group relative rounded-3xl overflow-hidden border border-glass-border p-8 flex flex-col items-center text-center shadow-[0_8px_32px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.1)]"
             style={{ background: "linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.7) 100%)" }}
           >
             <div className="absolute inset-0 backdrop-blur-3xl pointer-events-none" />
             <div className="absolute inset-0 bg-[var(--color-teal-accent)]/0 group-hover:bg-[var(--color-teal-accent)]/[0.06] transition-colors duration-500 pointer-events-none" />
             <div className="relative z-10">
-              <span className="text-5xl md:text-6xl font-syncopate font-bold text-white block mb-3 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)] group-hover:text-[var(--color-teal-accent)] group-hover:drop-shadow-[0_0_20px_rgba(0,245,255,0.4)] transition-all duration-500">{stat.number}</span>
-              <span className="text-white/50 text-[12px] uppercase tracking-[0.3em] font-sans font-medium">{stat.label}</span>
+              <span className="text-5xl md:text-6xl font-syncopate font-bold text-foreground block mb-3 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)] group-hover:text-[var(--color-teal-accent)] group-hover:drop-shadow-[0_0_20px_rgba(0,245,255,0.4)] transition-all duration-500">{stat.number}</span>
+              <span className="text-foreground-muted text-[12px] uppercase tracking-[0.3em] font-sans font-medium">{stat.label}</span>
             </div>
           </motion.div>
         ))}
@@ -258,9 +258,9 @@ export default function AboutPage() {
         transition={{ duration: 0.7 }}
       >
         <div className="flex items-center gap-4">
-          <div className="w-10 h-px bg-white/12" />
-          <span className="text-white/20 text-[11px] uppercase tracking-[0.35em] font-sans">Find me on</span>
-          <div className="w-10 h-px bg-white/12" />
+          <div className="w-10 h-px bg-foreground/12" />
+          <span className="text-foreground/20 text-[11px] uppercase tracking-[0.35em] font-sans">Find me on</span>
+          <div className="w-10 h-px bg-foreground/12" />
         </div>
         <div className="flex flex-wrap justify-center gap-4">
           {PERSONAL_INFO.socials.map((social) => (
@@ -269,7 +269,7 @@ export default function AboutPage() {
               href={social.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 rounded-full text-[13px] font-medium bg-[#0a0a0a]/50 backdrop-blur-2xl border border-white/[0.12] text-white/50 hover:text-black hover:border-white hover:bg-white/80 hover:shadow-[0_0_30px_rgba(255,255,255,0.6)] capitalize font-sans transition-all duration-400 ease-out hover:scale-105 flex items-center gap-2 group"
+              className="px-6 py-3 rounded-full text-[13px] font-medium bg-background-secondary/50 backdrop-blur-2xl border border-glass-border text-foreground-muted hover:text-background hover:border-foreground hover:bg-foreground/80 hover:shadow-[0_0_30px_rgba(255,255,255,0.6)] capitalize font-sans transition-all duration-400 ease-out hover:scale-105 flex items-center gap-2 group"
             >
               <div
                 className="w-4 h-4 flex items-center justify-center opacity-40 group-hover:opacity-100 transition-opacity"

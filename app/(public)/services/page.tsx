@@ -51,9 +51,9 @@ export default function ServicesPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <p className="text-white/50 tracking-widest text-sm mb-4 uppercase">Home &gt; <span className="text-[var(--color-teal-accent)]">Services</span></p>
-        <h1 className="text-5xl md:text-7xl font-syncopate font-bold uppercase mb-8 bg-clip-text text-transparent bg-gradient-to-r from-white to-[var(--color-teal-accent)] drop-shadow-[0_0_15px_rgba(0,245,255,0.15)]">My Services</h1>
-        <p className="text-xl text-white/60 max-w-2xl mx-auto font-sans">
+        <p className="text-foreground-muted tracking-widest text-sm mb-4 uppercase">Home &gt; <span className="text-[var(--color-teal-accent)]">Services</span></p>
+        <h1 className="text-5xl md:text-7xl font-syncopate font-bold uppercase mb-8 bg-clip-text text-transparent bg-gradient-to-r from-foreground to-[var(--color-teal-accent)] drop-shadow-[0_0_15px_rgba(0,245,255,0.15)]">My Services</h1>
+        <p className="text-xl text-foreground-muted max-w-2xl mx-auto font-sans">
           From a first logo to a complete brand system — I cover every visual touchpoint your brand needs to show up consistently and confidently.
         </p>
       </motion.div>
@@ -72,7 +72,7 @@ function ServiceRow({ service, index }: { service: typeof SERVICES[0], index: nu
   
   return (
     <motion.div 
-      className={`glass rounded-[3rem] p-8 md:p-16 flex flex-col ${isEven ? "md:flex-row" : "md:flex-row-reverse"} gap-12 items-center group hover:border-white/15 transition-colors duration-500`}
+      className={`glass rounded-[3rem] p-8 md:p-16 flex flex-col ${isEven ? "md:flex-row" : "md:flex-row-reverse"} gap-12 items-center group hover:border-foreground/15 transition-colors duration-500`}
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
@@ -84,17 +84,17 @@ function ServiceRow({ service, index }: { service: typeof SERVICES[0], index: nu
         </div>
         <h2 className="text-3xl md:text-4xl font-bold mb-4">{service.title}</h2>
         <p className="text-xs uppercase tracking-widest text-[var(--color-teal-accent)] mb-6 font-sans">{service.shortDesc}</p>
-        <p className="text-lg text-white/70 leading-relaxed font-sans">
+        <p className="text-lg text-foreground-muted leading-relaxed font-sans">
           {service.description}
         </p>
       </div>
       
       <div className="w-full md:w-1/2">
-        <div className="bg-black/40 border border-white/5 rounded-[2rem] p-8">
-          <h3 className="text-xl font-bold mb-6 text-white/90">What&apos;s included:</h3>
+        <div className="bg-input-bg border border-foreground/5 rounded-[2rem] p-8">
+          <h3 className="text-xl font-bold mb-6 text-foreground">What&apos;s included:</h3>
           <ul className="flex flex-col gap-4">
             {service.features.map((feature, i) => (
-              <li key={i} className="flex items-center gap-4 text-white/70 font-sans">
+              <li key={i} className="flex items-center gap-4 text-foreground-muted font-sans">
                 <div className="w-2 h-2 rounded-full bg-[var(--color-teal-accent)] shadow-[0_0_8px_rgba(0,245,255,0.5)] shrink-0" />
                 {feature}
               </li>

@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { PROJECTS } from "@/data/content";
+import { getProjects } from "@/../lib/db";
 import { ProjectPageClient } from "./ProjectPageClient";
 
-const BASE_URL = "https://shishirzaman.vercel.app";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://shishirzaman.vercel.app";
 
 // ─── Static generation ──────────────────────────────────────
-export function generateStaticParams() {
-  return PROJECTS.map((p) => ({ slug: p.id }));
+export async function generateStaticParams() {
+  const projects = await getProjects();
+  return projects.map((p) => ({ slug: p.id }));
 }
 
 // ─── Per-project metadata ────────────────────────────────────
@@ -17,7 +18,8 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const project = PROJECTS.find((p) => p.id === slug);
+  const projects = await getProjects();
+  const project = projects.find((p) => p.id === slug);
 
   if (!project) {
     return { title: "Project Not Found" };
@@ -64,7 +66,8 @@ export default async function ProjectPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = PROJECTS.find((p) => p.id === slug);
+  const projects = await getProjects();
+  const project = projects.find((p) => p.id === slug);
 
   if (!project) return notFound();
 

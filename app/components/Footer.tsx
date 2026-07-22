@@ -131,7 +131,7 @@ const ScrollToTop = () => {
     <button
       onClick={scrollToTop}
       aria-label="Go to top"
-      className="absolute right-0 bottom-0 md:bottom-2 flex items-center justify-center w-[50px] h-[50px] rounded-full border border-white/20 bg-black/50 hover:bg-white/10 hover:border-white/40 transition-all duration-300 hover:scale-105"
+      className="absolute right-0 bottom-0 md:bottom-2 flex items-center justify-center w-[50px] h-[50px] rounded-full border border-border-subtle bg-background-secondary hover:bg-foreground-faint hover:border-foreground/40 transition-all duration-300 hover:scale-105"
     >
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M18 15l-6-6-6 6"/>
@@ -155,16 +155,16 @@ export default function Footer() {
 
       {/* ── CTA text ────────────────────────────────────────── */}
       <h2 className="text-4xl md:text-[56px] font-syncopate font-bold mb-4 z-10 relative leading-tight tracking-tight uppercase bg-clip-text text-transparent bg-[linear-gradient(to_right,white,rgba(255,255,255,0.7),white)] animate-gradient-wave drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
-        Ready to bring your <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-[var(--color-teal-accent)] drop-shadow-[0_0_20px_rgba(0,245,255,0.4)]">project to life?</span>
+        Ready to bring your <span className="text-transparent bg-clip-text bg-gradient-to-r from-foreground to-[var(--color-teal-accent)] drop-shadow-[0_0_20px_rgba(0,245,255,0.4)]">project to life?</span>
       </h2>
-      <p className="text-[15px] md:text-[17px] text-white/90 font-sans mb-12 z-10 relative max-w-2xl leading-relaxed">
+      <p className="text-[15px] md:text-[17px] text-foreground font-sans mb-12 z-10 relative max-w-2xl leading-relaxed">
         Tell me about your ideas and desires, let's discuss them and work together!
       </p>
 
       <div className="flex flex-col items-center gap-16 relative z-10 w-full">
         <Link
           href="/contact#contact-form"
-          className="inline-flex items-center gap-3 px-10 py-4 rounded-full bg-[#005555]/80 border border-[var(--color-teal-accent)]/80 text-white font-medium text-[15px] hover:bg-[#007777] hover:shadow-[0_0_40px_rgba(0,245,255,0.4)] transition-all duration-400"
+          className="inline-flex items-center gap-3 px-10 py-4 rounded-full bg-[#005555]/80 border border-[var(--color-teal-accent)]/80 text-foreground font-medium text-[15px] hover:bg-[#007777] hover:shadow-[0_0_40px_rgba(0,245,255,0.4)] transition-all duration-400"
         >
           Start a project
         </Link>
@@ -172,8 +172,8 @@ export default function Footer() {
         {/* Bottom row: copyright & scroll to top */}
         <div className="w-full max-w-[1560px] mx-auto mt-16 relative flex justify-center items-center">
           <div className="flex flex-col items-center gap-2">
-            <p className="text-white text-[15px] font-sans font-medium">© 2026 Shishir Zaman.</p>
-            <Link href="/legal" className="text-white text-[14px] font-sans hover:text-[var(--color-teal-accent)] transition-colors">Legal Notices</Link>
+            <p className="text-foreground text-[15px] font-sans font-medium">© 2026 Shishir Zaman.</p>
+            <Link href="/legal" className="text-foreground text-[14px] font-sans hover:text-[var(--color-teal-accent)] transition-colors">Legal Notices</Link>
           </div>
           
           <ScrollToTop />

@@ -2,6 +2,18 @@
 
 @theme {
   --color-teal-accent: #00f5ff;
+  --color-background: var(--background);
+  --color-background-secondary: var(--background-secondary);
+  --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-foreground-faint: var(--foreground-faint);
+  --color-border-color: var(--border-color);
+  --color-border-subtle: var(--border-subtle);
+  --color-glass-bg: var(--glass-bg);
+  --color-glass-border: var(--glass-border);
+  --color-nav-bg: var(--nav-bg);
+  --color-card-bg: var(--card-bg);
+  --color-input-bg: var(--input-bg);
 }
 
 /* ─────────────────────────────────────────────────────────────
