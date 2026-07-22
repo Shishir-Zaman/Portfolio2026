@@ -27,7 +27,7 @@ class RedisClient {
     try {
       const res = await fetch(`${this.url}/get/${key}`, {
         headers: { Authorization: `Bearer ${this.token}` },
-        cache: 'no-store'
+        next: { tags: ['cms'] }
       });
       if (!res.ok) return null;
       const json = await res.json();
