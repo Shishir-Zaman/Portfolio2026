@@ -89,8 +89,8 @@ export default function AboutSettingsClient({ initialData }: { initialData: Pers
             )}
             <div className="flex-1 w-full">
               <CloudinaryUpload 
-                onUploadSuccess={(url) => updateField("profileImage", url)}
-                onUploadError={(err) => alert(err)}
+                value={data.profileImage || ""}
+                onChange={(url) => updateField("profileImage", url)}
               />
               <input 
                 type="text" 
