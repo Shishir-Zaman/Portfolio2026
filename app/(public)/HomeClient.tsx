@@ -168,7 +168,7 @@ export default function HomeClient({ categories, projects, siteSettings }: { cat
           </Link>
         </div>
 
-        {/* 2Ã 2 grid */}
+        {/* 2ï¿½ 2 grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 w-full">
           {featuredProjects.map((project, index) => (
             <FeaturedCard key={project.id} project={project} index={index} />

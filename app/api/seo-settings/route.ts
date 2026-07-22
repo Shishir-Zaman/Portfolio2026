@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { auth } from "../../../../auth";
-import { getSeoSettings, saveSeoSettings } from "../../../../lib/db";
+import { auth } from "../../../auth";
+import { getSeoSettings, saveSeoSettings } from "../../../lib/db";
 import { revalidatePath } from "next/cache";
 
 export const dynamic = "force-dynamic";
