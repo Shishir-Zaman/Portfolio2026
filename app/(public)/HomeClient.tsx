@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import CanvasBackground from "@/components/CanvasBackground";
 import { SERVICES, PERSONAL_INFO } from "@/data/content";
-import { CMSCategory, CMSProject, SiteSettings } from "../../lib/db";
+import { CMSCategory, CMSProject, SiteSettings, HomePageSettings, PersonalInfoType, CMSService } from "../../lib/db";
 
 const ROLES = [
   "Visual Designer",
@@ -55,7 +55,21 @@ function RoleRotator() {
   );
 }
 
-export default function HomeClient({ categories, projects, siteSettings }: { categories: CMSCategory[], projects: CMSProject[], siteSettings: SiteSettings }) {
+export default function HomeClient({ 
+  categories, 
+  projects, 
+  siteSettings,
+  homeSettings,
+  personalInfo,
+  services
+}: { 
+  categories: CMSCategory[];
+  projects: CMSProject[];
+  siteSettings: SiteSettings;
+  homeSettings: HomePageSettings;
+  personalInfo: PersonalInfoType;
+  services: CMSService[];
+}) {
   // Use the admin-controlled featured project IDs
   const featuredProjects = siteSettings.featuredProjectIds
     .map(id => projects.find(p => p.id === id))
@@ -113,7 +127,7 @@ export default function HomeClient({ categories, projects, siteSettings }: { cat
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.18 }}
         >
-          {PERSONAL_INFO.bio}
+          {homeSettings.heroSubheadline || personalInfo.bio}
         </motion.p>
 
         <motion.div
@@ -224,8 +238,8 @@ export default function HomeClient({ categories, projects, siteSettings }: { cat
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {SERVICES.slice(0, 3).map((service, index) => (
-            <ServiceCard key={service.id} service={service} index={index} />
+          {services.slice(0, 3).map((service, index) => (
+            <ServiceCard key={service.id} service={service as any} index={index} />
           ))}
         </div>
       </section>

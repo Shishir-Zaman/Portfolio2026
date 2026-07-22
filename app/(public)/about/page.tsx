@@ -3,8 +3,8 @@
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { PERSONAL_INFO } from "@/data/content";
 import PageBackground from "@/components/PageBackground";
+import { getPersonalInfo, PersonalInfoType } from "../../lib/db";
 
 const PROFESSION_LIST = [
   "Brand Identity Designer",
@@ -49,7 +49,13 @@ const fadeUp: Variants = {
 };
 const stagger: Variants = { show: { transition: { staggerChildren: 0.1 } } };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const personalInfo = await getPersonalInfo();
+  
+  return <AboutClient personalInfo={personalInfo} />;
+}
+
+function AboutClient({ personalInfo }: { personalInfo: PersonalInfoType }) {
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => setIsMounted(true), []);
 
@@ -103,8 +109,8 @@ export default function AboutPage() {
             <div className="absolute inset-0 bg-gradient-to-br from-foreground/[0.04] via-transparent to-transparent z-10 pointer-events-none" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={PERSONAL_INFO.profileImage}
-              alt={`${PERSONAL_INFO.name} | ${PERSONAL_INFO.title}`}
+              src={personalInfo.profileImage}
+              alt={`${personalInfo.name} | ${personalInfo.title}`}
               loading="lazy"
               decoding="async"
               className="w-full h-full object-cover scale-[1.02] grayscale-[0.25] hover:grayscale-0 transition-all duration-700"
@@ -117,7 +123,7 @@ export default function AboutPage() {
               ) : (
                 <span className="text-foreground/35 text-[11px] uppercase tracking-[0.3em] font-sans block h-[1.2em]">Visual & Brand Designer</span>
               )}
-              <h2 className="text-2xl font-bold text-foreground">{PERSONAL_INFO.name}</h2>
+              <h2 className="text-2xl font-bold text-foreground">{personalInfo.name}</h2>
             </div>
           </div>
 
@@ -134,7 +140,7 @@ export default function AboutPage() {
               style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(0,0,0,0.7) 100%)" }}
             >
               <div className="flex gap-7">
-                {PERSONAL_INFO.stats.slice(0, 2).map((s) => (
+                {personalInfo.stats.slice(0, 2).map((s) => (
                   <div key={s.label} className="flex flex-col items-center gap-1">
                     <span className="text-[26px] font-bold text-foreground leading-none">{s.number}</span>
                     <span className="text-foreground/35 text-[10px] uppercase tracking-widest font-sans text-center max-w-[64px] leading-tight">{s.label}</span>
@@ -156,7 +162,7 @@ export default function AboutPage() {
               style={{ background: "rgba(0,0,0,0.65)" }}
             >
               <div className="w-1.5 h-1.5 rounded-full bg-[var(--color-teal-accent)] shadow-[0_0_8px_rgba(0,245,255,0.9)] animate-pulse" />
-              <span className="text-foreground-muted text-[11px] uppercase tracking-[0.2em] font-sans">{PERSONAL_INFO.location}</span>
+              <span className="text-foreground-muted text-[11px] uppercase tracking-[0.2em] font-sans">{personalInfo.location}</span>
             </div>
           </motion.div>
         </motion.div>
@@ -181,7 +187,7 @@ export default function AboutPage() {
 
           {/* Bio */}
           <div className="flex flex-col gap-5">
-            {PERSONAL_INFO.bioExtended.map((p, i) => (
+            {personalInfo.bioExtended.map((p, i) => (
               <p key={i} className="text-foreground-muted font-sans text-[15px] leading-[1.9]">{p}</p>
             ))}
           </div>
@@ -195,7 +201,7 @@ export default function AboutPage() {
             <div className="relative z-10 p-8">
               <p className="text-[var(--color-teal-accent)] text-[11px] uppercase tracking-[0.3em] font-sans mb-5 font-bold">Tools & Software</p>
               <div className="flex flex-wrap gap-3">
-                {PERSONAL_INFO.tools.map((tool) => (
+                {personalInfo.tools.map((tool) => (
                   <span
                     key={tool}
                     className="px-5 py-2.5 rounded-full text-[13px] font-medium tracking-wide bg-input-bg border border-border-color text-foreground hover:border-[var(--color-teal-accent)] hover:text-[var(--color-teal-accent)] hover:bg-[var(--color-teal-accent)]/10 hover:shadow-[0_0_20px_rgba(0,245,255,0.2)] transition-all duration-400 ease-out"
@@ -217,7 +223,7 @@ export default function AboutPage() {
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
             </Link>
             <a
-              href={PERSONAL_INFO.resumeUrl}
+              href={personalInfo.resumeUrl}
               className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-sm font-medium bg-glass-bg backdrop-blur-md border border-glass-border text-foreground-muted hover:text-foreground hover:border-border-subtle hover:bg-foreground-faint transition-all duration-300"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" /></svg>
@@ -229,7 +235,7 @@ export default function AboutPage() {
 
       {/* ── STATS ROW ────────────────────────────────────────── */}
       <section className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {PERSONAL_INFO.stats.map((stat, i) => (
+        {personalInfo.stats.map((stat, i) => (
           <motion.div
             key={stat.label}
             initial={{ opacity: 0, y: 24 }}
@@ -263,7 +269,7 @@ export default function AboutPage() {
           <div className="w-10 h-px bg-foreground/12" />
         </div>
         <div className="flex flex-wrap justify-center gap-4">
-          {PERSONAL_INFO.socials.map((social) => (
+          {personalInfo.socials.map((social) => (
             <a
               key={social.label}
               href={social.url}

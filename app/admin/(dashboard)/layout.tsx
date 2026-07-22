@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import Link from "next/link";
-import { LayoutDashboard, LogOut, Folder, Image as ImageIcon, Tag, Settings } from "lucide-react";
+import { LayoutDashboard, LogOut, Folder, Image as ImageIcon, Tag, Settings, Home, User, Briefcase } from "lucide-react";
 
 export const metadata = {
   title: "Admin Dashboard | Shishir Zaman",
@@ -18,27 +18,59 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
           </h2>
         </div>
         
-        <nav className="flex-1 px-4 py-6 flex flex-col gap-2">
-          <Link href="/admin" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-white/70 hover:text-white">
-            <LayoutDashboard size={20} />
-            Dashboard
-          </Link>
-          <Link href="/admin/categories" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-white/70 hover:text-white">
-            <Folder size={20} />
-            Categories
-          </Link>
-          <Link href="/admin/projects" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-white/70 hover:text-white">
-            <ImageIcon size={20} />
-            Projects
-          </Link>
-          <Link href="/admin/pricing" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-white/70 hover:text-white">
-            <Tag size={20} />
-            Pricing
-          </Link>
-          <Link href="/admin/settings" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-white/70 hover:text-white">
-            <Settings size={20} />
-            Settings
-          </Link>
+        <nav className="flex-1 px-4 py-6 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          
+          <div className="mb-6 text-xs font-bold tracking-[0.2em] text-white/30 uppercase px-4">Overview</div>
+          <div className="flex flex-col gap-1 mb-6">
+            <Link href="/admin" className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-white/5 transition-colors text-white/70 hover:text-white text-sm">
+              <LayoutDashboard size={18} />
+              Dashboard
+            </Link>
+          </div>
+
+          <div className="mb-6 text-xs font-bold tracking-[0.2em] text-white/30 uppercase px-4">Content</div>
+          <div className="flex flex-col gap-1 mb-6">
+            <Link href="/admin/home" className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-white/5 transition-colors text-white/70 hover:text-white text-sm">
+              <Home size={18} />
+              Home Page
+            </Link>
+            <Link href="/admin/about" className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-white/5 transition-colors text-white/70 hover:text-white text-sm">
+              <User size={18} />
+              About & Contact
+            </Link>
+            <Link href="/admin/services" className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-white/5 transition-colors text-white/70 hover:text-white text-sm">
+              <Briefcase size={18} />
+              Services
+            </Link>
+          </div>
+
+          <div className="mb-6 text-xs font-bold tracking-[0.2em] text-white/30 uppercase px-4">Portfolio</div>
+          <div className="flex flex-col gap-1 mb-6">
+            <Link href="/admin/projects" className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-white/5 transition-colors text-white/70 hover:text-white text-sm">
+              <ImageIcon size={18} />
+              Projects
+            </Link>
+            <Link href="/admin/categories" className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-white/5 transition-colors text-white/70 hover:text-white text-sm">
+              <Folder size={18} />
+              Categories
+            </Link>
+          </div>
+
+          <div className="mb-6 text-xs font-bold tracking-[0.2em] text-white/30 uppercase px-4">Sales</div>
+          <div className="flex flex-col gap-1 mb-6">
+            <Link href="/admin/pricing" className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-white/5 transition-colors text-white/70 hover:text-white text-sm">
+              <Tag size={18} />
+              Pricing
+            </Link>
+          </div>
+
+          <div className="mb-6 text-xs font-bold tracking-[0.2em] text-white/30 uppercase px-4">System</div>
+          <div className="flex flex-col gap-1 mb-6">
+            <Link href="/admin/settings" className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-white/5 transition-colors text-white/70 hover:text-white text-sm">
+              <Settings size={18} />
+              Site Settings & SEO
+            </Link>
+          </div>
         </nav>
 
         <div className="p-4 border-t border-white/10">

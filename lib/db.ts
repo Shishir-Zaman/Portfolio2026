@@ -123,3 +123,74 @@ export async function saveSeoSettings(settings: SeoSettings): Promise<void> {
   if (!redis) throw new Error("Redis not configured");
   await redis.set("portfolio:seo-settings", settings);
 }
+
+// ─── CMS Additions for Full Headless Control ──────────────────
+
+export type Stat = { number: string; label: string; };
+
+export type PersonalInfoType = {
+  name: string;
+  title: string;
+  tagline: string;
+  headline: string;
+  bio: string;
+  bioExtended: string[];
+  location: string;
+  availableWorldwide: boolean;
+  email: string;
+  phone: string;
+  resumeUrl: string;
+  profileImage: string;
+  socials: Social[];
+  stats: Stat[];
+  tools: string[];
+};
+
+export async function getPersonalInfo(): Promise<PersonalInfoType> {
+  if (!redis) return PERSONAL_INFO as PersonalInfoType;
+  const info = await redis.get<PersonalInfoType>("portfolio:personal-info");
+  return info ?? (PERSONAL_INFO as PersonalInfoType);
+}
+
+export async function savePersonalInfo(info: PersonalInfoType): Promise<void> {
+  if (!redis) throw new Error("Redis not configured");
+  await redis.set("portfolio:personal-info", info);
+}
+
+export type CMSService = {
+  id: string;
+  title: string;
+  shortDesc: string;
+  description: string;
+  features: string[];
+  icon: string;
+};
+
+export async function getServices(): Promise<CMSService[]> {
+  if (!redis) return require('../app/data/content').SERVICES;
+  const services = await redis.get<CMSService[]>("portfolio:services");
+  return services && services.length > 0 ? services : require('../app/data/content').SERVICES;
+}
+
+export async function saveServices(services: CMSService[]): Promise<void> {
+  if (!redis) throw new Error("Redis not configured");
+  await redis.set("portfolio:services", services);
+}
+
+export type HomePageSettings = {
+  heroTagline?: string;
+  heroHeadline?: string;
+  heroSubheadline?: string;
+  contactText?: string;
+};
+
+export async function getHomePageSettings(): Promise<HomePageSettings> {
+  if (!redis) return {};
+  const settings = await redis.get<HomePageSettings>("portfolio:home-page");
+  return settings ?? {};
+}
+
+export async function saveHomePageSettings(settings: HomePageSettings): Promise<void> {
+  if (!redis) throw new Error("Redis not configured");
+  await redis.set("portfolio:home-page", settings);
+}

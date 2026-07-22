@@ -86,7 +86,7 @@ export default function PricingClientUI({ packages, projects }: { packages: Pric
                   const projectImages = pkg.exampleProjects 
                     ? pkg.exampleProjects.map(id => projects?.find(p => p.id === id)?.image).filter(Boolean) as string[]
                     : [];
-                  const carouselImages = pkg.exampleImages || projectImages;
+                  const carouselImages = (pkg.exampleImages && pkg.exampleImages.length > 0) ? pkg.exampleImages : projectImages;
 
                   if (carouselImages.length === 0) return null;
 
