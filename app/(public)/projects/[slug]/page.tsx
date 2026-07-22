@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getProjects } from "@/../lib/db";
+import { getProjects } from "@/lib/db";
 import { ProjectPageClient } from "./ProjectPageClient";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://shishirzaman.vercel.app";

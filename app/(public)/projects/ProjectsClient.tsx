@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { CMSProject, CMSCategory } from "@/../lib/db";
+import { CMSProject, CMSCategory } from "@/lib/db";
 import PageBackground from "@/components/PageBackground";
 
 export default function ProjectsClient({ projects, categories }: { projects: CMSProject[], categories: CMSCategory[] }) {

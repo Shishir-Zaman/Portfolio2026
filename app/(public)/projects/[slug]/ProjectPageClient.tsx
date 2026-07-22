@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { CMSProject } from "@/../lib/db";
+import { CMSProject } from "@/lib/db";
 import PageBackground from "@/components/PageBackground";
 
 export function ProjectPageClient({ project }: { project: CMSProject }) {

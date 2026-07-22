@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getProjects, getCategories } from "@/../lib/db";
+import { getProjects, getCategories } from "@/lib/db";
 import ProjectsClient from "./ProjectsClient";
 
 export const metadata: Metadata = {
