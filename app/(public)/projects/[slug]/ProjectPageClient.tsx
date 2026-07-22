@@ -91,12 +91,12 @@ export function ProjectPageClient({ project }: { project: CMSProject }) {
             </p>
           ) : (
             <p className="text-lg text-foreground-muted font-sans leading-relaxed italic">
-              Project description coming soon — add a description field in the admin panel.
+            Project description coming soon. Add a description field in the admin panel.
             </p>
           )}
 
           <p className="text-lg text-foreground font-sans leading-relaxed">
-            Every element of this project was crafted with intention — from
+            Every element of this project was crafted with intention. From
             initial concept to final delivery. I applied a strategic design
             approach rooted in brand clarity, visual consistency, and audience
             resonance.
@@ -145,7 +145,7 @@ export function ProjectPageClient({ project }: { project: CMSProject }) {
                 >
                   <img
                     src={src}
-                    alt={`${project.title} — detail image ${i + 1}`}
+                    alt={`${project.title} detail image ${i + 1}`}
                     loading="lazy"
                     className="w-full h-auto object-cover"
                   />

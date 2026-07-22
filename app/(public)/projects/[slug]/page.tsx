@@ -25,10 +25,10 @@ export async function generateMetadata({
     return { title: "Project Not Found" };
   }
 
-  const title = `${project.title} — ${project.tags[0]} Case Study`;
+  const title = `${project.title} | ${project.tags[0]} Case Study`;
   const description =
     project.description ||
-    `${project.title} — a ${project.tags.join(", ")} project by Shishir Zaman, visual & brand designer based in Dhaka, Bangladesh.`;
+    `${project.title}: a ${project.tags.join(", ")} project by Shishir Zaman, visual and brand designer based in Dhaka, Bangladesh.`;
   const url = `${BASE_URL}/projects/${project.id}`;
 
   return {
@@ -43,7 +43,7 @@ export async function generateMetadata({
           url: project.image,
           width: 1200,
           height: 630,
-          alt: `${project.title} — project by Shishir Zaman`,
+          alt: `${project.title} project by Shishir Zaman`,
         },
       ],
     },
@@ -78,7 +78,7 @@ export default async function ProjectPage({
     name: project.title,
     description:
       project.description ||
-      `${project.title} — a ${project.tags.join(", ")} project.`,
+      `${project.title}: a ${project.tags.join(", ")} project.`,
     image: project.image,
     url: `${BASE_URL}/projects/${project.id}`,
     dateCreated: project.year ?? "2024",

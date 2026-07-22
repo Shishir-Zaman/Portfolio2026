@@ -72,10 +72,10 @@ export const PERSONAL_INFO = {
   title: "Visual & Brand Designer",
   tagline: "GRAPHICS & BRANDING",
   headline: "SHISHIR",
-  bio: "I craft visual identities, packaging designs, and brand stories that resonate. From a brand's first logo to its full visual language — I build presence that commands attention.",
+  bio: "I craft visual identities, packaging designs, and brand stories that resonate. From a brand's first logo to its full visual language, I build presence that commands attention.",
   bioExtended: [
     "I'm a visual and brand identity designer with a deep focus on how brands look, feel, and communicate. My toolkit spans brand identity, packaging, social media design, and motion graphics.",
-    "Every project starts with strategy — understanding your audience, your values, and your position in the market. Then I translate that into visuals that are unmistakably yours.",
+    "Every project starts with strategy. Understanding your audience, your values, and your position in the market. Then I translate that into visuals that are unmistakably yours.",
     "Based in Bangladesh, working with clients worldwide. I bring a global aesthetic sensibility with a sharp eye for detail."
   ],
   location: "Dhaka, Bangladesh",
@@ -129,7 +129,7 @@ export const PROJECTS: Project[] = [
     client: "Zalfii",
     websiteUrl: "https://zalfii.com/",
     instagramHandle: "@zalfi.bd",
-    description: "Complete brand identity system for ZALFII — a premium fragrance company based in Bangladesh. Logo suite, packaging design, stall/event materials, and social media content all crafted to convey luxury and heritage.",
+    description: "Complete brand identity system for ZALFII, a premium fragrance company based in Bangladesh. Logo suite, packaging design, stall/event materials, and social media content all crafted to convey luxury and heritage.",
     year: "2024",
     gallery: [],
     galleryGroups: [
@@ -150,7 +150,7 @@ export const PROJECTS: Project[] = [
     websiteUrl: "https://www.mai-nul.com/",
     instagramHandle: "@mainullifestyle",
     facebookUrl: "https://www.facebook.com/MAINULlifestyle/",
-    description: "Cohesive visual identity and social media design system for MAINUL — a contemporary lifestyle brand. Includes logo design, social media templates, and promotional graphic assets.",
+    description: "Cohesive visual identity and social media design system for MAINUL, a contemporary lifestyle brand. Includes logo design, social media templates, and promotional graphic assets.",
     year: "2024",
     gallery: [],
     galleryGroups: [
@@ -167,7 +167,7 @@ export const PROJECTS: Project[] = [
     image: "https://images.unsplash.com/photo-1636051028886-0059ad17f00e?q=80&w=2560&auto=format&fit=crop",
     isFeatured: false,
     client: "TECH-O / SINEO Agency",
-    description: "Full brand identity system for TECH-O — a custom CRM platform by agency SINEO. Logo suite, color system, typography, and digital usage guidelines crafted from zero to launch.",
+    description: "Full brand identity system for TECH-O, a custom CRM platform by agency SINEO. Logo suite, color system, typography, and digital usage guidelines crafted from zero to launch.",
     year: "2024",
     gallery: [],
     galleryGroups: [
@@ -183,7 +183,7 @@ export const PROJECTS: Project[] = [
     image: "https://images.unsplash.com/photo-1618761714954-0b8cd0026356?q=80&w=2340&auto=format&fit=crop",
     isFeatured: false,
     client: "Bandy",
-    description: "Complete visual campaign for Bandy — a shared accommodation platform. Logo, social media templates, promotional graphics, and a cohesive brand personality crafted in Photoshop and Illustrator.",
+    description: "Complete visual campaign for Bandy, a shared accommodation platform. Logo, social media templates, promotional graphics, and a cohesive brand personality crafted in Photoshop and Illustrator.",
     year: "2024",
     gallery: []
   },
@@ -194,7 +194,7 @@ export const PROJECTS: Project[] = [
     tags: ["Packaging Design", "Brand Identity"],
     image: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=2340&auto=format&fit=crop",
     isFeatured: false,
-    description: "Packaging design for a premium skincare line — structural dieline, print-ready artwork, and unboxing experience. Focus on tactile luxury with minimal visual language.",
+    description: "Packaging design for a premium skincare line. Structural dieline, print-ready artwork, and unboxing experience design. Focus on tactile luxury with minimal visual language.",
     year: "2024",
     gallery: []
   },
@@ -234,7 +234,7 @@ export const SERVICES = [
     id: "brand-identity",
     title: "Brand Identity Design",
     shortDesc: "A brand that looks like itself everywhere.",
-    description: "I build complete brand identity systems — logo design, color palettes, typography, usage guidelines — everything you need to show up consistently and confidently across every touchpoint.",
+    description: "I build complete brand identity systems. Logo design, color palettes, typography, usage guidelines: everything you need to show up consistently and confidently across every touchpoint.",
     features: [
       "Logo Suite (Primary, Secondary, Icon)",
       "Color System & Palette",
@@ -248,7 +248,7 @@ export const SERVICES = [
     id: "packaging-design",
     title: "Packaging Design",
     shortDesc: "The first thing your customer touches.",
-    description: "Packaging that sells before a word is read. I design print-ready artwork for product packaging — from structural dielines to shelf-ready, eye-catching finished files.",
+    description: "Packaging that sells before a word is read. I design print-ready artwork for product packaging, from structural dielines to shelf-ready, eye-catching finished files.",
     features: [
       "Dieline & Structural Layout",
       "Print-Ready Artwork Files",
@@ -262,7 +262,7 @@ export const SERVICES = [
     id: "graphics-design",
     title: "Graphics & Visual Design",
     shortDesc: "Every pixel placed with intention.",
-    description: "From promotional posters to digital banners and editorial layouts — I create striking graphics that stop the scroll and communicate with clarity.",
+    description: "From promotional posters to digital banners and editorial layouts, I create striking graphics that stop the scroll and communicate with clarity.",
     features: [
       "Promotional Posters & Flyers",
       "Digital Banners & Ads",
@@ -276,7 +276,7 @@ export const SERVICES = [
     id: "social-media",
     title: "Social Media Design",
     shortDesc: "Feed-worthy content at scale.",
-    description: "Consistent, on-brand social media graphics that build presence. I design static posts, story templates, highlight covers, and animated reels — all built for your platform.",
+    description: "Consistent, on-brand social media graphics that build presence. I design static posts, story templates, highlight covers, and animated reels. All built for your platform.",
     features: [
       "Post & Story Templates",
       "Highlight Cover Sets",

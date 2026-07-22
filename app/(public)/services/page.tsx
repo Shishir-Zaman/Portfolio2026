@@ -54,7 +54,7 @@ export default function ServicesPage() {
         <p className="text-foreground-muted tracking-widest text-sm mb-4 uppercase">Home &gt; <span className="text-[var(--color-teal-accent)]">Services</span></p>
         <h1 className="text-5xl md:text-7xl font-syncopate font-bold uppercase mb-8 bg-clip-text text-transparent bg-gradient-to-r from-foreground to-[var(--color-teal-accent)] drop-shadow-[0_0_15px_rgba(0,245,255,0.15)]">My Services</h1>
         <p className="text-xl text-foreground-muted max-w-2xl mx-auto font-sans">
-          From a first logo to a complete brand system — I cover every visual touchpoint your brand needs to show up consistently and confidently.
+          From a first logo to a complete brand system, I cover every visual touchpoint your brand needs to show up consistently and confidently.
         </p>
       </motion.div>
 

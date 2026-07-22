@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "Browse the complete portfolio of Shishir Zaman — brand identity systems, logo design, packaging, social media, and motion graphics projects from Dhaka, Bangladesh.",
+    "Browse the complete portfolio of Shishir Zaman. Brand identity systems, logo design, packaging, social media, and motion graphics projects from Dhaka, Bangladesh.",
   openGraph: {
     title: "Projects | Shishir Zaman",
     description:

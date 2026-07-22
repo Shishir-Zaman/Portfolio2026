@@ -95,3 +95,31 @@ export async function saveSiteSettings(settings: SiteSettings): Promise<void> {
   if (!redis) throw new Error("Redis not configured");
   await redis.set("portfolio:site-settings", settings);
 }
+
+// ─── SEO & Tracking Settings ───────────────────────────────────
+export type SeoSettings = {
+  // SEO
+  siteTitle?: string;
+  metaDescription?: string;
+  metaKeywords?: string;
+  canonicalUrl?: string;
+  ogImageUrl?: string;
+  // Tracking
+  gtmId?: string;        // Google Tag Manager ID e.g. GTM-XXXXXXX
+  gaId?: string;         // Google Analytics 4 ID e.g. G-XXXXXXXXXX
+  fbPixelId?: string;    // Facebook Pixel ID
+  customHeadScripts?: string; // Raw HTML injected into <head>
+};
+
+const DEFAULT_SEO_SETTINGS: SeoSettings = {};
+
+export async function getSeoSettings(): Promise<SeoSettings> {
+  if (!redis) return DEFAULT_SEO_SETTINGS;
+  const settings = await redis.get<SeoSettings>("portfolio:seo-settings");
+  return settings ?? DEFAULT_SEO_SETTINGS;
+}
+
+export async function saveSeoSettings(settings: SeoSettings): Promise<void> {
+  if (!redis) throw new Error("Redis not configured");
+  await redis.set("portfolio:seo-settings", settings);
+}

@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import React, { useState, useEffect } from "react";
 import Logo from "./Logo";
-import { ThemeToggle } from "./ThemeToggle";
 import { SiteSettings } from "../../lib/db";
 
 export default function Navbar({ settings }: { settings: SiteSettings }) {
@@ -69,7 +68,6 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
 
           {/* Column 3: CTA - Takes equal space to balance Logo */}
           <div className="flex-1 hidden lg:flex items-center justify-end gap-6">
-            <ThemeToggle />
             <Link
               href="/contact"
               className="inline-flex items-center gap-2 px-7 xl:px-10 py-[14px] xl:py-[16px] rounded-full text-[14px] xl:text-[16px] font-medium tracking-wide bg-foreground-faint backdrop-blur-3xl border border-foreground/[0.2] shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.15)] text-foreground hover:bg-[var(--color-teal-accent)]/[0.15] hover:border-[var(--color-teal-accent)]/50 hover:text-[var(--color-teal-accent)] hover:shadow-[0_0_30px_rgba(0,245,255,0.3),inset_0_1px_0_rgba(0,245,255,0.2)] transition-all duration-400 ease-out hover:scale-105 whitespace-nowrap"
@@ -94,7 +92,6 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
             </span>
 
             <div className="flex items-center gap-4">
-              <ThemeToggle />
               <button
                 aria-label="Toggle menu"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}

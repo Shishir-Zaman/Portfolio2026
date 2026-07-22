@@ -104,7 +104,7 @@ export default function AboutPage() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={PERSONAL_INFO.profileImage}
-              alt={`${PERSONAL_INFO.name} — ${PERSONAL_INFO.title}`}
+              alt={`${PERSONAL_INFO.name} | ${PERSONAL_INFO.title}`}
               loading="lazy"
               decoding="async"
               className="w-full h-full object-cover scale-[1.02] grayscale-[0.25] hover:grayscale-0 transition-all duration-700"

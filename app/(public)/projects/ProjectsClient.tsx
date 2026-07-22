@@ -72,7 +72,7 @@ function ProjectCard({ project, index }: { project: CMSProject, index: number })
         <div className="relative rounded-2xl overflow-hidden border border-border-subtle shadow-[0_4px_40px_var(--color-border-color)]">
           <img
             src={project.image || "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=2340"}
-            alt={`${project.title} — ${project.tags[0]} project by Shishir Zaman`}
+            alt={`${project.title} | ${project.tags[0]} project by Shishir Zaman`}
             className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-[1.04]"
             loading={index === 0 ? "eager" : "lazy"}
           />

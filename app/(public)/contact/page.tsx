@@ -52,7 +52,7 @@ export default function ContactPage() {
             <ContactItem 
               icon={<MapPin className="text-[var(--color-teal-accent)]" size={24} />}
               title="Location"
-              content={`${PERSONAL_INFO.location}${PERSONAL_INFO.availableWorldwide ? " — Available Worldwide" : ""}`}
+              content={`${PERSONAL_INFO.location}${PERSONAL_INFO.availableWorldwide ? " | Available Worldwide" : ""}`}
             />
           </div>
 
