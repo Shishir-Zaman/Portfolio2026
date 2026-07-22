@@ -26,6 +26,9 @@ export async function POST(request: Request) {
     await savePersonalInfo(data);
 
     // Revalidate paths that use personal info
+    revalidatePath("/about");
+    revalidatePath("/contact");
+    revalidatePath("/");
     revalidatePath("/", "layout");
     
     return NextResponse.json({ success: true });

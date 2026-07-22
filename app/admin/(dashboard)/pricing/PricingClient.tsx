@@ -126,7 +126,7 @@ export default function PricingClient({ availableProjects = [] }: { availablePro
               <Trash2 size={18} />
             </button>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 pr-12">
               <div>
                 <label className="block text-xs uppercase tracking-widest text-white/50 mb-2">Plan Name</label>
                 <input 

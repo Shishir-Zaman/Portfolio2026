@@ -165,7 +165,7 @@ export default function BrandsClient({ initialLogos }: { initialLogos: BrandLogo
               <Trash2 size={16} />
             </button>
 
-            <div className="sm:pl-8 sm:pr-12 grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="sm:pl-8 pr-12 grid grid-cols-1 sm:grid-cols-3 gap-4">
               {/* Name */}
               <div>
                 <label className="block text-[10px] uppercase tracking-widest text-white/40 mb-2 font-bold">

@@ -27,6 +27,7 @@ export async function POST(request: Request) {
 
     // Revalidate the pricing page so brand carousel updates immediately
     revalidatePath("/pricing");
+    revalidatePath("/", "layout");
 
     return NextResponse.json({ success: true });
   } catch (error) {

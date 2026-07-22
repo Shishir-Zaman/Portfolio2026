@@ -119,11 +119,11 @@ export default function HomeClient({
           transition={{ duration: 0.75, delay: 0.08 }}
         >
           {/* Blurred Glow layer — hidden on mobile to prevent faded/washed-out text */}
-          <h1 className="hidden md:block absolute inset-0 text-[7rem] lg:text-[9rem] leading-none font-light uppercase tracking-tighter text-transparent bg-clip-text bg-[linear-gradient(to_right,var(--color-foreground),var(--color-foreground),var(--color-teal-accent),var(--color-foreground),var(--color-foreground))] bg-[length:250%_auto] animate-gradient-wave blur-[25px] opacity-60 z-0">
+          <h1 className="hidden md:block absolute inset-0 text-[7rem] lg:text-[9rem] leading-none font-light uppercase tracking-tighter text-transparent bg-clip-text bg-[linear-gradient(to_right,white,white,var(--color-teal-accent),white,white)] bg-[length:250%_auto] animate-gradient-wave blur-[25px] opacity-60 z-0">
             {heroName}
           </h1>
           {/* Foreground text — clean and sharp on all devices */}
-          <h1 className="relative z-10 text-[12vw] sm:text-[10vw] md:text-[7rem] lg:text-[9rem] leading-none font-light uppercase tracking-tighter text-transparent bg-clip-text bg-[linear-gradient(to_right,var(--color-foreground),var(--color-foreground),var(--color-teal-accent),var(--color-foreground),var(--color-foreground))] bg-[length:250%_auto] animate-gradient-wave animate-fire-breath">
+          <h1 className="relative z-10 text-[12vw] sm:text-[10vw] md:text-[7rem] lg:text-[9rem] leading-none font-bold md:font-light uppercase tracking-tighter text-transparent bg-clip-text bg-[linear-gradient(to_right,white,white,var(--color-teal-accent),white,white)] bg-[length:250%_auto] animate-gradient-wave">
             {heroName}
           </h1>
         </motion.div>

@@ -82,7 +82,7 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
 
         {/* --- MOBILE NAVBAR --- */}
         <div className="md:hidden flex justify-center pt-5 px-4 pointer-events-none">
-          <div className="pointer-events-auto flex items-center justify-between w-full max-w-[440px] h-[68px] px-6 bg-[#080808]/90 backdrop-blur-2xl border border-border-color rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.6)]">
+          <div className="pointer-events-auto flex items-center justify-between w-full max-w-[440px] h-[68px] px-6 bg-[#080808]/90 backdrop-blur-2xl rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.6)]">
             <Link href="/" className="text-foreground hover:text-[var(--color-teal-accent)] transition-colors" onClick={() => setIsMenuOpen(false)}>
               <Logo className="w-10 h-10" />
             </Link>

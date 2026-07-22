@@ -154,8 +154,8 @@ export default function Footer() {
       </div>
 
       {/* ── CTA text ────────────────────────────────────────── */}
-      <h2 className="text-4xl md:text-[56px] font-syncopate font-bold mb-4 z-10 relative leading-tight tracking-tight uppercase bg-clip-text text-transparent bg-[linear-gradient(to_right,white,rgba(255,255,255,0.7),white)] animate-gradient-wave drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
-        Ready to bring your <span className="text-transparent bg-clip-text bg-gradient-to-r from-foreground to-[var(--color-teal-accent)] drop-shadow-[0_0_20px_rgba(0,245,255,0.4)]">project to life?</span>
+      <h2 className="text-4xl md:text-[56px] font-syncopate font-bold mb-4 z-10 relative leading-tight tracking-tight uppercase text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+        Ready to bring your <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-[var(--color-teal-accent)] drop-shadow-[0_0_20px_rgba(0,245,255,0.4)]">project to life?</span>
       </h2>
       <p className="text-[15px] md:text-[17px] text-foreground font-sans mb-12 z-10 relative max-w-2xl leading-relaxed">
         Tell me about your ideas and desires, let's discuss them and work together!
