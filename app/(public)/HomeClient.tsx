@@ -4,10 +4,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import CanvasBackground from "@/components/CanvasBackground";
-import { SERVICES, PERSONAL_INFO } from "@/data/content";
+import { SERVICES } from "@/data/content";
 import { CMSCategory, CMSProject, SiteSettings, HomePageSettings, PersonalInfoType, CMSService } from "../../lib/db";
 
-const ROLES = [
+const DEFAULT_ROLES = [
   "Visual Designer",
   "UI/UX Designer",
   "Motion Designer",
@@ -16,29 +16,21 @@ const ROLES = [
   "Packaging Designer"
 ];
 
-function RoleRotator() {
+function RoleRotator({ roles }: { roles: string[] }) {
   const [index, setIndex] = useState(0);
 
-  const [isTouch, setIsTouch] = useState(false);
-
   useEffect(() => {
-    const checkTouch = () => {
-      setIsTouch(window.matchMedia("(pointer: coarse)").matches);
-    };
-    checkTouch();
-    
-    if (window.matchMedia("(pointer: coarse)").matches) {
-      return;
-    }
-
+    if (roles.length === 0) return;
     const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % ROLES.length);
+      setIndex((prev) => (prev + 1) % roles.length);
     }, 2500);
     return () => clearInterval(interval);
-  }, []);
+  }, [roles]);
+
+  if (roles.length === 0) return null;
 
   return (
-    <span className="relative inline-block w-[300px] h-[18px] md:h-[24px] overflow-hidden align-bottom">
+    <span className="relative inline-block w-[280px] sm:w-[340px] h-[18px] md:h-[24px] overflow-hidden align-bottom">
       <AnimatePresence mode="popLayout">
         <motion.span
           key={index}
@@ -46,9 +38,9 @@ function RoleRotator() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -20, opacity: 0 }}
           transition={{ duration: 0.5, ease: [0.21, 0.47, 0.32, 0.98] }}
-          className="absolute left-1/2 -translate-x-1/2 bottom-0 text-transparent bg-clip-text bg-gradient-to-r from-foreground to-[var(--color-teal-accent)] font-bold text-center w-full text-[12px] md:text-sm"
+          className="absolute left-1/2 -translate-x-1/2 bottom-0 text-transparent bg-clip-text bg-gradient-to-r from-foreground to-[var(--color-teal-accent)] font-bold text-center w-full text-[11px] md:text-sm"
         >
-          {ROLES[index]}
+          {roles[index]}
         </motion.span>
       </AnimatePresence>
     </span>
@@ -70,22 +62,32 @@ export default function HomeClient({
   personalInfo: PersonalInfoType;
   services: CMSService[];
 }) {
-  // Use the admin-controlled featured project IDs
   const featuredProjects = siteSettings.featuredProjectIds
     .map(id => projects.find(p => p.id === id))
     .filter((p): p is CMSProject => p !== undefined);
 
   const homeCategories = categories.filter(c => c.showOnHomepage);
+  
+  // Dynamic fields with fallbacks
+  const heroName = homeSettings.heroName || personalInfo.name || "Shishir Zaman";
+  const heroRoles = (homeSettings.heroRoles && homeSettings.heroRoles.length > 0) ? homeSettings.heroRoles : DEFAULT_ROLES;
+  const heroSubheadline = homeSettings.heroSubheadline || personalInfo.bio;
+  const cta1Text = homeSettings.cta1Text || "Start a project";
+  const cta1Link = homeSettings.cta1Link || "/contact";
+  const cta2Text = homeSettings.cta2Text || "View work";
+  const cta2Link = homeSettings.cta2Link || "/projects";
+  const featuredProjectsTitle = homeSettings.featuredProjectsTitle || "Featured Projects";
+  const categoriesTitle = homeSettings.categoriesTitle || "Categories";
 
   return (
-    <div className="flex flex-col gap-28 pb-10">
+    <div className="flex flex-col gap-16 md:gap-28 pb-10">
 
       {/* ── HERO ──────────────────────────────────────────── */}
-      <section className="min-h-[82vh] flex flex-col items-center justify-center text-center relative mt-4">
+      <section className="min-h-[80vh] md:min-h-[82vh] flex flex-col items-center justify-center text-center relative mt-4 px-4">
 
-        {/* Canvas topology background */}
+        {/* Canvas topology background — hidden on mobile for performance */}
         <div 
-          className="absolute top-[-100px] left-1/2 -translate-x-1/2 w-[100vw] h-[115%] -z-10"
+          className="hidden md:block absolute top-[-100px] left-1/2 -translate-x-1/2 w-[100vw] h-[115%] -z-10"
           style={{
             maskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
             WebkitMaskImage: "linear-gradient(to bottom, black 80%, transparent 100%)"
@@ -97,62 +99,62 @@ export default function HomeClient({
         </div>
 
         <motion.div
-          className="text-foreground-muted font-medium uppercase tracking-[0.32em] text-[13px] md:text-sm mb-5 font-sans h-[24px] flex justify-center items-center"
+          className="text-foreground-muted font-medium uppercase tracking-[0.32em] text-[11px] md:text-sm mb-5 font-sans h-[24px] flex justify-center items-center"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
         >
-          <RoleRotator />
+          <RoleRotator roles={heroRoles} />
         </motion.div>
 
         <motion.div
-          className="relative inline-block mb-8"
+          className="relative inline-block mb-6 md:mb-8"
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.08 }}
         >
-          {/* Blurred Glow layer */}
-          <h1 className="absolute inset-0 text-[13.5vw] md:text-[7rem] lg:text-[9rem] leading-none font-light uppercase tracking-tighter text-transparent bg-clip-text bg-[linear-gradient(to_right,var(--color-foreground),var(--color-foreground),var(--color-teal-accent),var(--color-foreground),var(--color-foreground))] bg-[length:250%_auto] animate-gradient-wave blur-[20px] md:blur-[25px] opacity-60 z-0">
-            Shishir Zaman
+          {/* Blurred Glow layer — hidden on mobile to prevent faded/washed-out text */}
+          <h1 className="hidden md:block absolute inset-0 text-[7rem] lg:text-[9rem] leading-none font-light uppercase tracking-tighter text-transparent bg-clip-text bg-[linear-gradient(to_right,var(--color-foreground),var(--color-foreground),var(--color-teal-accent),var(--color-foreground),var(--color-foreground))] bg-[length:250%_auto] animate-gradient-wave blur-[25px] opacity-60 z-0">
+            {heroName}
           </h1>
-          {/* Foreground text */}
-          <h1 className="relative z-10 text-[13.5vw] md:text-[7rem] lg:text-[9rem] leading-none font-light uppercase tracking-tighter text-transparent bg-clip-text bg-[linear-gradient(to_right,var(--color-foreground),var(--color-foreground),var(--color-teal-accent),var(--color-foreground),var(--color-foreground))] bg-[length:250%_auto] animate-gradient-wave animate-fire-breath">
-            Shishir Zaman
+          {/* Foreground text — clean and sharp on all devices */}
+          <h1 className="relative z-10 text-[13vw] sm:text-[11vw] md:text-[7rem] lg:text-[9rem] leading-none font-light uppercase tracking-tighter text-transparent bg-clip-text bg-[linear-gradient(to_right,var(--color-foreground),var(--color-foreground),var(--color-teal-accent),var(--color-foreground),var(--color-foreground))] bg-[length:250%_auto] animate-gradient-wave animate-fire-breath">
+            {heroName}
           </h1>
         </motion.div>
 
         <motion.p
-          className="text-foreground-muted max-w-xl text-sm md:text-[17px] font-sans mb-10 leading-relaxed px-4 md:px-0"
+          className="text-foreground-muted max-w-xl text-sm md:text-[17px] font-sans mb-8 md:mb-10 leading-relaxed px-2 md:px-0"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.18 }}
         >
-          {homeSettings.heroSubheadline || personalInfo.bio}
+          {heroSubheadline}
         </motion.p>
 
         <motion.div
-          className="flex flex-wrap gap-3 justify-center"
+          className="flex flex-col sm:flex-row gap-3 justify-center items-center w-full sm:w-auto"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.26 }}
         >
           <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[var(--color-teal-accent)] text-background text-sm font-semibold hover:bg-[var(--color-teal-accent)]/90 hover:shadow-[0_0_28px_rgba(0,245,255,0.5)] transition-all duration-400"
+            href={cta1Link}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[var(--color-teal-accent)] text-background text-sm font-semibold hover:bg-[var(--color-teal-accent)]/90 hover:shadow-[0_0_28px_rgba(0,245,255,0.5)] transition-all duration-400"
           >
-            Start a project
+            {cta1Text}
           </Link>
           <Link
-            href="/projects"
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-glass-bg backdrop-blur-xl border border-glass-border text-foreground-muted text-sm font-medium hover:bg-glass-bg hover:text-foreground transition-all duration-300"
+            href={cta2Link}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-glass-bg backdrop-blur-xl border border-glass-border text-foreground-muted text-sm font-medium hover:bg-glass-bg hover:text-foreground transition-all duration-300"
           >
-            View work
+            {cta2Text}
           </Link>
         </motion.div>
 
-        {/* Scroll indicator */}
+        {/* Scroll indicator — only on desktop */}
         <motion.div
-          className="absolute bottom-8 flex flex-col items-center gap-2 opacity-40 pointer-events-none"
+          className="hidden md:flex absolute bottom-8 flex-col items-center gap-2 opacity-40 pointer-events-none"
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.4 }}
           transition={{ delay: 1.2, duration: 1 }}
@@ -168,38 +170,49 @@ export default function HomeClient({
       </section>
 
       {/* ── FEATURED PROJECTS ─────────────────────────────── */}
-      <section>
-        <div className="flex items-end justify-between mb-10">
-          <div>
-            <p className="text-foreground-faint text-xs uppercase tracking-[0.25em] font-sans mb-2">Selected Work</p>
-            <h2 className="text-3xl md:text-4xl font-syncopate font-bold uppercase tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-[var(--color-teal-accent)] drop-shadow-[0_0_10px_rgba(0,245,255,0.1)]">Featured Projects</h2>
+      {featuredProjects.length > 0 && (
+        <section>
+          <div className="flex items-end justify-between mb-7 md:mb-10">
+            <div>
+              <p className="text-foreground-faint text-xs uppercase tracking-[0.25em] font-sans mb-2">Selected Work</p>
+              <h2 className="text-2xl md:text-4xl font-syncopate font-bold uppercase tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-[var(--color-teal-accent)] drop-shadow-[0_0_10px_rgba(0,245,255,0.1)]">{featuredProjectsTitle}</h2>
+            </div>
+            <Link
+              href="/projects"
+              className="hidden md:inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-medium uppercase tracking-widest bg-glass-bg border border-border-color text-foreground-muted hover:text-foreground hover:bg-glass-bg transition-all duration-300"
+            >
+              All projects →
+            </Link>
           </div>
-          <Link
-            href="/projects"
-            className="hidden md:inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-medium uppercase tracking-widest bg-glass-bg border border-border-color text-foreground-muted hover:text-foreground hover:bg-glass-bg transition-all duration-300"
-          >
-            All projects →
-          </Link>
-        </div>
 
-        {/* 2� 2 grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 w-full">
-          {featuredProjects.map((project, index) => (
-            <FeaturedCard key={project.id} project={project} index={index} />
-          ))}
-        </div>
-      </section>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 w-full">
+            {featuredProjects.map((project, index) => (
+              <FeaturedCard key={project.id} project={project} index={index} />
+            ))}
+          </div>
+          
+          {/* "All projects" link for mobile */}
+          <div className="mt-6 md:hidden flex justify-center">
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-medium uppercase tracking-widest bg-glass-bg border border-border-color text-foreground-muted"
+            >
+              All projects →
+            </Link>
+          </div>
+        </section>
+      )}
 
       {/* ── EXPLORE BY CATEGORY ─────────────────────────────── */}
       {homeCategories.length > 0 && (
         <section>
-          <div className="flex items-end justify-between mb-10">
+          <div className="flex items-end justify-between mb-7 md:mb-10">
             <div>
               <p className="text-foreground-faint text-xs uppercase tracking-[0.25em] font-sans mb-2">Capabilities</p>
-              <h2 className="text-3xl md:text-4xl font-syncopate font-bold uppercase tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-[var(--color-teal-accent)] drop-shadow-[0_0_10px_rgba(0,245,255,0.1)]">Categories</h2>
+              <h2 className="text-2xl md:text-4xl font-syncopate font-bold uppercase tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-[var(--color-teal-accent)] drop-shadow-[0_0_10px_rgba(0,245,255,0.1)]">{categoriesTitle}</h2>
             </div>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
             {homeCategories.map((cat, index) => (
               <motion.div
                 key={cat.id}
@@ -210,9 +223,9 @@ export default function HomeClient({
               >
                 <Link
                   href={`/projects?category=${encodeURIComponent(cat.name)}`}
-                  className="flex items-center justify-center text-center p-6 md:p-8 rounded-2xl glass border border-border-color hover:border-[var(--color-teal-accent)]/50 hover:bg-foreground-faint transition-all duration-300 group"
+                  className="flex items-center justify-center text-center p-4 md:p-8 rounded-2xl glass border border-border-color hover:border-[var(--color-teal-accent)]/50 hover:bg-foreground-faint transition-all duration-300 group min-h-[80px]"
                 >
-                  <span className="font-syncopate font-bold text-sm md:text-base uppercase tracking-wider text-foreground-muted group-hover:text-foreground transition-colors">
+                  <span className="font-syncopate font-bold text-xs md:text-base uppercase tracking-wider text-foreground-muted group-hover:text-foreground transition-colors">
                     {cat.name}
                   </span>
                 </Link>
@@ -223,26 +236,37 @@ export default function HomeClient({
       )}
 
       {/* ── SERVICES PREVIEW ──────────────────────────────── */}
-      <section>
-        <div className="flex items-end justify-between mb-10">
-          <div>
-            <p className="text-foreground-faint text-xs uppercase tracking-[0.25em] font-sans mb-2">What I do</p>
-            <h2 className="text-3xl md:text-4xl font-syncopate font-bold uppercase tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-[var(--color-teal-accent)] drop-shadow-[0_0_10px_rgba(0,245,255,0.1)]">My Services</h2>
+      {services.length > 0 && (
+        <section>
+          <div className="flex items-end justify-between mb-7 md:mb-10">
+            <div>
+              <p className="text-foreground-faint text-xs uppercase tracking-[0.25em] font-sans mb-2">What I do</p>
+              <h2 className="text-2xl md:text-4xl font-syncopate font-bold uppercase tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-[var(--color-teal-accent)] drop-shadow-[0_0_10px_rgba(0,245,255,0.1)]">My Services</h2>
+            </div>
+            <Link
+              href="/services"
+              className="hidden md:inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-medium uppercase tracking-widest bg-glass-bg border border-border-color text-foreground-muted hover:text-foreground hover:bg-glass-bg transition-all duration-300"
+            >
+              Learn more →
+            </Link>
           </div>
-          <Link
-            href="/services"
-            className="hidden md:inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-medium uppercase tracking-widest bg-glass-bg border border-border-color text-foreground-muted hover:text-foreground hover:bg-glass-bg transition-all duration-300"
-          >
-            Learn more →
-          </Link>
-        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {services.slice(0, 3).map((service, index) => (
-            <ServiceCard key={service.id} service={service as any} index={index} />
-          ))}
-        </div>
-      </section>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
+            {services.slice(0, 3).map((service, index) => (
+              <ServiceCard key={service.id} service={service as any} index={index} />
+            ))}
+          </div>
+          
+          <div className="mt-6 md:hidden flex justify-center">
+            <Link
+              href="/services"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-medium uppercase tracking-widest bg-glass-bg border border-border-color text-foreground-muted"
+            >
+              Learn more →
+            </Link>
+          </div>
+        </section>
+      )}
     </div>
   );
 }
@@ -256,15 +280,13 @@ function FeaturedCard({ project, index }: { project: CMSProject, index: number }
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.65, delay: index * 0.08, ease: [0.21, 0.47, 0.32, 0.98] }}
-        className="group flex flex-col relative cursor-none"
+        className="group flex flex-col relative cursor-pointer"
       >
         {/* Teal glow that bleeds behind the card */}
         <div className="absolute -inset-3 bg-[var(--color-teal-accent)]/0 group-hover:bg-[var(--color-teal-accent)]/8 rounded-[2.5rem] blur-2xl transition-all duration-700 pointer-events-none -z-10" />
 
         {/* Card image area */}
         <div className="relative rounded-2xl overflow-hidden aspect-video border border-border-color shadow-[0_4px_40px_rgba(0,0,0,0.6)]">
-
-          {/* Image */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={project.image}
@@ -274,7 +296,7 @@ function FeaturedCard({ project, index }: { project: CMSProject, index: number }
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
           />
 
-          {/* Inner black gradient — ensures text is always legible */}
+          {/* Inner black gradient */}
           <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-background via-background to-transparent" />
           
           {/* Card content overlay */}
@@ -286,7 +308,7 @@ function FeaturedCard({ project, index }: { project: CMSProject, index: number }
           </div>
         </div>
 
-        {/* Tags — Simplified on mobile */}
+        {/* Tags */}
         <div className="flex flex-wrap gap-1.5 mt-3 px-1">
           {project.tags.slice(0, 3).map((tag) => (
             <span
@@ -298,8 +320,8 @@ function FeaturedCard({ project, index }: { project: CMSProject, index: number }
           ))}
         </div>
 
-        {/* Description */}
-        <p className="mt-3 px-1 text-foreground-muted text-[13px] font-sans leading-relaxed line-clamp-2">
+        {/* Description — hidden on small mobile */}
+        <p className="hidden sm:block mt-3 px-1 text-foreground-muted text-[13px] font-sans leading-relaxed line-clamp-2">
           {project.description}
         </p>
       </motion.article>
@@ -324,17 +346,17 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[0], index: n
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.12 }}
-      className="group relative p-7 rounded-2xl bg-glass-bg backdrop-blur-md border border-border-color hover:border-glass-border hover:bg-glass-bg transition-all duration-400 overflow-hidden"
+      className="group relative p-5 md:p-7 rounded-2xl bg-glass-bg backdrop-blur-md border border-border-color hover:border-glass-border hover:bg-glass-bg transition-all duration-400 overflow-hidden"
     >
       {/* Teal glow on hover */}
       <div className="absolute inset-0 bg-[var(--color-teal-accent)]/0 group-hover:bg-[var(--color-teal-accent)]/[0.04] transition-colors duration-500 rounded-2xl pointer-events-none" />
 
       <div className="relative z-10">
-        <div className="w-9 h-9 rounded-xl bg-foreground-faint border border-border-color flex items-center justify-center mb-5 text-[var(--color-teal-accent)] group-hover:shadow-[0_0_16px_rgba(0,245,255,0.2)] transition-shadow duration-400">
+        <div className="w-9 h-9 rounded-xl bg-foreground-faint border border-border-color flex items-center justify-center mb-4 md:mb-5 text-[var(--color-teal-accent)] group-hover:shadow-[0_0_16px_rgba(0,245,255,0.2)] transition-shadow duration-400">
           {SERVICE_ICONS[service.icon]}
         </div>
-        <h3 className="text-[15px] font-bold uppercase tracking-wide text-foreground mb-2">{service.title}</h3>
-        <p className="text-foreground-muted text-[13px] leading-relaxed font-sans">{service.shortDesc}</p>
+        <h3 className="text-[14px] md:text-[15px] font-bold uppercase tracking-wide text-foreground mb-2">{service.title}</h3>
+        <p className="text-foreground-muted text-[12px] md:text-[13px] leading-relaxed font-sans">{service.shortDesc}</p>
       </div>
     </motion.div>
   );

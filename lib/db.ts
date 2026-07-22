@@ -220,8 +220,18 @@ export async function saveServices(services: CMSService[]): Promise<void> {
 export type HomePageSettings = {
   heroTagline?: string;
   heroHeadline?: string;
+  heroName?: string;
+  heroRoles?: string[];
   heroSubheadline?: string;
   contactText?: string;
+  
+  cta1Text?: string;
+  cta1Link?: string;
+  cta2Text?: string;
+  cta2Link?: string;
+  
+  featuredProjectsTitle?: string;
+  categoriesTitle?: string;
 };
 
 export async function getHomePageSettings(): Promise<HomePageSettings> {
