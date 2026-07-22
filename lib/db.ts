@@ -1,4 +1,3 @@
-import { Redis } from "@upstash/redis";
 import { 
   Category, Project, PricingPackage, NavLink, Social,
   PROJECTS, PROJECT_CATEGORIES, PRICING_PACKAGES, NAV_LINKS, PERSONAL_INFO
@@ -15,11 +14,52 @@ export type SiteSettings = {
   featuredProjectIds: string[];
 };
 
-// ─── Redis Client ─────────────────────────────────────────────
+class RedisClient {
+  private url: string;
+  private token: string;
+
+  constructor({ url, token }: { url: string; token: string }) {
+    this.url = url;
+    this.token = token;
+  }
+
+  async get<T>(key: string): Promise<T | null> {
+    try {
+      const res = await fetch(`${this.url}/get/${key}`, {
+        headers: { Authorization: `Bearer ${this.token}` },
+        cache: 'no-store'
+      });
+      if (!res.ok) return null;
+      const json = await res.json();
+      if (!json.result) return null;
+      return typeof json.result === 'string' ? JSON.parse(json.result) : json.result;
+    } catch (e) {
+      console.error('Redis get error', e);
+      return null;
+    }
+  }
+
+  async set(key: string, value: any): Promise<void> {
+    try {
+      const res = await fetch(`${this.url}/set/${key}`, {
+        method: "POST",
+        headers: { 
+          Authorization: `Bearer ${this.token}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(value),
+      });
+      if (!res.ok) throw new Error("Failed to set redis key");
+    } catch (e) {
+      console.error('Redis set error', e);
+    }
+  }
+}
+
 const getRedisClient = () => {
   if (!process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN) {
     if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
-      return new Redis({
+      return new RedisClient({
         url: process.env.KV_REST_API_URL,
         token: process.env.KV_REST_API_TOKEN,
       });
@@ -28,7 +68,7 @@ const getRedisClient = () => {
     return null;
   }
 
-  return new Redis({
+  return new RedisClient({
     url: process.env.UPSTASH_REDIS_REST_URL,
     token: process.env.UPSTASH_REDIS_REST_TOKEN,
   });
