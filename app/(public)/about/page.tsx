@@ -4,7 +4,7 @@ import { motion, AnimatePresence, Variants } from "framer-motion";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import PageBackground from "@/components/PageBackground";
-import { getPersonalInfo, PersonalInfoType } from "../../lib/db";
+import { getPersonalInfo, PersonalInfoType } from "../../../lib/db";
 
 const PROFESSION_LIST = [
   "Brand Identity Designer",
