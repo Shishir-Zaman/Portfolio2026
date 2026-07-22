@@ -30,14 +30,14 @@ function RoleRotator({ roles }: { roles: string[] }) {
   if (roles.length === 0) return null;
 
   return (
-    <span className="relative inline-block w-[280px] sm:w-[340px] h-[18px] md:h-[24px] overflow-hidden align-bottom">
+    <span className="relative inline-block w-[260px] sm:w-[340px] h-[18px] md:h-[24px] overflow-hidden align-bottom">
       <AnimatePresence mode="popLayout">
         <motion.span
           key={index}
-          initial={{ y: 20, opacity: 0 }}
+          initial={{ y: 18, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -20, opacity: 0 }}
-          transition={{ duration: 0.5, ease: [0.21, 0.47, 0.32, 0.98] }}
+          exit={{ y: -18, opacity: 0 }}
+          transition={{ duration: 0.45, ease: [0.21, 0.47, 0.32, 0.98] }}
           className="absolute left-1/2 -translate-x-1/2 bottom-0 text-transparent bg-clip-text bg-gradient-to-r from-foreground to-[var(--color-teal-accent)] font-bold text-center w-full text-[11px] md:text-sm"
         >
           {roles[index]}
@@ -79,11 +79,16 @@ export default function HomeClient({
   const featuredProjectsTitle = homeSettings.featuredProjectsTitle || "Featured Projects";
   const categoriesTitle = homeSettings.categoriesTitle || "Categories";
 
+  // Mobile-truncated bio (first sentence / ~90 chars)
+  const mobileBio = heroSubheadline
+    ? heroSubheadline.split(".")[0].trim() + "."
+    : "";
+
   return (
-    <div className="flex flex-col gap-16 md:gap-28 pb-10">
+    <div className="flex flex-col gap-14 md:gap-28 pb-10">
 
       {/* ── HERO ──────────────────────────────────────────── */}
-      <section className="min-h-[80vh] md:min-h-[82vh] flex flex-col items-center justify-center text-center relative mt-4 px-4">
+      <section className="min-h-[68vh] md:min-h-[82vh] flex flex-col items-center justify-center text-center relative mt-0 md:mt-4 px-4 anim-isolate">
 
         {/* Canvas topology background — hidden on mobile for performance */}
         <div 
@@ -99,44 +104,48 @@ export default function HomeClient({
         </div>
 
         <motion.div
-          className="text-foreground-muted font-medium uppercase tracking-[0.32em] text-[11px] md:text-sm mb-5 font-sans h-[24px] flex justify-center items-center"
-          initial={{ opacity: 0, y: 16 }}
+          className="text-foreground-muted font-medium uppercase tracking-[0.32em] text-[11px] md:text-sm mb-4 md:mb-5 font-sans h-[24px] flex justify-center items-center"
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.6 }}
         >
           <RoleRotator roles={heroRoles} />
         </motion.div>
 
         <motion.div
-          className="relative inline-block mb-6 md:mb-8"
-          initial={{ opacity: 0, scale: 0.96 }}
+          className="relative inline-block mb-5 md:mb-8"
+          initial={{ opacity: 0, scale: 0.97 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.08 }}
+          transition={{ duration: 0.75, delay: 0.08 }}
         >
           {/* Blurred Glow layer — hidden on mobile to prevent faded/washed-out text */}
           <h1 className="hidden md:block absolute inset-0 text-[7rem] lg:text-[9rem] leading-none font-light uppercase tracking-tighter text-transparent bg-clip-text bg-[linear-gradient(to_right,var(--color-foreground),var(--color-foreground),var(--color-teal-accent),var(--color-foreground),var(--color-foreground))] bg-[length:250%_auto] animate-gradient-wave blur-[25px] opacity-60 z-0">
             {heroName}
           </h1>
           {/* Foreground text — clean and sharp on all devices */}
-          <h1 className="relative z-10 text-[13vw] sm:text-[11vw] md:text-[7rem] lg:text-[9rem] leading-none font-light uppercase tracking-tighter text-transparent bg-clip-text bg-[linear-gradient(to_right,var(--color-foreground),var(--color-foreground),var(--color-teal-accent),var(--color-foreground),var(--color-foreground))] bg-[length:250%_auto] animate-gradient-wave animate-fire-breath">
+          <h1 className="relative z-10 text-[12vw] sm:text-[10vw] md:text-[7rem] lg:text-[9rem] leading-none font-light uppercase tracking-tighter text-transparent bg-clip-text bg-[linear-gradient(to_right,var(--color-foreground),var(--color-foreground),var(--color-teal-accent),var(--color-foreground),var(--color-foreground))] bg-[length:250%_auto] animate-gradient-wave animate-fire-breath">
             {heroName}
           </h1>
         </motion.div>
 
+        {/* Bio — shorter on mobile, full on desktop */}
         <motion.p
-          className="text-foreground-muted max-w-xl text-sm md:text-[17px] font-sans mb-8 md:mb-10 leading-relaxed px-2 md:px-0"
-          initial={{ opacity: 0, y: 16 }}
+          className="text-foreground-muted max-w-xs sm:max-w-md md:max-w-xl text-sm md:text-[17px] font-sans mb-7 md:mb-10 leading-relaxed px-2 md:px-0"
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.18 }}
+          transition={{ duration: 0.6, delay: 0.18 }}
         >
-          {heroSubheadline}
+          {/* Short version on mobile */}
+          <span className="md:hidden">{mobileBio}</span>
+          {/* Full version on desktop */}
+          <span className="hidden md:inline">{heroSubheadline}</span>
         </motion.p>
 
         <motion.div
-          className="flex flex-col sm:flex-row gap-3 justify-center items-center w-full sm:w-auto"
-          initial={{ opacity: 0, y: 16 }}
+          className="flex flex-col sm:flex-row gap-3 justify-center items-center w-full sm:w-auto px-4 sm:px-0"
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.26 }}
+          transition={{ duration: 0.6, delay: 0.26 }}
         >
           <Link
             href={cta1Link}
@@ -171,11 +180,11 @@ export default function HomeClient({
 
       {/* ── FEATURED PROJECTS ─────────────────────────────── */}
       {featuredProjects.length > 0 && (
-        <section>
-          <div className="flex items-end justify-between mb-7 md:mb-10">
+        <section className="anim-isolate">
+          <div className="flex items-end justify-between mb-6 md:mb-10">
             <div>
-              <p className="text-foreground-faint text-xs uppercase tracking-[0.25em] font-sans mb-2">Selected Work</p>
-              <h2 className="text-2xl md:text-4xl font-syncopate font-bold uppercase tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-[var(--color-teal-accent)] drop-shadow-[0_0_10px_rgba(0,245,255,0.1)]">{featuredProjectsTitle}</h2>
+              <p className="text-foreground-faint text-xs uppercase tracking-[0.25em] font-sans mb-1 md:mb-2">Selected Work</p>
+              <h2 className="text-xl md:text-4xl font-syncopate font-bold uppercase tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-[var(--color-teal-accent)] drop-shadow-[0_0_10px_rgba(0,245,255,0.1)]">{featuredProjectsTitle}</h2>
             </div>
             <Link
               href="/projects"
@@ -185,14 +194,14 @@ export default function HomeClient({
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 w-full">
             {featuredProjects.map((project, index) => (
               <FeaturedCard key={project.id} project={project} index={index} />
             ))}
           </div>
           
           {/* "All projects" link for mobile */}
-          <div className="mt-6 md:hidden flex justify-center">
+          <div className="mt-5 md:hidden flex justify-center">
             <Link
               href="/projects"
               className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-medium uppercase tracking-widest bg-glass-bg border border-border-color text-foreground-muted"
@@ -205,14 +214,14 @@ export default function HomeClient({
 
       {/* ── EXPLORE BY CATEGORY ─────────────────────────────── */}
       {homeCategories.length > 0 && (
-        <section>
-          <div className="flex items-end justify-between mb-7 md:mb-10">
+        <section className="anim-isolate">
+          <div className="flex items-end justify-between mb-6 md:mb-10">
             <div>
-              <p className="text-foreground-faint text-xs uppercase tracking-[0.25em] font-sans mb-2">Capabilities</p>
-              <h2 className="text-2xl md:text-4xl font-syncopate font-bold uppercase tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-[var(--color-teal-accent)] drop-shadow-[0_0_10px_rgba(0,245,255,0.1)]">{categoriesTitle}</h2>
+              <p className="text-foreground-faint text-xs uppercase tracking-[0.25em] font-sans mb-1 md:mb-2">Capabilities</p>
+              <h2 className="text-xl md:text-4xl font-syncopate font-bold uppercase tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-[var(--color-teal-accent)] drop-shadow-[0_0_10px_rgba(0,245,255,0.1)]">{categoriesTitle}</h2>
             </div>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 md:gap-4">
             {homeCategories.map((cat, index) => (
               <motion.div
                 key={cat.id}
@@ -220,12 +229,13 @@ export default function HomeClient({
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.05 }}
+                className="anim-isolate"
               >
                 <Link
                   href={`/projects?category=${encodeURIComponent(cat.name)}`}
-                  className="flex items-center justify-center text-center p-4 md:p-8 rounded-2xl glass border border-border-color hover:border-[var(--color-teal-accent)]/50 hover:bg-foreground-faint transition-all duration-300 group min-h-[80px]"
+                  className="flex items-center justify-center text-center p-3 md:p-8 rounded-2xl glass border border-border-color hover:border-[var(--color-teal-accent)]/50 hover:bg-foreground-faint transition-all duration-300 group min-h-[64px] md:min-h-[80px]"
                 >
-                  <span className="font-syncopate font-bold text-xs md:text-base uppercase tracking-wider text-foreground-muted group-hover:text-foreground transition-colors">
+                  <span className="font-syncopate font-bold text-[10px] md:text-base uppercase tracking-wider text-foreground-muted group-hover:text-foreground transition-colors leading-tight text-center">
                     {cat.name}
                   </span>
                 </Link>
@@ -237,11 +247,11 @@ export default function HomeClient({
 
       {/* ── SERVICES PREVIEW ──────────────────────────────── */}
       {services.length > 0 && (
-        <section>
-          <div className="flex items-end justify-between mb-7 md:mb-10">
+        <section className="anim-isolate">
+          <div className="flex items-end justify-between mb-6 md:mb-10">
             <div>
-              <p className="text-foreground-faint text-xs uppercase tracking-[0.25em] font-sans mb-2">What I do</p>
-              <h2 className="text-2xl md:text-4xl font-syncopate font-bold uppercase tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-[var(--color-teal-accent)] drop-shadow-[0_0_10px_rgba(0,245,255,0.1)]">My Services</h2>
+              <p className="text-foreground-faint text-xs uppercase tracking-[0.25em] font-sans mb-1 md:mb-2">What I do</p>
+              <h2 className="text-xl md:text-4xl font-syncopate font-bold uppercase tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-[var(--color-teal-accent)] drop-shadow-[0_0_10px_rgba(0,245,255,0.1)]">My Services</h2>
             </div>
             <Link
               href="/services"
@@ -251,13 +261,13 @@ export default function HomeClient({
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-5">
             {services.slice(0, 3).map((service, index) => (
               <ServiceCard key={service.id} service={service as any} index={index} />
             ))}
           </div>
           
-          <div className="mt-6 md:hidden flex justify-center">
+          <div className="mt-5 md:hidden flex justify-center">
             <Link
               href="/services"
               className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-medium uppercase tracking-widest bg-glass-bg border border-border-color text-foreground-muted"
@@ -276,11 +286,11 @@ function FeaturedCard({ project, index }: { project: CMSProject, index: number }
   return (
     <Link href={`/projects/${project.id}`}>
       <motion.article
-        initial={{ opacity: 0, y: 32 }}
+        initial={{ opacity: 0, y: 28 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.65, delay: index * 0.08, ease: [0.21, 0.47, 0.32, 0.98] }}
-        className="group flex flex-col relative cursor-pointer"
+        transition={{ duration: 0.6, delay: index * 0.08, ease: [0.21, 0.47, 0.32, 0.98] }}
+        className="group flex flex-col relative cursor-pointer anim-isolate"
       >
         {/* Teal glow that bleeds behind the card */}
         <div className="absolute -inset-3 bg-[var(--color-teal-accent)]/0 group-hover:bg-[var(--color-teal-accent)]/8 rounded-[2.5rem] blur-2xl transition-all duration-700 pointer-events-none -z-10" />
@@ -301,7 +311,7 @@ function FeaturedCard({ project, index }: { project: CMSProject, index: number }
           
           {/* Card content overlay */}
           <div className="absolute inset-0 flex flex-col justify-end p-4 md:p-5 z-10">
-            <h3 className="text-base md:text-xl font-syncopate font-bold uppercase tracking-tight text-foreground mb-0.5 md:mb-1 leading-tight">
+            <h3 className="text-sm md:text-xl font-syncopate font-bold uppercase tracking-tight text-foreground mb-0.5 md:mb-1 leading-tight">
               {project.title}
             </h3>
             <span className="text-foreground-muted text-[10px] md:text-xs font-sans uppercase tracking-widest">{project.tags[0]}</span>
@@ -320,7 +330,7 @@ function FeaturedCard({ project, index }: { project: CMSProject, index: number }
           ))}
         </div>
 
-        {/* Description — hidden on small mobile */}
+        {/* Description — hidden on mobile */}
         <p className="hidden sm:block mt-3 px-1 text-foreground-muted text-[13px] font-sans leading-relaxed line-clamp-2">
           {project.description}
         </p>
@@ -342,21 +352,21 @@ const SERVICE_ICONS: Record<string, React.ReactNode> = {
 function ServiceCard({ service, index }: { service: typeof SERVICES[0], index: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: index * 0.12 }}
-      className="group relative p-5 md:p-7 rounded-2xl bg-glass-bg backdrop-blur-md border border-border-color hover:border-glass-border hover:bg-glass-bg transition-all duration-400 overflow-hidden"
+      transition={{ duration: 0.55, delay: index * 0.1 }}
+      className="group relative p-4 md:p-7 rounded-2xl bg-glass-bg backdrop-blur-md border border-border-color hover:border-glass-border hover:bg-glass-bg transition-all duration-400 overflow-hidden anim-isolate"
     >
       {/* Teal glow on hover */}
       <div className="absolute inset-0 bg-[var(--color-teal-accent)]/0 group-hover:bg-[var(--color-teal-accent)]/[0.04] transition-colors duration-500 rounded-2xl pointer-events-none" />
 
       <div className="relative z-10">
-        <div className="w-9 h-9 rounded-xl bg-foreground-faint border border-border-color flex items-center justify-center mb-4 md:mb-5 text-[var(--color-teal-accent)] group-hover:shadow-[0_0_16px_rgba(0,245,255,0.2)] transition-shadow duration-400">
+        <div className="w-9 h-9 rounded-xl bg-foreground-faint border border-border-color flex items-center justify-center mb-3 md:mb-5 text-[var(--color-teal-accent)] group-hover:shadow-[0_0_16px_rgba(0,245,255,0.2)] transition-shadow duration-400">
           {SERVICE_ICONS[service.icon]}
         </div>
-        <h3 className="text-[14px] md:text-[15px] font-bold uppercase tracking-wide text-foreground mb-2">{service.title}</h3>
-        <p className="text-foreground-muted text-[12px] md:text-[13px] leading-relaxed font-sans">{service.shortDesc}</p>
+        <h3 className="text-[13px] md:text-[15px] font-bold uppercase tracking-wide text-foreground mb-1.5 md:mb-2 leading-tight">{service.title}</h3>
+        <p className="text-foreground-muted text-[11px] md:text-[13px] leading-relaxed font-sans">{service.shortDesc}</p>
       </div>
     </motion.div>
   );

@@ -244,3 +244,49 @@ export async function saveHomePageSettings(settings: HomePageSettings): Promise<
   if (!redis) throw new Error("Redis not configured");
   await redis.set("portfolio:home-page", settings);
 }
+
+// ─── Brand Logos (Client Carousel) ────────────────────────────
+export type BrandLogo = {
+  id: string;
+  name: string;
+  logoUrl: string;       // URL to logo image (or SVG data URI)
+  websiteUrl?: string;   // Optional external link
+};
+
+const DEFAULT_BRAND_LOGOS: BrandLogo[] = [
+  {
+    id: "zalfii",
+    name: "Zalfii",
+    logoUrl: "https://zalfii.com/wp-content/uploads/2024/01/ZALFII-LOGO.png",
+    websiteUrl: "https://zalfii.com/"
+  },
+  {
+    id: "mainul",
+    name: "Mainul Lifestyle",
+    logoUrl: "https://www.mai-nul.com/wp-content/uploads/2024/01/mainul-logo.png",
+    websiteUrl: "https://www.mai-nul.com/"
+  },
+  {
+    id: "tech-o",
+    name: "Tech-O",
+    logoUrl: "",
+    websiteUrl: ""
+  },
+  {
+    id: "bandy",
+    name: "Bandy",
+    logoUrl: "",
+    websiteUrl: ""
+  },
+];
+
+export async function getBrandLogos(): Promise<BrandLogo[]> {
+  if (!redis) return DEFAULT_BRAND_LOGOS;
+  const logos = await redis.get<BrandLogo[]>("portfolio:brand-logos");
+  return logos && logos.length > 0 ? logos : DEFAULT_BRAND_LOGOS;
+}
+
+export async function saveBrandLogos(logos: BrandLogo[]): Promise<void> {
+  if (!redis) throw new Error("Redis not configured");
+  await redis.set("portfolio:brand-logos", logos);
+}

@@ -18,7 +18,7 @@ export default async function PublicLayout({
       <Navbar settings={siteSettings} />
       <Sidebar />
       
-      <main className="relative z-10 w-full min-h-screen pt-[90px] px-6 md:px-10">
+      <main className="relative z-10 w-full min-h-screen pt-[96px] md:pt-[90px] px-4 md:px-10">
         <div className="max-w-7xl mx-auto">
           {children}
         </div>

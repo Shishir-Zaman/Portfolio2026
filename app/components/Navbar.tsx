@@ -109,12 +109,13 @@ export default function Navbar({ settings }: { settings: SiteSettings }) {
       {/* --- MOBILE MENU OVERLAY --- */}
       <AnimatePresence>
         {isMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
-            animate={{ opacity: 1, backdropFilter: "blur(24px)" }}
-            exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
-            transition={{ duration: 0.4 }}
-            className="fixed inset-0 z-[55] bg-background/90 flex flex-col items-center justify-center pt-20 px-6"
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35 }}
+            className="fixed inset-0 z-[55] bg-[#000000] flex flex-col items-center justify-center pt-20 px-6"
+            style={{ backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)" }}
           >
             <nav className="flex flex-col items-center gap-8 w-full">
               {settings.navLinks.map((link, i) => (

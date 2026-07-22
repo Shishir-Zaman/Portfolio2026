@@ -5,8 +5,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Check, ArrowRight, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { PricingPackage, Project } from "@/data/content";
+import { BrandLogo } from "@/lib/db";
+import BrandCarousel from "@/components/BrandCarousel";
 
-export default function PricingClientUI({ packages, projects }: { packages: PricingPackage[], projects?: Project[] }) {
+export default function PricingClientUI({ packages, projects, brandLogos = [] }: { packages: PricingPackage[], projects?: Project[], brandLogos?: BrandLogo[] }) {
   const [expandedPackageId, setExpandedPackageId] = useState<string | null>(null);
 
   // Animation variants
@@ -139,6 +141,9 @@ export default function PricingClientUI({ packages, projects }: { packages: Pric
           </motion.div>
         ))}
       </motion.div>
+
+      {/* ── Brand Carousel ──────────────────────────────── */}
+      <BrandCarousel logos={brandLogos} title="Brands I've Worked With" />
     </div>
   );
 }

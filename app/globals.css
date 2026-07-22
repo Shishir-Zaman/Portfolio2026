@@ -130,6 +130,11 @@
     to { transform: translateX(-50%); }
   }
 
+  @keyframes marqueeRtl {
+    from { transform: translateX(-50%); }
+    to { transform: translateX(0); }
+  }
+
   @keyframes float {
     0%, 100% { transform: translateY(0px); }
     50% { transform: translateY(-8px); }
@@ -161,5 +166,30 @@
   .animate-gradient-wave {
     animation: gradientWave 6s ease-in-out infinite;
     background-size: 200% auto;
+  }
+
+  /* Brand carousel marquee */
+  .animate-marquee {
+    animation: marquee var(--marquee-duration, 30s) linear infinite;
+    will-change: transform;
+  }
+
+  .animate-marquee-rtl {
+    animation: marqueeRtl var(--marquee-duration, 30s) linear infinite;
+    will-change: transform;
+  }
+
+  /* Pause marquee on hover of parent container */
+  .marquee-container:hover .animate-marquee,
+  .marquee-container:hover .animate-marquee-rtl {
+    animation-play-state: paused;
+  }
+
+  /* Fix: prevent opacity:0 animation start from revealing background layers.
+     Force GPU compositing layer so the element composites independently. */
+  .anim-isolate {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    isolation: isolate;
   }
 }
